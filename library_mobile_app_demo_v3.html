@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library App Demo v3</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #C0272D;
+    --red-light: #f5e6e6;
+    --text: #111111;
+    --text-mid: #555555;
+    --text-light: #888888;
+    --bg: #ffffff;
+    --bg-gray: #f2f2f2;
+    --border: #e0e0e0;
+    --nav-bg: #ffffff;
+  }
+  body {
+    background: #d0d0d0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  .phone {
+    width: 375px;
+    height: 812px;
+    background: var(--bg);
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 32px 64px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.12);
+  }
+
+  /* STATUS BAR */
+  .status-bar {
+    height: 44px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+  .status-icons { display: flex; gap: 5px; align-items: center; }
+
+  .screen {
+    height: calc(812px - 44px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  .page {
+    position: absolute;
+    inset: 55px 0 0 0;
+    display: none;
+    flex-direction: column;
+    background: var(--bg);
+  }
+  .page.active { display: flex; }
+
+  /* TOP HEADER */
+  .app-header {
+    background: var(--bg);
+    padding: 8px 14px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 5;
+  }
+  .lion-logo {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .search-pill {
+    flex: 1;
+    height: 36px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    color: var(--text-light);
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .barcode-btn {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--red);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .header-icon-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* PAGE LABEL ROW */
+  .page-label-row {
+    padding: 14px 16px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .page-label { font-size: 16px; font-weight: 700; color: var(--text); }
+  .filter-btn { display: flex; align-items: center; gap: 5px; font-size: 14px; color: var(--text-mid); }
+
+  /* HOME */
+  .home-scroll {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 10px 16px 112px;
+    background: var(--bg);
+  }
+  .home-scroll::-webkit-scrollbar { display: none; }
+  .home-shell {
+    padding-top: 4px;
+  }
+  .home-tabs {
+    display: flex;
+    gap: 8px;
+    background: #f3f1f1;
+    border-radius: 999px;
+    padding: 8px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 22px;
+  }
+  .home-tab {
+    border: none;
+    background: transparent;
+    color: var(--red);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 13px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .home-tab.active {
+    background: var(--red);
+    color: #fff;
+  }
+  .home-tab-panel { display: none; }
+  .home-tab-panel.active { display: block; }
+  .home-heading {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .home-heading-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2b2b31;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .home-book-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .account-book {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 0 18px;
+    background: transparent;
+  }
+  .account-info {
+    flex: 1;
+    min-width: 0;
+    padding-top: 2px;
+  }
+  .account-meta {
+    font-size: 13px;
+    color: #666270;
+    margin-bottom: 6px;
+  }
+  .account-action-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .soft-btn {
+    border: none;
+    border-radius: 4px;
+    background: #f2efef;
+    color: #2a2d34;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .soft-btn:active { background: #e7e3e3; }
+  .home-page .soft-btn {
+    max-height: 24px;
+    padding: 4px 8px;
+    font-size: 13px;
+    gap: 6px;
+  }
+  .home-page .soft-btn svg {
+    width: 13px;
+    height: 13px;
+  }
+  .account-status {
+    font-size: 13px;
+    color: var(--text-light);
+  }
+  .hold-status-row,
+  .hold-location-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-top: 8px;
+  }
+  .hold-status-row {
+    font-weight: 500;
+  }
+  .hold-status-row.ready {
+    color: #169c47;
+  }
+  .hold-status-row.queue {
+    color: #ea5b0c;
+  }
+  .hold-location-row {
+    color: #666270;
+  }
+  .account-page-scroll {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 14px 16px 112px;
+    background: var(--bg);
+  }
+  .account-page-scroll::-webkit-scrollbar { display: none; }
+  .library-card {
+    background: #d0333a;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 22px;
+    color: white;
+  }
+  .library-card-top {
+    height: 188px;
+    position: relative;
+    padding: 18px 18px 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+  .library-card-name {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    position: relative;
+    z-index: 1;
+  }
+  .library-card-art {
+    position: absolute;
+    left: -10px;
+    top: -8px;
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    opacity: 0.92;
+    pointer-events: none;
+  }
+  .library-card-bottom {
+    border-top: 1px solid rgba(84, 17, 22, 0.7);
+    padding: 14px 18px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+  }
+  .library-card-expiry {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  .library-card-number {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0;
+    white-space: nowrap;
+    flex-shrink: 1;
+    min-width: 0;
+    text-align: right;
+  }
+  .barcode-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 8px 0 24px;
+  }
+  .barcode-field {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .account-add-btn {
+    width: 100%;
+    height: 36px;
+    border-radius: 4px;
+    border: 2px solid #d0333a;
+    background: #fff;
+    color: #d0333a;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .account-menu {
+    border: 1px solid #dfe2e8;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .account-menu + .account-menu {
+    margin-top: 16px;
+  }
+  .account-menu-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 48px;
+    padding: 0 18px;
+    border-bottom: 1px solid #e6e8ee;
+  }
+  .account-menu-row:last-child { border-bottom: none; }
+  .account-menu-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+  }
+  .account-menu-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2f3138;
+    line-height: 1.2;
+  }
+  .account-menu-chevron {
+    color: #9b9ea8;
+    flex-shrink: 0;
+  }
+  .scan-page-scroll {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 14px 16px 112px;
+    background: var(--bg);
+  }
+  .scan-page-scroll::-webkit-scrollbar { display: none; }
+  .scan-frame {
+    background: #1d1d21;
+    border-radius: 14px;
+    height: 384px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .scan-guide {
+    position: absolute;
+    inset: 26px 24px;
+    border: 4px solid #f5f5f7;
+    border-top-color: #fff;
+    border-bottom-color: #fff;
+  }
+  .scan-guide::before,
+  .scan-guide::after {
+    content: "";
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border-color: #d0333a;
+    border-style: solid;
+    pointer-events: none;
+  }
+  .scan-guide::before {
+    top: -4px;
+    left: -4px;
+    border-width: 4px 0 0 4px;
+  }
+  .scan-guide::after {
+    right: -4px;
+    bottom: -4px;
+    border-width: 0 4px 4px 0;
+  }
+  .scan-guide-top-right,
+  .scan-guide-bottom-left {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border-color: #d0333a;
+    border-style: solid;
+    pointer-events: none;
+  }
+  .scan-guide-top-right {
+    top: 22px;
+    right: 20px;
+    border-width: 4px 4px 0 0;
+  }
+  .scan-guide-bottom-left {
+    left: 20px;
+    bottom: 22px;
+    border-width: 0 0 4px 4px;
+  }
+  .scan-camera-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .scan-copy {
+    font-size: 14px;
+    line-height: 1.35;
+    color: #5c5d68;
+    margin-bottom: 18px;
+  }
+  .scan-action-btn {
+    width: 100%;
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid #d8dbe3;
+    background: #fff;
+    color: #2f3138;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .scan-tips {
+    margin-top: 40px;
+    color: #565864;
+  }
+  .scan-tips-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #15161a;
+    margin-bottom: 12px;
+  }
+  .scan-tips ul {
+    padding-left: 20px;
+  }
+  .scan-tips li {
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .catalog-view {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .catalog-view.active { display: flex; }
+  .blog-list {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 2px 16px 96px;
+  }
+  .blog-list::-webkit-scrollbar { display: none; }
+  .blog-card {
+    border: 1px solid #dfe2e8;
+    border-radius: 16px;
+    background: #fff;
+    padding: 12px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: background 0.12s ease, border-color 0.12s ease;
+  }
+  .blog-card:active {
+    background: #fafafb;
+    border-color: #d5d8df;
+  }
+  .blog-card-main {
+    flex: 1;
+    min-width: 0;
+  }
+  .blog-card-hero {
+    border-radius: 14px;
+    width: 270px;
+    height: 135px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .blog-card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .blog-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #15161a;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .blog-card-author {
+    font-size: 13px;
+    color: #5b5d67;
+    margin-bottom: 10px;
+  }
+  .blog-card-copy {
+    font-size: 13px;
+    line-height: 1.45;
+    color: #5b5d67;
+  }
+  .blog-card-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--red);
+    flex-shrink: 0;
+    padding-right: 4px;
+  }
+  .blog-article-scroll {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 8px 16px 112px;
+  }
+  .blog-article-scroll::-webkit-scrollbar { display: none; }
+  .back-link {
+    border: none;
+    background: none;
+    color: #2f3138;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    cursor: pointer;
+  }
+  .blog-article-title {
+    font-size: 27px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #15161a;
+    margin-bottom: 10px;
+  }
+  .blog-article-author {
+    font-size: 14px;
+    line-height: 1.35;
+    color: #5b5d67;
+    margin-bottom: 16px;
+  }
+  .blog-article-copy {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444750;
+    margin-bottom: 24px;
+  }
+  .blog-book-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .blog-book-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #ebecef;
+  }
+  .blog-book-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .blog-book-thumb {
+    width: 56px;
+    height: 84px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .blog-book-item-main {
+    flex: 1;
+    min-width: 0;
+    padding-top: 2px;
+  }
+  .blog-book-item-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #15161a;
+    margin-bottom: 4px;
+  }
+  .blog-book-item-author {
+    font-size: 13px;
+    line-height: 1.35;
+    color: #5b5d67;
+    margin-bottom: 8px;
+  }
+  .blog-book-item-copy {
+    font-size: 13px;
+    line-height: 1.55;
+    color: #5b5d67;
+  }
+  .events-page-scroll {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 2px 16px 96px;
+  }
+  .events-page-scroll::-webkit-scrollbar { display: none; }
+  .event-group-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #d0333a;
+    margin: 18px 0 14px;
+  }
+  .event-card {
+    border: 1px solid #dfe2e8;
+    border-radius: 16px;
+    background: #fff;
+    padding: 16px 14px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    cursor: pointer;
+    transition: background 0.12s ease, border-color 0.12s ease;
+  }
+  .event-card:active {
+    background: #fafafb;
+    border-color: #d5d8df;
+  }
+  .event-card-main {
+    flex: 1;
+    min-width: 0;
+  }
+  .event-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #15161a;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .event-tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 12px;
+    border: 1px solid #dfe2e8;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #5b5d67;
+    margin-bottom: 14px;
+    background: #fff;
+  }
+  .event-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #5b5d67;
+    margin-bottom: 8px;
+  }
+  .event-meta-row:last-child { margin-bottom: 0; }
+  .event-chevron {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    color: var(--red);
+    flex-shrink: 0;
+  }
+  .sheet-actions-inline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .sheet-actions-sticky {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .sheet-subtle-btn {
+    width: 100%;
+    min-height: 44px;
+    border-radius: 4px;
+    border: 1px solid #d8dbe3;
+    background: #fff;
+    color: #2f3138;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .sheet-subtle-btn:active {
+    background: #f4f5f7;
+  }
+  .sheet.event-mode .sheet-cover {
+    display: none;
+  }
+  .sheet.event-mode .sheet-hero {
+    display: block;
+    padding: 8px 16px 0;
+  }
+  .sheet.event-mode .sheet-meta {
+    max-width: none;
+  }
+  .sheet.event-mode .sheet-type,
+  .sheet.event-mode .sheet-author-line,
+  .sheet.event-mode .sheet-year-line,
+  .sheet.event-mode #sheetTableCard {
+    display: none;
+  }
+  .sheet.event-mode .detail-card {
+    margin-top: 18px;
+  }
+  .event-top-actions {
+    padding: 10px 16px 0;
+    display: none;
+  }
+  .event-top-actions.visible {
+    display: block;
+  }
+  .event-detail-copy {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-mid);
+  }
+  .eresources-page-scroll {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 2px 16px 96px;
+  }
+  .eresources-page-scroll::-webkit-scrollbar { display: none; }
+  .resource-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 16px;
+    border-radius: 16px;
+    background: #f5f5f8;
+    margin-bottom: 16px;
+  }
+  .resource-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: #e4e5eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .resource-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .resource-title {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #15161a;
+    margin-bottom: 6px;
+  }
+  .resource-copy {
+    font-size: 14px;
+    line-height: 1.35;
+    color: #5b5d67;
+  }
+  .resource-link {
+    color: var(--red);
+    flex-shrink: 0;
+  }
+  .resource-card {
+    cursor: pointer;
+    transition: background 0.12s ease;
+  }
+  .resource-card:active {
+    background: #efeff3;
+  }
+  .filter-btn,
+  .back-link {
+    transition: opacity 0.12s ease;
+  }
+  .filter-btn:active,
+  .back-link:active {
+    opacity: 0.65;
+  }
+  .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 17, 17, 0.38);
+    display: none;
+    align-items: flex-end;
+    z-index: 22;
+  }
+  .modal-overlay.visible {
+    display: flex;
+  }
+  .modal-card {
+    width: 100%;
+    background: #fff;
+    border-radius: 24px 24px 0 0;
+    padding: 16px 16px 28px;
+    box-shadow: 0 -10px 28px rgba(0,0,0,0.14);
+  }
+  .modal-grabber {
+    width: 36px;
+    height: 4px;
+    border-radius: 999px;
+    background: #1f2024;
+    margin: 0 auto 18px;
+  }
+  .modal-title {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #15161a;
+    margin-bottom: 10px;
+  }
+  .modal-copy {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #5b5d67;
+    margin-bottom: 18px;
+  }
+  .modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  /* BOOK LIST */
+  .book-list {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 0 16px 8px;
+  }
+  .book-list::-webkit-scrollbar { display: none; }
+
+  .book-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0 18px;
+    cursor: pointer;
+    background: var(--bg);
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.12s;
+  }
+  .book-row:active { background: #f8f8f8; }
+
+  .row-cover {
+    width: 72px;
+    height: 100px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    background: #ddd;
+  }
+  .row-info { flex: 1; min-width: 0; padding-top: 2px; }
+  .row-title { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 6px; }
+  .row-type { font-size: 14px; font-weight: 600; color: var(--red); margin-bottom: 3px; }
+  .row-author { font-size: 13px; color: var(--text-mid); margin-bottom: 2px; }
+  .row-year { font-size: 13px; color: var(--text-mid); }
+  .row-chevron {
+    display: flex;
+    align-items: center;
+    padding-top: 32px;
+    color: var(--red);
+    flex-shrink: 0;
+  }
+
+  /* NAV BAR */
+  .nav-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 12px 20px;
+    background: linear-gradient(to bottom, transparent, white 35%);
+    transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+    z-index: 10;
+  }
+  .nav-wrapper.hidden { transform: translateY(90px); }
+  .nav-bar {
+    background: var(--nav-bg);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 4px 6px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    min-width: 72px;
+  }
+  .nav-label { font-size: 11px; font-weight: 500; color: var(--text-light); }
+  .nav-item.active .nav-label { color: var(--red); font-weight: 600; }
+  .nav-item.active svg { stroke: var(--red); }
+  .nav-item.active svg.fill-icon { fill: var(--red); stroke: none; }
+
+  /* SHEET OVERLAY */
+  .sheet-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    z-index: 20;
+    pointer-events: none;
+    transition: background 0.3s ease;
+  }
+  .sheet-overlay.visible { background: rgba(0,0,0,0.35); pointer-events: all; }
+
+  /* SHEET */
+  .sheet {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-radius: 20px 20px 0 0;
+    transform: translateY(100%);
+    transition: transform 0.42s cubic-bezier(0.32,0.72,0,1);
+    z-index: 30;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    will-change: transform;
+  }
+  .sheet.open { transform: translateY(0); }
+  .sheet.dragging { transition: none; }
+
+  /* grabber */
+  .grabber-area {
+    padding: 10px 0 2px;
+    display: flex;
+    justify-content: center;
+    cursor: grab;
+    flex-shrink: 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .grabber-area:active { cursor: grabbing; }
+  .grabber {
+    width: 40px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 100px;
+    transition: background 0.15s;
+  }
+  .grabber-area:hover .grabber { background: #aaa; }
+
+  /* sticky header (shown on scroll) */
+  .sheet-sticky-header {
+    padding: 8px 16px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+  .sheet-sticky-header.visible { opacity: 1; pointer-events: all; }
+  .sticky-title { font-size: 14px; font-weight: 700; color: var(--text); }
+  .sticky-author { font-size: 12px; color: var(--text-mid); margin-top: 1px; }
+  .x-btn {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: var(--text-mid);
+    background: none; border: none; cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* sheet scroll */
+  .sheet-scroll {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sheet-scroll::-webkit-scrollbar { display: none; }
+
+  /* hero row */
+  .sheet-hero {
+    padding: 14px 16px 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .sheet-cover {
+    width: 80px;
+    height: 110px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    background: #ddd;
+  }
+  .sheet-meta { flex: 1; }
+  .sheet-title { font-size: 17px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
+  .sheet-type { font-size: 15px; font-weight: 600; color: var(--red); margin-bottom: 4px; }
+  .sheet-author-line { font-size: 14px; color: var(--text-mid); margin-bottom: 2px; }
+  .sheet-year-line { font-size: 14px; color: var(--text-mid); }
+
+  /* detail card */
+  .detail-card {
+    margin: 0 12px 12px;
+    background: var(--bg-gray);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .detail-row { margin-bottom: 14px; }
+  .detail-row:last-child { margin-bottom: 0; }
+  .detail-bold { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .detail-val { font-size: 14px; color: var(--text-mid); line-height: 1.55; }
+
+  /* branch table card */
+  .branch-card {
+    margin: 0 12px 12px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .branch-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .branch-table th {
+    text-align: left;
+    padding: 10px 12px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .branch-table td {
+    padding: 10px 12px;
+    color: var(--text-mid);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .branch-table tr:last-child td { border-bottom: none; }
+  .avail-due { color: var(--red); font-weight: 600; font-size: 12px; }
+  .avail-ok { color: #2a7a3b; font-weight: 600; font-size: 12px; }
+
+  .sheet-bottom-pad { height: 16px; }
+
+  /* sticky request footer */
+  .sheet-footer {
+    padding: 10px 12px 24px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+    display: none;
+  }
+  .sheet-footer.visible { display: block; }
+  .request-btn-inline {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background: var(--red);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: background 0.15s;
+    margin-top: 16px;
+  }
+  .request-btn-inline:active { background: #9e1f24; }
+  .request-btn-sticky {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background: var(--red);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: background 0.15s;
+  }
+  .request-btn-sticky:active { background: #9e1f24; }
+  @media (max-width: 390px) {
+    .home-tabs {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+<div style="display:flex;justify-content:center;padding:24px 0 40px;">
+<div class="phone">
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <span>9:30</span>
+    <div style="width:12px;height:12px;background:#111;border-radius:50%;position:absolute;left:50%;transform:translateX(-50%);top:14px;"></div>
+    <div class="status-icons">
+      <svg width="15" height="12" viewBox="0 0 15 12" fill="#111"><path d="M7.5 1C10.2 1 12.6 2.3 14.1 4.3L12.8 5.5C11.6 3.9 9.7 2.8 7.5 2.8C5.3 2.8 3.4 3.9 2.2 5.5L0.9 4.3C2.4 2.3 4.8 1 7.5 1Z" opacity="0.35"/><path d="M7.5 4C9.4 4 11.1 4.9 12.2 6.3L10.9 7.5C10.1 6.5 8.9 5.8 7.5 5.8C6.1 5.8 4.9 6.5 4.1 7.5L2.8 6.3C3.9 4.9 5.6 4 7.5 4Z" opacity="0.65"/><circle cx="7.5" cy="10" r="1.5"/></svg>
+      <svg width="13" height="12" viewBox="0 0 13 12" fill="#111"><rect x="0" y="4" width="3" height="8" rx="0.5"/><rect x="4" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="8" y="0" width="3" height="12" rx="0.5"/><rect x="11.5" y="0" width="1.5" height="12" rx="0.5" opacity="0.3"/></svg>
+      <svg width="22" height="12" viewBox="0 0 22 12" fill="none"><rect x="0.5" y="0.5" width="18" height="11" rx="2.5" stroke="#111" stroke-width="1"/><rect x="2" y="2" width="12" height="8" rx="1.5" fill="#111"/><path d="M20 4v4c1.1-.5 1.1-3.5 0-4z" fill="#111"/></svg>
+    </div>
+  </div>
+
+  <div class="screen">
+    <!-- APP HEADER -->
+    <div class="app-header">
+      <button class="lion-logo" type="button" aria-label="Open account" onclick="setPage('account')">
+        <img class="header-icon-img" src="Account%20Icon.png" alt="">
+      </button>
+      <div class="search-pill" role="button" tabindex="0" aria-label="Search catalog" onclick="openCatalogSearch()">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#888" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l3.5 3.5"/></svg>
+        <span>Search Catalog</span>
+      </div>
+      <button class="barcode-btn" type="button" aria-label="Scan" onclick="setPage('scan')">
+        <img class="header-icon-img" src="scan-barcode.png" alt="">
+      </button>
+    </div>
+
+    <div class="page home-page active" id="homePage">
+      <div class="home-scroll" id="homeScroll">
+        <div class="home-shell">
+          <div class="home-tabs" role="tablist" aria-label="Account sections">
+            <button class="home-tab active" data-home-tab="checkouts" role="tab" aria-selected="true">Checkouts</button>
+            <button class="home-tab" data-home-tab="holds" role="tab" aria-selected="false">Holds</button>
+            <button class="home-tab" data-home-tab="saved" role="tab" aria-selected="false">Saved</button>
+          </div>
+
+          <div class="home-tab-panel active" id="panel-checkouts">
+            <div class="home-heading">
+              <div class="home-heading-title">
+                Renew Items
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#2b2b31" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l5 5 5-5"/></svg>
+              </div>
+            </div>
+            <div class="home-book-list">
+              <div class="account-book" onclick="setPage('catalog'); openSheet(0)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#2D4A3E,#1A2E26)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="8" y="14" width="56" height="4" rx="2" fill="rgba(255,255,255,0.14)"/><rect x="8" y="22" width="44" height="2" rx="1" fill="rgba(255,255,255,0.08)"/><circle cx="36" cy="60" r="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/><path d="M28 60 L36 47 L44 60 L40 60 L40 73 L32 73 L32 60Z" fill="rgba(255,255,255,0.22)"/><rect x="8" y="84" width="38" height="2" rx="1" fill="rgba(255,255,255,0.08)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">The Ministry for the Future</div>
+                  <div class="account-meta">Due: Apr 2 2026</div>
+                  <div class="account-meta">Renewed 1 Time</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 0 1 15.3-6.3L21 7"/><path d="M21 3v4h-4"/><path d="M21 13a9 9 0 0 1-15.3 6.3L3 17"/><path d="M3 21v-4h4"/></svg>
+                      <span>Renew</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(1)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#6B3A2A,#3D1F14)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="6" y="10" width="60" height="64" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/><rect x="14" y="20" width="44" height="2.5" rx="1.25" fill="rgba(255,255,255,0.26)"/><ellipse cx="36" cy="56" rx="13" ry="13" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="1.5"/><ellipse cx="36" cy="56" rx="6" ry="6" fill="rgba(255,220,180,0.16)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Demon Copperhead</div>
+                  <div class="account-meta">Due: Apr 5 2026</div>
+                  <div class="account-meta">Renewed 0 Times</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 0 1 15.3-6.3L21 7"/><path d="M21 3v4h-4"/><path d="M21 13a9 9 0 0 1-15.3 6.3L3 17"/><path d="M3 21v-4h4"/></svg>
+                      <span>Renew</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(4)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#3D3020,#1E160A)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="32" width="52" height="38" rx="2.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="51" x2="62" y2="51" stroke="rgba(255,220,150,0.15)" stroke-width="0.6"/><rect x="16" y="14" width="40" height="3.5" rx="1.75" fill="rgba(255,220,150,0.32)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Intermezzo</div>
+                  <div class="account-meta">Due: Apr 20 2026</div>
+                  <div class="account-meta">Renewed 0 Times</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 0 1 15.3-6.3L21 7"/><path d="M21 3v4h-4"/><path d="M21 13a9 9 0 0 1-15.3 6.3L3 17"/><path d="M3 21v-4h4"/></svg>
+                      <span>Renew</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-tab-panel" id="panel-holds">
+            <div class="home-book-list">
+              <div class="account-book" onclick="setPage('catalog'); openSheet(2)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#1A3A5C,#0D2035)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><path d="M10 84 Q36 22 62 84" fill="none" stroke="rgba(100,180,255,0.3)" stroke-width="2.2"/><circle cx="36" cy="42" r="9" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" stroke-width="1"/><rect x="12" y="12" width="48" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Project Hail Mary: A Novel</div>
+                  <div class="account-meta">Weir, Andy</div>
+                  <div class="hold-status-row ready">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="m6.5 10 2.2 2.2 4.8-5"/></svg>
+                    <span>Ready for pickup</span>
+                  </div>
+                  <div class="hold-location-row">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666270" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                    <span>96th Street Library</span>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(4)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#6B5748,#3F3027)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="14" width="52" height="72" rx="2" fill="rgba(255,255,255,0.06)"/><path d="M16 78 36 24 56 78" fill="none" stroke="rgba(242,224,196,0.36)" stroke-width="2.4"/><circle cx="36" cy="38" r="8" fill="rgba(242,224,196,0.16)"/><rect x="18" y="84" width="36" height="2" rx="1" fill="rgba(255,255,255,0.18)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">The Name of the Wind</div>
+                  <div class="account-meta">Rothfuss, Patrick, 1973-</div>
+                  <div class="hold-status-row queue">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 5.5v4.8l3 1.7"/></svg>
+                    <span>Position: 556 of 1138</span>
+                  </div>
+                  <div class="hold-location-row">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666270" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                    <span>96th Street Library</span>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-tab-panel" id="panel-saved">
+            <div class="home-book-list">
+              <div class="account-book" onclick="setPage('catalog'); openSheet(1)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#6B3A2A,#3D1F14)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="6" y="10" width="60" height="64" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/><rect x="14" y="20" width="44" height="2.5" rx="1.25" fill="rgba(255,255,255,0.26)"/><ellipse cx="36" cy="56" rx="13" ry="13" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="1.5"/><ellipse cx="36" cy="56" rx="6" ry="6" fill="rgba(255,220,180,0.16)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Demon Copperhead</div>
+                  <div class="account-meta">Saved to Fiction Favorites</div>
+                  <div class="account-meta">Available now at Mulberry St</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(4)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#3D3020,#1E160A)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="32" width="52" height="38" rx="2.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="51" x2="62" y2="51" stroke="rgba(255,220,150,0.15)" stroke-width="0.6"/><rect x="16" y="14" width="40" height="3.5" rx="1.75" fill="rgba(255,220,150,0.32)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Intermezzo</div>
+                  <div class="account-meta">Saved to New Releases</div>
+                  <div class="account-meta">Requestable from 53rd St Fiction</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page account-page" id="accountPage">
+      <div class="account-page-scroll">
+        <div class="library-card">
+          <div class="library-card-top">
+            <img class="library-card-art" src="nypl.png" alt="">
+            <div class="library-card-name">DOE, JOHN</div>
+          </div>
+          <div class="library-card-bottom">
+            <div class="library-card-expiry">Expires: 07-27-28</div>
+            <div class="library-card-number">23333 09876543210</div>
+          </div>
+        </div>
+
+        <div class="barcode-wrap">
+          <div class="barcode-field">
+            <svg width="572" height="106" viewBox="0 0 572 106" fill="none" aria-hidden="true" style="max-width:100%;height:auto">
+              <rect width="572" height="106" fill="#fff"/>
+              <rect x="10" width="4" height="106" fill="#111"/>
+              <rect x="22" width="8" height="106" fill="#111"/>
+              <rect x="38" width="4" height="106" fill="#111"/>
+              <rect x="54" width="12" height="106" fill="#111"/>
+              <rect x="76" width="5" height="106" fill="#111"/>
+              <rect x="92" width="14" height="106" fill="#111"/>
+              <rect x="114" width="4" height="106" fill="#111"/>
+              <rect x="126" width="8" height="106" fill="#111"/>
+              <rect x="142" width="13" height="106" fill="#111"/>
+              <rect x="163" width="4" height="106" fill="#111"/>
+              <rect x="178" width="17" height="106" fill="#111"/>
+              <rect x="204" width="6" height="106" fill="#111"/>
+              <rect x="218" width="12" height="106" fill="#111"/>
+              <rect x="238" width="5" height="106" fill="#111"/>
+              <rect x="250" width="15" height="106" fill="#111"/>
+              <rect x="273" width="7" height="106" fill="#111"/>
+              <rect x="289" width="13" height="106" fill="#111"/>
+              <rect x="311" width="4" height="106" fill="#111"/>
+              <rect x="322" width="16" height="106" fill="#111"/>
+              <rect x="346" width="6" height="106" fill="#111"/>
+              <rect x="360" width="10" height="106" fill="#111"/>
+              <rect x="378" width="15" height="106" fill="#111"/>
+              <rect x="402" width="5" height="106" fill="#111"/>
+              <rect x="417" width="12" height="106" fill="#111"/>
+              <rect x="437" width="4" height="106" fill="#111"/>
+              <rect x="449" width="17" height="106" fill="#111"/>
+              <rect x="475" width="6" height="106" fill="#111"/>
+              <rect x="488" width="11" height="106" fill="#111"/>
+              <rect x="506" width="5" height="106" fill="#111"/>
+              <rect x="520" width="14" height="106" fill="#111"/>
+              <rect x="542" width="4" height="106" fill="#111"/>
+            </svg>
+          </div>
+        </div>
+
+        <button class="account-add-btn" type="button">Add Account</button>
+
+        <div class="account-menu">
+          <div class="account-menu-row">
+            <div class="account-menu-main">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>
+              <div class="account-menu-label">Your Account</div>
+            </div>
+            <div class="account-menu-chevron">
+              <svg width="14" height="24" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+            </div>
+          </div>
+          <div class="account-menu-row">
+            <div class="account-menu-main">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 7 3 7 3 9H3c0-2 3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
+              <div class="account-menu-label">Notifications</div>
+            </div>
+            <div class="account-menu-chevron">
+              <svg width="14" height="24" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+            </div>
+          </div>
+          <div class="account-menu-row">
+            <div class="account-menu-main">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <div class="account-menu-label">Home: 96th Street Library</div>
+            </div>
+            <div class="account-menu-chevron">
+              <svg width="14" height="24" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+            </div>
+          </div>
+          <div class="account-menu-row">
+            <div class="account-menu-main">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14"/><path d="M7 5 4 8l3 3"/><path d="M12 19h7"/><path d="M15 12l4 7"/><path d="M15 19l4-7"/></svg>
+              <div class="account-menu-label">Language: English</div>
+            </div>
+            <div class="account-menu-chevron">
+              <svg width="14" height="24" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-menu">
+          <div class="account-menu-row">
+            <div class="account-menu-main">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h3"/></svg>
+              <div class="account-menu-label">Payment & Fees</div>
+            </div>
+            <div class="account-menu-chevron">
+              <svg width="14" height="24" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+            </div>
+          </div>
+          <div class="account-menu-row">
+            <div class="account-menu-main">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+              <div class="account-menu-label">Help & Support</div>
+            </div>
+            <div class="account-menu-chevron">
+              <svg width="14" height="24" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+            </div>
+          </div>
+          <div class="account-menu-row">
+            <div class="account-menu-main">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>
+              <div class="account-menu-label">Get a Library Card</div>
+            </div>
+            <div class="account-menu-chevron">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9B9EA8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page scan-page" id="scanPage">
+      <div class="scan-page-scroll">
+        <div class="scan-frame">
+          <div class="scan-guide"></div>
+          <div class="scan-guide-top-right"></div>
+          <div class="scan-guide-bottom-left"></div>
+          <div class="scan-camera-icon">
+            <svg width="92" height="92" viewBox="0 0 24 24" fill="none" stroke="#54555f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 7h3l2-2h6l2 2h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/>
+              <circle cx="12" cy="13" r="3.5"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="scan-copy">Look for the NYPL barcode sticker on the back cover of the item you are scanning, toward the top</div>
+
+        <button class="scan-action-btn" type="button">Type in Barcode Manually</button>
+        <button class="scan-action-btn" type="button">Receipt</button>
+
+        <div class="scan-tips">
+          <div class="scan-tips-title">Tips for scanning:</div>
+          <ul>
+            <li>Ensure good lighting</li>
+            <li>Hold camera steady</li>
+            <li>Keep barcode flat and clear</li>
+            <li>Try different distances if scanning fails</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page events-page" id="eventsPage">
+      <div class="page-label-row">
+        <span class="page-label">Events</span>
+        <div class="filter-btn">
+          <span>Filter</span>
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#555" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14l-5.2 6v4.5l-3.6 1.8V10L3 4Z"/></svg>
+        </div>
+      </div>
+      <div class="events-page-scroll" id="eventsList">
+        <div class="event-group-title">Tuesday, March 24</div>
+
+        <div class="event-card" onclick="openEventSheet(0)">
+          <div class="event-card-main">
+            <div class="event-title">Toddler Story Time (Registration Required)</div>
+            <div class="event-tag">Story Times/Read Alouds</div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <span>Tuesday, March 24, 2026</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span>10:00 AM</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span>58th Street Library</span>
+            </div>
+          </div>
+          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+        </div>
+
+        <div class="event-card" onclick="openEventSheet(1)">
+          <div class="event-card-main">
+            <div class="event-title">Kids Story Time (Registration Required)</div>
+            <div class="event-tag">Story Times/Read Alouds</div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <span>Tuesday, March 24, 2026</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span>10:00 AM</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span>58th Street Library</span>
+            </div>
+          </div>
+          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+        </div>
+
+        <div class="event-group-title">Wednesday, March 25</div>
+
+        <div class="event-card" onclick="openEventSheet(2)">
+          <div class="event-card-main">
+            <div class="event-title">Author Talk: Writing the City</div>
+            <div class="event-tag">Author Talks</div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <span>Wednesday, March 25, 2026</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span>6:30 PM</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span>Stephen A. Schwarzman Building</span>
+            </div>
+          </div>
+          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page blog-article-page" id="blogArticlePage">
+      <div class="blog-article-scroll">
+        <div class="page-label-row" style="padding: 6px 0 16px;">
+          <button class="back-link" type="button" onclick="openCatalogDefaultPage()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#2f3138" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2.5 5 7l4.5 4.5"/><path d="M5.5 7h5"/></svg>
+            <span>Back</span>
+          </button>
+        </div>
+        <div class="blog-article-title" id="blogArticleTitle"></div>
+        <div class="blog-article-author" id="blogArticleAuthor"></div>
+        <div class="blog-article-copy" id="blogArticleIntro"></div>
+        <div class="blog-book-list" id="blogBookList"></div>
+      </div>
+    </div>
+
+    <div class="page eresources-page" id="eresourcesPage">
+      <div class="eresources-page-scroll">
+        <div class="page-label-row" style="padding: 14px 0 18px;">
+          <span class="page-label">Featured E-Resources</span>
+        </div>
+
+        <div class="resource-card" onclick="openResourceModal('E-Reading with NYPL')">
+          <div class="resource-thumb">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+          </div>
+          <div class="resource-info">
+            <div class="resource-title">E-Reading with NYPL</div>
+            <div class="resource-copy">E-books and E-Audiobooks</div>
+          </div>
+          <div class="resource-link">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+          </div>
+        </div>
+
+        <div class="resource-card" onclick="openResourceModal('Mango')">
+          <div class="resource-thumb">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+          </div>
+          <div class="resource-info">
+            <div class="resource-title">Mango</div>
+            <div class="resource-copy">Language learning resource</div>
+          </div>
+          <div class="resource-link">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+          </div>
+        </div>
+
+        <div class="resource-card" onclick="openResourceModal('Transparent Language Online')">
+          <div class="resource-thumb">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+          </div>
+          <div class="resource-info">
+            <div class="resource-title">Transparent Language Online</div>
+            <div class="resource-copy">Language learning software</div>
+          </div>
+          <div class="resource-link">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+          </div>
+        </div>
+
+        <div class="resource-card" onclick="openResourceModal('Mometrix eLibrary')">
+          <div class="resource-thumb">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+          </div>
+          <div class="resource-info">
+            <div class="resource-title">Mometrix eLibrary</div>
+            <div class="resource-copy">Test preparation tools</div>
+          </div>
+          <div class="resource-link">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+          </div>
+        </div>
+
+        <div class="resource-card" onclick="openResourceModal('Press Reader')">
+          <div class="resource-thumb">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+          </div>
+          <div class="resource-info">
+            <div class="resource-title">Press Reader</div>
+            <div class="resource-copy">World newspapers and magazines</div>
+          </div>
+          <div class="resource-link">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+          </div>
+        </div>
+
+        <div class="resource-card" onclick="openResourceModal('Flipster')">
+          <div class="resource-thumb">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+          </div>
+          <div class="resource-info">
+            <div class="resource-title">Flipster</div>
+            <div class="resource-copy">Best selling magazines</div>
+          </div>
+          <div class="resource-link">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page catalog-page" id="catalogPage">
+      <div class="catalog-view active" id="catalogDefaultView">
+        <div class="page-label-row">
+          <span class="page-label">NYPL Blog</span>
+          <div class="filter-btn">
+            <span>Filter</span>
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#555" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14l-5.2 6v4.5l-3.6 1.8V10L3 4Z"/></svg>
+          </div>
+        </div>
+        <div class="blog-list">
+          <div class="blog-card" onclick="openBlogArticle(0)">
+            <div class="blog-card-main">
+              <div class="blog-card-hero">
+                <img src="bloghero1.webp" alt="">
+              </div>
+              <div class="blog-card-title">Women Who Shaped New York City</div>
+              <div class="blog-card-author">By: Carrie McBride, Communications</div>
+              <div class="blog-card-copy">These women solved problems, pushed culture, changed perceptions, and showed us the city through new eyes.</div>
+            </div>
+            <div class="blog-card-chevron">
+              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg>
+            </div>
+          </div>
+
+          <div class="blog-card" onclick="openBlogArticle(1)">
+            <div class="blog-card-main">
+              <div class="blog-card-hero">
+                <img src="bloghero2.webp" alt="">
+              </div>
+              <div class="blog-card-title">Women Honored for Outstanding Literary Vision</div>
+              <div class="blog-card-author">By: Carrie McBride, Communications</div>
+              <div class="blog-card-copy">Writers were honored for authorship, criticism, and cultural leadership in this NYPL reading list spotlight.</div>
+            </div>
+            <div class="blog-card-chevron">
+              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="catalog-view" id="catalogSearchView">
+        <div class="page-label-row">
+          <span class="page-label">Search Results</span>
+          <div class="filter-btn">
+            <span>Filter</span>
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#555" stroke-width="1.8" stroke-linecap="round"><path d="M3 5h14M6 10h8M9 15h2"/></svg>
+          </div>
+        </div>
+
+        <div class="book-list" id="bookList">
+          <div class="book-row" onclick="openSheet(0)">
+            <div class="row-cover" style="background:linear-gradient(135deg,#2D4A3E,#1A2E26)">
+              <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="8" y="14" width="56" height="4" rx="2" fill="rgba(255,255,255,0.14)"/><rect x="8" y="22" width="44" height="2" rx="1" fill="rgba(255,255,255,0.08)"/><circle cx="36" cy="60" r="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/><path d="M28 60 L36 47 L44 60 L40 60 L40 73 L32 73 L32 60Z" fill="rgba(255,255,255,0.22)"/><rect x="8" y="84" width="38" height="2" rx="1" fill="rgba(255,255,255,0.08)"/></svg>
+            </div>
+            <div class="row-info">
+              <div class="row-title">The Ministry for the Future</div>
+              <div class="row-type">Book</div>
+              <div class="row-author">Robinson, Kim Stanley</div>
+              <div class="row-year">2020</div>
+            </div>
+            <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+          </div>
+
+          <div class="book-row" onclick="openSheet(1)">
+            <div class="row-cover" style="background:linear-gradient(135deg,#6B3A2A,#3D1F14)">
+              <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="6" y="10" width="60" height="64" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/><rect x="14" y="20" width="44" height="2.5" rx="1.25" fill="rgba(255,255,255,0.26)"/><ellipse cx="36" cy="56" rx="13" ry="13" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="1.5"/><ellipse cx="36" cy="56" rx="6" ry="6" fill="rgba(255,220,180,0.16)"/></svg>
+            </div>
+            <div class="row-info">
+              <div class="row-title">Demon Copperhead</div>
+              <div class="row-type">Book</div>
+              <div class="row-author">Kingsolver, Barbara</div>
+              <div class="row-year">2022</div>
+            </div>
+            <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+          </div>
+
+          <div class="book-row" onclick="openSheet(2)">
+            <div class="row-cover" style="background:linear-gradient(135deg,#1A3A5C,#0D2035)">
+              <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><path d="M10 84 Q36 22 62 84" fill="none" stroke="rgba(100,180,255,0.3)" stroke-width="2.2"/><circle cx="36" cy="42" r="9" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" stroke-width="1"/><rect x="12" y="12" width="48" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
+            </div>
+            <div class="row-info">
+              <div class="row-title">Tomorrow, and Tomorrow, and Tomorrow</div>
+              <div class="row-type">Book</div>
+              <div class="row-author">Zevin, Gabrielle</div>
+              <div class="row-year">2022</div>
+            </div>
+            <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+          </div>
+
+          <div class="book-row" onclick="openSheet(3)">
+            <div class="row-cover" style="background:linear-gradient(135deg,#4A2060,#260D38)">
+              <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="36" cy="52" r="24" fill="none" stroke="rgba(200,160,255,0.22)" stroke-width="9"/><circle cx="36" cy="52" r="11" fill="rgba(200,160,255,0.12)" stroke="rgba(200,160,255,0.3)" stroke-width="1.2"/><rect x="10" y="14" width="52" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
+            </div>
+            <div class="row-info">
+              <div class="row-title">The Covenant of Water</div>
+              <div class="row-type">Book</div>
+              <div class="row-author">Verghese, Abraham</div>
+              <div class="row-year">2023</div>
+            </div>
+            <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+          </div>
+
+          <div class="book-row" onclick="openSheet(4)">
+            <div class="row-cover" style="background:linear-gradient(135deg,#3D3020,#1E160A)">
+              <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="32" width="52" height="38" rx="2.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="51" x2="62" y2="51" stroke="rgba(255,220,150,0.15)" stroke-width="0.6"/><rect x="16" y="14" width="40" height="3.5" rx="1.75" fill="rgba(255,220,150,0.32)"/></svg>
+            </div>
+            <div class="row-info">
+              <div class="row-title">Intermezzo</div>
+              <div class="row-type">Book</div>
+              <div class="row-author">Rooney, Sally</div>
+              <div class="row-year">2024</div>
+            </div>
+            <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+          </div>
+          <div style="height:90px;"></div>
+        </div>
+      </div>
+    </div><!-- end catalog-page -->
+
+    <!-- NAV BAR -->
+    <div class="nav-wrapper" id="navWrapper">
+      <div class="nav-bar">
+        <div class="nav-item active" data-page="home">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#888" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M7 18V11h6v7"/></svg>
+          <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item" data-page="catalog">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#888" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="6"/><path d="M15 15l3 3"/></svg>
+          <span class="nav-label">Catalog</span>
+        </div>
+        <div class="nav-item" data-page="events">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#888" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="16" height="15" rx="2"/><line x1="2" y1="8" x2="18" y2="8"/><line x1="6" y1="1" x2="6" y2="5"/><line x1="14" y1="1" x2="14" y2="5"/></svg>
+          <span class="nav-label">Events</span>
+        </div>
+        <div class="nav-item" data-page="eresources">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#888" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="16" height="12" rx="2"/><line x1="7" y1="18" x2="13" y2="18"/><line x1="10" y1="16" x2="10" y2="18"/></svg>
+          <span class="nav-label">E-Resources</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHEET OVERLAY -->
+    <div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet()"></div>
+
+    <!-- DETAIL SHEET -->
+    <div class="sheet" id="sheet">
+      <div class="grabber-area" id="grabberArea">
+        <div class="grabber"></div>
+      </div>
+
+      <!-- sticky header (appears on scroll) -->
+      <div class="sheet-sticky-header" id="stickyHeader">
+        <button class="x-btn" onclick="closeSheet()">X</button>
+        <div style="flex:1;padding:0 10px;">
+          <div class="sticky-title" id="stickyTitle"></div>
+          <div class="sticky-author" id="stickyAuthor"></div>
+        </div>
+      </div>
+
+      <div class="sheet-scroll" id="sheetScroll">
+
+        <!-- hero -->
+        <div class="sheet-hero">
+          <div class="sheet-cover" id="sheetCover"></div>
+          <div class="sheet-meta">
+            <div class="sheet-title" id="sheetTitle"></div>
+            <div class="sheet-type" id="sheetType"></div>
+            <div class="sheet-author-line" id="sheetAuthorLine"></div>
+            <div class="sheet-year-line" id="sheetYearLine"></div>
+          </div>
+        </div>
+        <div class="event-top-actions" id="eventTopActions">
+          <div class="sheet-actions-inline">
+            <button class="sheet-subtle-btn" type="button">Register</button>
+            <button class="sheet-subtle-btn" type="button">Add to Calendar</button>
+          </div>
+        </div>
+
+        <!-- detail card -->
+        <div class="detail-card">
+          <div class="detail-row">
+            <div class="detail-bold" id="detailLabel1">Publisher</div>
+            <div class="detail-val" id="sheetPublisher"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-bold" id="detailLabel2">Format</div>
+            <div class="detail-val" id="sheetFormat"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-bold" id="detailLabel3">Summary</div>
+            <div class="detail-val" id="sheetSummary"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-bold" id="detailLabel4">Subjects</div>
+            <div class="detail-val" id="sheetSubjects"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-bold" id="detailLabel5">Genre/Form</div>
+            <div class="detail-val" id="sheetGenre"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-bold" id="detailLabel6">ISBN</div>
+            <div class="detail-val" id="sheetIsbn"></div>
+          </div>
+        </div>
+
+        <!-- branch availability table -->
+        <div class="branch-card" id="sheetTableCard">
+          <table class="branch-table">
+            <thead>
+              <tr>
+                <th id="tableHead1">Branch</th>
+                <th id="tableHead2">Call No.</th>
+                <th id="tableHead3">Available</th>
+              </tr>
+            </thead>
+            <tbody id="branchTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- inline request button (hidden when sticky footer shown) -->
+        <div style="padding: 0 12px;" id="inlineBtnWrap">
+          <button class="request-btn-inline" onclick="requestItem(event)">Request Item</button>
+        </div>
+        <div style="padding: 0 12px; display:none;" id="inlineEventActions">
+          <div class="sheet-actions-inline">
+            <button class="sheet-subtle-btn" type="button">Register</button>
+            <button class="sheet-subtle-btn" type="button">Add to Calendar</button>
+          </div>
+        </div>
+
+        <div class="sheet-bottom-pad"></div>
+      </div><!-- end sheet-scroll -->
+
+      <!-- sticky footer request button -->
+      <div class="sheet-footer" id="stickyFooter">
+          <button class="request-btn-sticky" onclick="requestItem(event)">Request Item</button>
+      </div>
+      <div class="sheet-footer" id="stickyEventFooter">
+        <div class="sheet-actions-sticky">
+          <button class="sheet-subtle-btn" type="button">Register</button>
+          <button class="sheet-subtle-btn" type="button">Add to Calendar</button>
+        </div>
+      </div>
+    </div><!-- end sheet -->
+
+    <div class="modal-overlay" id="resourceModal" onclick="closeResourceModal()">
+      <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-grabber"></div>
+        <div class="modal-title">Leaving App</div>
+        <div class="modal-copy" id="resourceModalCopy"></div>
+        <div class="modal-actions">
+          <button class="sheet-subtle-btn" type="button" onclick="closeResourceModal()">Stay Here</button>
+          <button class="soft-btn" type="button" onclick="confirmResourceExit()">Continue</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end screen -->
+</div><!-- end phone -->
+</div>
+
+<script>
+const books = [
+  {
+    title: "The Ministry for the Future",
+    author: "Robinson, Kim Stanley",
+    year: "2020",
+    type: "Book",
+    publisher: "Orbit Books, 2020",
+    format: "Hardcover, 563 pages",
+    summary: "A near-future novel following the Ministry for the Future, a UN body tasked with advocating for future generations after a catastrophic heatwave in India kills millions. Blending policy, economics, and human drama, it confronts how civilization might avert collapse.",
+    subjects: "Climate change; Environmental policy; Near-future fiction; International organizations; Ecological disaster",
+    genre: "Science Fiction; Climate Fiction; Political Fiction",
+    isbn: "978-0-316-30013-1",
+    coverBg: "linear-gradient(135deg,#2D4A3E,#1A2E26)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="8" y="16" width="64" height="5" rx="2.5" fill="rgba(255,255,255,0.13)"/><circle cx="40" cy="68" r="24" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/><path d="M30 68 L40 52 L50 68 L45 68 L45 84 L35 84 L35 68Z" fill="rgba(255,255,255,0.22)"/></svg>`,
+    branches: [
+      { branch: "Central Library", call: "FIC ROB", avail: "Available" },
+      { branch: "53rd St Fiction", call: "FIC ROB", avail: "DUE 04-02-26" },
+      { branch: "Yorkville Branch", call: "FIC ROB", avail: "DUE 04-10-26" },
+      { branch: "Hudson Park", call: "FIC ROB", avail: "Available" },
+    ]
+  },
+  {
+    title: "Demon Copperhead",
+    author: "Kingsolver, Barbara",
+    year: "2022",
+    type: "Book",
+    publisher: "Harper Collins, 2022",
+    format: "Hardcover, 560 pages",
+    summary: "A reimagining of David Copperfield set in Appalachian Virginia during the opioid crisis. Winner of the Pulitzer Prize, it follows a boy born into poverty with piercing compassion and moral urgency.",
+    subjects: "Opioid epidemic; Appalachia; Poverty; Coming-of-age; Foster care; Social inequality",
+    genre: "Literary Fiction; Historical Fiction; Social Fiction",
+    isbn: "978-0-06-325610-4",
+    coverBg: "linear-gradient(135deg,#6B3A2A,#3D1F14)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="14" y="20" width="52" height="3" rx="1.5" fill="rgba(255,255,255,0.26)"/><ellipse cx="40" cy="70" rx="16" ry="16" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="2"/><ellipse cx="40" cy="70" rx="7" ry="7" fill="rgba(255,220,180,0.16)"/></svg>`,
+    branches: [
+      { branch: "53rd St Fiction", call: "FIC KIN", avail: "DUE 03-28-26" },
+      { branch: "53rd St Fiction", call: "FIC KIN", avail: "DUE 04-05-26" },
+      { branch: "Mulberry St", call: "FIC KIN", avail: "Available" },
+      { branch: "Stapleton Branch", call: "FIC KIN", avail: "Available" },
+    ]
+  },
+  {
+    title: "Tomorrow, and Tomorrow, and Tomorrow",
+    author: "Zevin, Gabrielle",
+    year: "2022",
+    type: "Book",
+    publisher: "Knopf, 2022",
+    format: "Hardcover, 401 pages",
+    summary: "A sweeping novel about friendship, creativity, and ambition spanning three decades in the lives of two video game designers. A love story and meditation on art, collaboration, and what it means to devote your life to play.",
+    subjects: "Video game design; Friendship; Creativity; Identity; Technology; Artistic collaboration",
+    genre: "Literary Fiction; Contemporary Fiction",
+    isbn: "978-0-593-32186-4",
+    coverBg: "linear-gradient(135deg,#1A3A5C,#0D2035)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><path d="M12 96 Q40 24 68 96" fill="none" stroke="rgba(100,180,255,0.3)" stroke-width="2.5"/><circle cx="40" cy="52" r="10" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" stroke-width="1.2"/><rect x="12" y="16" width="56" height="4" rx="2" fill="rgba(255,255,255,0.2)"/></svg>`,
+    branches: [
+      { branch: "Central Library", call: "FIC ZEV", avail: "Available" },
+      { branch: "Epiphany Branch", call: "FIC ZEV", avail: "DUE 03-30-26" },
+      { branch: "St. George Library", call: "FIC ZEV", avail: "Available" },
+    ]
+  },
+  {
+    title: "The Covenant of Water",
+    author: "Verghese, Abraham",
+    year: "2023",
+    type: "Book",
+    publisher: "Grove Atlantic, 2023",
+    format: "Hardcover, 736 pages",
+    summary: "An epic multigenerational saga set in South India from 1900 to 1977, following a family haunted by a mysterious condition. Rich with medicine, faith, and the texture of South Indian life - a deeply humane masterwork.",
+    subjects: "India; Family sagas; Medicine; Faith; Generational trauma; South Asian history",
+    genre: "Literary Fiction; Family Saga; Historical Fiction",
+    isbn: "978-0-8021-6025-9",
+    coverBg: "linear-gradient(135deg,#4A2060,#260D38)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="40" cy="64" r="28" fill="none" stroke="rgba(200,160,255,0.2)" stroke-width="10"/><circle cx="40" cy="64" r="13" fill="rgba(200,160,255,0.1)" stroke="rgba(200,160,255,0.3)" stroke-width="1.5"/><rect x="10" y="18" width="60" height="4" rx="2" fill="rgba(255,255,255,0.2)"/></svg>`,
+    branches: [
+      { branch: "Central Library", call: "FIC VER", avail: "Available" },
+      { branch: "New Dorp Branch", call: "FIC VER", avail: "DUE 04-15-26" },
+      { branch: "Port Richmond", call: "FIC VER", avail: "Available" },
+      { branch: "Tottenville Branch", call: "FIC VER", avail: "DUE 04-01-26" },
+    ]
+  },
+  {
+    title: "Intermezzo",
+    author: "Rooney, Sally",
+    year: "2024",
+    type: "Book",
+    publisher: "Farrar, Straus and Giroux, 2024",
+    format: "Hardcover, 448 pages",
+    summary: "Rooney's fourth novel follows two brothers - a lawyer and a chess prodigy - grieving their father while navigating complex relationships. More expansive and tender than her earlier work, examining grief, love, and the impossibility of truly knowing another person.",
+    subjects: "Brothers; Grief; Relationships; Chess; Contemporary Ireland; Love",
+    genre: "Literary Fiction; Contemporary Fiction; Romance",
+    isbn: "978-0-374-61097-6",
+    coverBg: "linear-gradient(135deg,#3D3020,#1E160A)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="36" width="60" height="44" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="58" x2="70" y2="58" stroke="rgba(255,220,150,0.14)" stroke-width="0.6"/><rect x="18" y="16" width="44" height="4" rx="2" fill="rgba(255,220,150,0.32)"/></svg>`,
+    branches: [
+      { branch: "53rd St Fiction", call: "FIC ROO", avail: "DUE 03-27-26" },
+      { branch: "53rd St Fiction", call: "FIC ROO", avail: "DUE 04-08-26" },
+      { branch: "Huguenot Park", call: "FIC ROO", avail: "DUE 04-20-26" },
+    ]
+  }
+];
+
+const events = [
+  {
+    title: "Toddler Story Time (Registration Required)",
+    category: "Story Times/Read Alouds",
+    date: "Tuesday, March 24, 2026",
+    time: "10:00 AM",
+    location: "58th Street Library",
+    audience: "Ages 18 months to 3 years with caregiver",
+    description: "This event will take place in person at 58th Street Library. If you have a child between walking age and 36 months then this is for you. Join the librarian on the 2nd floor for books, action songs, and dancing. Not only will you and your little ones have a great time together but you will also be building important early literacy skills. Registration is required online. Please note: Programs take place on the second floor. There is no elevator available, and stroller parking is very limited.",
+    accessibility: "Wheelchair accessible; stroller parking available",
+    registration: "Registration opens one week in advance",
+    presenter: "Children's librarians, 58th Street Library",
+    heroColor: "linear-gradient(135deg,#E8D8C4,#D4B188)"
+  },
+  {
+    title: "Kids Story Time (Registration Required)",
+    category: "Story Times/Read Alouds",
+    date: "Tuesday, March 24, 2026",
+    time: "10:00 AM",
+    location: "58th Street Library",
+    audience: "Ages 4 to 7",
+    description: "A lively read aloud hour with stories, songs, and simple participation activities for emerging readers and their families.",
+    accessibility: "Wheelchair accessible",
+    registration: "Registration required",
+    presenter: "Children's librarians, 58th Street Library",
+    heroColor: "linear-gradient(135deg,#D9E6F2,#9BB8D3)"
+  },
+  {
+    title: "Author Talk: Writing the City",
+    category: "Author Talks",
+    date: "Wednesday, March 25, 2026",
+    time: "6:30 PM",
+    location: "Stephen A. Schwarzman Building",
+    audience: "Adults",
+    description: "A conversation with contemporary authors on how New York shapes character, memory, and literary voice across genres.",
+    accessibility: "Assistive listening available",
+    registration: "Free with advance registration",
+    presenter: "Public Programs",
+    heroColor: "linear-gradient(135deg,#D8D6E8,#A39CC7)"
+  }
+];
+
+const blogPosts = [
+  {
+    title: "Women Who Shaped New York City",
+    author: "By: Carrie McBride, Communications",
+    intro: "This NYPL blog list highlights ten books about women whose work changed New York City across politics, arts, labor, journalism, and public life. The selection mixes biography, memoir, and historical writing so the list feels broad enough for discovery while still centered on civic impact.",
+    books: [
+      { title: "A'Lelia Bundles: Joy Goddess", author: "A'Lelia Bundles", summary: "A portrait of a glamorous Harlem Renaissance figure whose life opens a wider conversation about Black social life, entrepreneurship, and cultural leadership in New York." },
+      { title: "Anna", author: "Amy Odell", summary: "A fast-moving biography of Anna Wintour that traces how editorial power, fashion, and media shaped taste and influence across the city." },
+      { title: "Shirley Chisholm: Unbought and Unbossed", author: "Shirley Chisholm", summary: "Chisholm's own account of political breakthrough, public service, and the persistence required to reshape systems that were not built to include her." },
+      { title: "The Last Mrs. Astor", author: "Frances Kiernan", summary: "A social history of New York philanthropy and status told through one of the city's most visible hostesses and cultural gatekeepers." },
+      { title: "Just Kids", author: "Patti Smith", summary: "A memoir about artistic becoming in New York, showing how friendship, risk, and downtown creative life can define an era." },
+      { title: "The Woman Behind the New Deal", author: "Kirstin Downey", summary: "A biography of Frances Perkins that connects labor reform, public policy, and the everyday lives of New Yorkers and Americans alike." },
+      { title: "Fire Shut Up in My Bones", author: "Charles M. Blow", summary: "A memoir whose movement through media, power, and voice resonates with New York's role in shaping national conversation." },
+      { title: "Zora and Langston", author: "Yuval Taylor", summary: "A dual biography that captures literary ambition, collaboration, and conflict within the orbit of Harlem's cultural world." },
+      { title: "The Chiffon Trenches", author: "Andre Leon Talley", summary: "A memoir of style, institutions, and access that helps place fashion and publishing inside New York's broader cultural machinery." },
+      { title: "The Dead Are Arising", author: "Les Payne and Tamara Payne", summary: "A sweeping biography of Malcolm X that underscores Harlem's central place in political and intellectual life." }
+    ]
+  },
+  {
+    title: "Women Honored for Outstanding Literary Vision",
+    author: "By: Carrie McBride, Communications",
+    intro: "This reading list gathers ten books by women recognized for literary vision, experimentation, and cultural reach. The emphasis is on books that feel conversation-worthy in a library context: titles that invite readers to move between fiction, memoir, criticism, and social history.",
+    books: [
+      { title: "Red at the Bone", author: "Jacqueline Woodson", summary: "A concise multigenerational novel about family, desire, class, and inherited possibility, written with unusual emotional precision." },
+      { title: "Death of the Author", author: "Nnedi Okorafor", summary: "A genre-bending work that plays with authorship, creation, and audience while staying accessible to readers who like big ideas with momentum." },
+      { title: "A More Perfect Party", author: "Juanita Tolliver", summary: "A contemporary political book that broadens the reading list with strategy, coalition thinking, and public voice." },
+      { title: "Beloved", author: "Toni Morrison", summary: "A landmark novel of memory and haunting that remains central to any conversation about literary influence and American storytelling." },
+      { title: "Citizen", author: "Claudia Rankine", summary: "A formally inventive book that blends poetry, criticism, and lived experience to examine race and daily life." },
+      { title: "The Argonauts", author: "Maggie Nelson", summary: "A hybrid work of memoir and theory that feels especially suited to readers interested in language, family, and identity." },
+      { title: "Salvage the Bones", author: "Jesmyn Ward", summary: "A novel of family and survival whose lyric intensity gives the list range and emotional force." },
+      { title: "The Collected Schizophrenias", author: "Esmé Weijun Wang", summary: "An essay collection that expands the list beyond fiction with sharp, elegant thinking about illness, stigma, and care." },
+      { title: "The Year of Magical Thinking", author: "Joan Didion", summary: "A spare and influential memoir of grief that continues to shape how readers talk about personal narrative." },
+      { title: "Sula", author: "Toni Morrison", summary: "A compact but powerful novel about friendship, community, and rupture that works well as an anchor title in a recommendation list." }
+    ]
+  }
+];
+
+const navWrapper = document.getElementById('navWrapper');
+const sheetEl   = document.getElementById('sheet');
+const sheetScroll = document.getElementById('sheetScroll');
+const stickyHeader = document.getElementById('stickyHeader');
+const stickyFooter = document.getElementById('stickyFooter');
+const stickyEventFooter = document.getElementById('stickyEventFooter');
+const inlineBtnWrap = document.getElementById('inlineBtnWrap');
+const inlineEventActions = document.getElementById('inlineEventActions');
+const eventTopActions = document.getElementById('eventTopActions');
+const grabberArea = document.getElementById('grabberArea');
+const bookList = document.getElementById('bookList');
+const homePage = document.getElementById('homePage');
+const accountPage = document.getElementById('accountPage');
+const scanPage = document.getElementById('scanPage');
+const eventsPage = document.getElementById('eventsPage');
+const blogArticlePage = document.getElementById('blogArticlePage');
+const eventsList = document.getElementById('eventsList');
+const eresourcesPage = document.getElementById('eresourcesPage');
+const catalogPage = document.getElementById('catalogPage');
+const catalogDefaultView = document.getElementById('catalogDefaultView');
+const catalogSearchView = document.getElementById('catalogSearchView');
+const blogArticleTitle = document.getElementById('blogArticleTitle');
+const blogArticleAuthor = document.getElementById('blogArticleAuthor');
+const blogArticleIntro = document.getElementById('blogArticleIntro');
+const blogBookList = document.getElementById('blogBookList');
+const resourceModal = document.getElementById('resourceModal');
+const resourceModalCopy = document.getElementById('resourceModalCopy');
+const navItems = document.querySelectorAll('.nav-item[data-page]');
+const homeTabs = document.querySelectorAll('.home-tab');
+const homePanels = document.querySelectorAll('.home-tab-panel');
+const searchLabel = document.querySelector('.search-pill span');
+const detailLabels = [
+  document.getElementById('detailLabel1'),
+  document.getElementById('detailLabel2'),
+  document.getElementById('detailLabel3'),
+  document.getElementById('detailLabel4'),
+  document.getElementById('detailLabel5'),
+  document.getElementById('detailLabel6')
+];
+const detailRows = detailLabels.map(label => label.parentElement);
+const tableHead1 = document.getElementById('tableHead1');
+const tableHead2 = document.getElementById('tableHead2');
+const tableHead3 = document.getElementById('tableHead3');
+const sheetTableCard = document.getElementById('sheetTableCard');
+
+let isSheetOpen = false;
+let lastListScrollY = 0;
+let currentPage = 'home';
+let sheetMode = 'book';
+function showCatalogDefault() {
+  catalogDefaultView.classList.add('active');
+  catalogSearchView.classList.remove('active');
+}
+
+function showCatalogSearchResults() {
+  catalogDefaultView.classList.remove('active');
+  catalogSearchView.classList.add('active');
+}
+
+function setSearchContext(page) {
+  searchLabel.textContent = 'Search Catalog';
+}
+
+function setSheetMode(mode) {
+  sheetMode = mode;
+  const isBook = mode === 'book';
+  sheetEl.classList.toggle('event-mode', !isBook);
+  inlineBtnWrap.style.display = isBook ? 'block' : 'none';
+  inlineEventActions.style.display = 'none';
+  eventTopActions.classList.toggle('visible', !isBook);
+  stickyFooter.classList.toggle('visible', false);
+  stickyEventFooter.classList.toggle('visible', false);
+}
+
+function setPage(page) {
+  currentPage = page;
+  homePage.classList.toggle('active', page === 'home');
+  accountPage.classList.toggle('active', page === 'account');
+  scanPage.classList.toggle('active', page === 'scan');
+  eventsPage.classList.toggle('active', page === 'events');
+  blogArticlePage.classList.toggle('active', page === 'blogArticle');
+  eresourcesPage.classList.toggle('active', page === 'eresources');
+  catalogPage.classList.toggle('active', page === 'catalog');
+  setSearchContext(page);
+
+  navItems.forEach(item => {
+    const isActive = item.dataset.page === page || (page === 'blogArticle' && item.dataset.page === 'catalog');
+    item.classList.toggle('active', isActive);
+  });
+
+  if (page !== 'catalog' && isSheetOpen) closeSheet();
+  if (page === 'home') navWrapper.classList.remove('hidden');
+  if (resourceModal.classList.contains('visible')) closeResourceModal();
+}
+
+navItems.forEach(item => {
+  item.addEventListener('click', () => {
+    setPage(item.dataset.page);
+    if (item.dataset.page === 'catalog') showCatalogDefault();
+  });
+});
+
+function openCatalogSearch() {
+  setPage('catalog');
+  showCatalogSearchResults();
+}
+
+function openCatalogDefaultPage() {
+  setPage('catalog');
+  showCatalogDefault();
+}
+
+function openBlogArticle(idx) {
+  const post = blogPosts[idx];
+  blogArticleTitle.textContent = post.title;
+  blogArticleAuthor.textContent = post.author;
+  blogArticleIntro.textContent = post.intro;
+  blogBookList.innerHTML = post.books.map(book => `
+    <div class="blog-book-item">
+      <div class="blog-book-thumb">${createBlogBookCover(book.title)}</div>
+      <div class="blog-book-item-main">
+        <div class="blog-book-item-title">${book.title}</div>
+        <div class="blog-book-item-author">${book.author}</div>
+        <div class="blog-book-item-copy">${book.summary}</div>
+      </div>
+    </div>
+  `).join('');
+  setPage('blogArticle');
+  blogArticlePage.querySelector('.blog-article-scroll').scrollTop = 0;
+}
+
+function createBlogBookCover(title) {
+  const palettes = [
+    ['#264653', '#1D3557', '#E9C46A'],
+    ['#6D597A', '#355070', '#F4A261'],
+    ['#8D2E37', '#3D405B', '#F2CC8F'],
+    ['#1F3C88', '#4D8076', '#F5E6A5'],
+    ['#5A3E36', '#7A6C5D', '#E7CBA9'],
+    ['#3A5A40', '#588157', '#DAD7CD']
+  ];
+  let hash = 0;
+  for (let i = 0; i < title.length; i++) hash = (hash * 31 + title.charCodeAt(i)) >>> 0;
+  const [bg1, bg2, accent] = palettes[hash % palettes.length];
+  const initials = title.split(' ').filter(Boolean).slice(0, 2).map(part => part[0]).join('').toUpperCase();
+  return `
+    <svg viewBox="0 0 56 84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="g${hash}" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="${bg1}"/>
+          <stop offset="100%" stop-color="${bg2}"/>
+        </linearGradient>
+      </defs>
+      <rect width="56" height="84" rx="6" fill="url(#g${hash})"/>
+      <rect x="8" y="10" width="40" height="3" rx="1.5" fill="rgba(255,255,255,0.24)"/>
+      <rect x="8" y="17" width="24" height="2" rx="1" fill="rgba(255,255,255,0.18)"/>
+      <circle cx="28" cy="49" r="16" fill="rgba(255,255,255,0.08)" stroke="${accent}" stroke-opacity="0.5" stroke-width="1.2"/>
+      <text x="28" y="54" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="white">${initials}</text>
+      <rect x="10" y="72" width="20" height="2" rx="1" fill="rgba(255,255,255,0.18)"/>
+    </svg>
+  `;
+}
+
+function openResourceModal(resourceName) {
+  resourceModalCopy.textContent = `This demo would open ${resourceName} in your browser. For now, this is a mock handoff instead of a live external link.`;
+  resourceModal.classList.add('visible');
+}
+
+function closeResourceModal() {
+  resourceModal.classList.remove('visible');
+}
+
+function confirmResourceExit() {
+  closeResourceModal();
+}
+
+homeTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const selected = tab.dataset.homeTab;
+    homeTabs.forEach(btn => {
+      const isActive = btn === tab;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', String(isActive));
+    });
+    homePanels.forEach(panel => {
+      panel.classList.toggle('active', panel.id === `panel-${selected}`);
+    });
+  });
+});
+
+bookList.addEventListener('scroll', () => {
+  if (isSheetOpen || currentPage !== 'catalog') return;
+  const y = bookList.scrollTop;
+  if (y > lastListScrollY + 8) navWrapper.classList.add('hidden');
+  else if (y < lastListScrollY - 4) navWrapper.classList.remove('hidden');
+  lastListScrollY = y;
+});
+
+function openSheet(idx) {
+  const b = books[idx];
+  showCatalogSearchResults();
+  setSheetMode('book');
+
+  document.getElementById('stickyTitle').textContent = b.title;
+  document.getElementById('stickyAuthor').textContent = b.author;
+  document.getElementById('sheetTitle').textContent = b.title;
+  document.getElementById('sheetType').textContent = b.type;
+  document.getElementById('sheetAuthorLine').textContent = b.author;
+  document.getElementById('sheetYearLine').textContent = b.year;
+  document.getElementById('sheetPublisher').textContent = b.publisher;
+  document.getElementById('sheetFormat').textContent = b.format;
+  document.getElementById('sheetSummary').textContent = b.summary;
+  document.getElementById('sheetSubjects').textContent = b.subjects;
+  document.getElementById('sheetGenre').textContent = b.genre;
+  document.getElementById('sheetIsbn').textContent = b.isbn;
+  detailLabels[0].textContent = 'Publisher';
+  detailLabels[1].textContent = 'Format';
+  detailLabels[2].textContent = 'Summary';
+  detailLabels[3].textContent = 'Subjects';
+  detailLabels[4].textContent = 'Genre/Form';
+  detailLabels[5].textContent = 'ISBN';
+  detailRows.forEach(row => { row.style.display = 'block'; });
+  tableHead1.textContent = 'Branch';
+  tableHead2.textContent = 'Call No.';
+  tableHead3.textContent = 'Available';
+  sheetTableCard.style.display = 'block';
+  document.getElementById('sheetCover').style.background = b.coverBg;
+  document.getElementById('sheetCover').innerHTML = b.coverSvg;
+
+  const tbody = document.getElementById('branchTableBody');
+  tbody.innerHTML = b.branches.map(br => {
+    const isDue = br.avail.startsWith('DUE');
+    const availClass = isDue ? 'avail-due' : 'avail-ok';
+    return `<tr>
+      <td>${br.branch}</td>
+      <td>${br.call}</td>
+      <td class="${availClass}">${br.avail}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('sheetOverlay').classList.add('visible');
+  sheetEl.classList.add('open');
+  navWrapper.classList.add('hidden');
+  isSheetOpen = true;
+
+  sheetScroll.scrollTop = 0;
+  stickyHeader.classList.remove('visible');
+  stickyFooter.classList.remove('visible');
+  stickyEventFooter.classList.remove('visible');
+  eventTopActions.classList.remove('visible');
+}
+
+function openEventSheet(idx) {
+  const e = events[idx];
+  setSheetMode('event');
+
+  document.getElementById('stickyTitle').textContent = e.title;
+  document.getElementById('stickyAuthor').textContent = e.location;
+  document.getElementById('sheetTitle').textContent = e.title;
+  document.getElementById('sheetType').textContent = e.category;
+  document.getElementById('sheetAuthorLine').textContent = e.date;
+  document.getElementById('sheetYearLine').textContent = `${e.time} - ${e.location}`;
+  document.getElementById('sheetPublisher').textContent = e.location;
+  document.getElementById('sheetFormat').textContent = `${e.date} ${e.time}`;
+  document.getElementById('sheetSummary').textContent = e.audience;
+  document.getElementById('sheetSubjects').textContent = e.description;
+  document.getElementById('sheetGenre').textContent = e.accessibility;
+  document.getElementById('sheetIsbn').textContent = e.registration;
+  detailLabels[0].textContent = 'Location';
+  detailLabels[1].textContent = 'Date';
+  detailLabels[2].textContent = 'Audience';
+  detailLabels[3].textContent = 'Description';
+  detailLabels[4].textContent = 'Accessibility';
+  detailLabels[5].textContent = 'Registration';
+  detailRows[0].style.display = 'block';
+  detailRows[1].style.display = 'block';
+  detailRows[2].style.display = 'block';
+  detailRows[3].style.display = 'block';
+  detailRows[4].style.display = 'none';
+  detailRows[5].style.display = 'none';
+  tableHead1.textContent = 'Presenter';
+  tableHead2.textContent = 'Category';
+  tableHead3.textContent = 'Calendar';
+  sheetTableCard.style.display = 'none';
+  document.getElementById('sheetCover').style.background = e.heroColor;
+  document.getElementById('sheetCover').innerHTML = `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="14" width="60" height="82" rx="12" fill="rgba(255,255,255,0.18)"/><circle cx="40" cy="44" r="12" fill="rgba(255,255,255,0.3)"/><path d="M24 76h32M24 84h24" stroke="rgba(255,255,255,0.72)" stroke-width="3" stroke-linecap="round"/><path d="M31 22v8M49 22v8M24 34h32" stroke="rgba(255,255,255,0.72)" stroke-width="3" stroke-linecap="round"/></svg>`;
+
+  const tbody = document.getElementById('branchTableBody');
+  tbody.innerHTML = `<tr><td>${e.presenter}</td><td>${e.category}</td><td>Addable</td></tr>`;
+
+  document.getElementById('sheetOverlay').classList.add('visible');
+  sheetEl.classList.add('open');
+  navWrapper.classList.add('hidden');
+  isSheetOpen = true;
+
+  sheetScroll.scrollTop = 0;
+  stickyHeader.classList.remove('visible');
+  stickyFooter.classList.remove('visible');
+  stickyEventFooter.classList.remove('visible');
+  eventTopActions.classList.add('visible');
+}
+
+function closeSheet() {
+  document.getElementById('sheetOverlay').classList.remove('visible');
+  document.getElementById('sheetOverlay').style.background = '';
+  sheetEl.classList.remove('open');
+  sheetEl.style.transform = '';
+  if (currentPage === 'catalog' || currentPage === 'events') navWrapper.classList.remove('hidden');
+  isSheetOpen = false;
+}
+
+sheetScroll.addEventListener('scroll', () => {
+  const y = sheetScroll.scrollTop;
+  if (y > 80) {
+    stickyHeader.classList.add('visible');
+    if (sheetMode === 'book') {
+      stickyFooter.classList.add('visible');
+      stickyEventFooter.classList.remove('visible');
+      inlineBtnWrap.style.display = 'none';
+      inlineEventActions.style.display = 'none';
+      eventTopActions.classList.remove('visible');
+    } else {
+      stickyFooter.classList.remove('visible');
+      stickyEventFooter.classList.add('visible');
+      inlineBtnWrap.style.display = 'none';
+      inlineEventActions.style.display = 'none';
+      eventTopActions.classList.remove('visible');
+    }
+    navWrapper.classList.add('hidden');
+  } else {
+    stickyHeader.classList.remove('visible');
+    stickyFooter.classList.remove('visible');
+    stickyEventFooter.classList.remove('visible');
+    inlineBtnWrap.style.display = sheetMode === 'book' ? 'block' : 'none';
+    inlineEventActions.style.display = 'none';
+    eventTopActions.classList.toggle('visible', sheetMode === 'event');
+    if (isSheetOpen) navWrapper.classList.add('hidden');
+  }
+});
+
+function requestItem(e) {
+  const btn = e.currentTarget;
+  const orig = btn.textContent;
+  btn.textContent = 'Request sent!';
+  btn.style.background = '#2a7a3b';
+  setTimeout(() => {
+    btn.textContent = orig;
+    btn.style.background = '';
+    closeSheet();
+  }, 1600);
+}
+
+// Drag-to-dismiss
+let dragStartY = 0, dragCurrentY = 0, isDragging = false;
+let dragVelocity = 0, lastDragY = 0, lastDragTime = 0;
+
+function onDragStart(clientY) {
+  if (!isSheetOpen) return;
+  isDragging = true;
+  dragStartY = dragCurrentY = lastDragY = clientY;
+  lastDragTime = Date.now(); dragVelocity = 0;
+  sheetEl.classList.add('dragging');
+}
+function onDragMove(clientY) {
+  if (!isDragging) return;
+  const now = Date.now(), dt = now - lastDragTime;
+  if (dt > 0) dragVelocity = (clientY - lastDragY) / dt;
+  lastDragY = clientY; lastDragTime = now; dragCurrentY = clientY;
+  const dy = Math.max(0, clientY - dragStartY);
+  const r = dy > 80 ? 80 + (dy - 80) * 0.4 : dy;
+  sheetEl.style.transform = `translateY(${r}px)`;
+  const prog = Math.min(r / 200, 1);
+  document.getElementById('sheetOverlay').style.background = `rgba(0,0,0,${0.35*(1-prog)})`;
+}
+function onDragEnd() {
+  if (!isDragging) return;
+  isDragging = false;
+  sheetEl.classList.remove('dragging');
+  const dy = dragCurrentY - dragStartY;
+  if (dy > 100 || dragVelocity > 0.5) { closeSheet(); }
+  else {
+    sheetEl.style.transform = 'translateY(0)';
+    document.getElementById('sheetOverlay').style.background = 'rgba(0,0,0,0.35)';
+  }
+}
+
+grabberArea.addEventListener('mousedown', e => { e.preventDefault(); onDragStart(e.clientY); });
+document.addEventListener('mousemove', e => { if (isDragging) onDragMove(e.clientY); });
+document.addEventListener('mouseup', () => { if (isDragging) onDragEnd(); });
+grabberArea.addEventListener('touchstart', e => onDragStart(e.touches[0].clientY), { passive: true });
+document.addEventListener('touchmove', e => { if (isDragging) onDragMove(e.touches[0].clientY); }, { passive: true });
+document.addEventListener('touchend', () => { if (isDragging) onDragEnd(); });
+</script>
+</body>
+</html>
