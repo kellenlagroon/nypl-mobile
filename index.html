@@ -1137,6 +1137,29 @@
       height: calc(100dvh - 44px);
     }
   }
+  body.embed-mode {
+    background: #fff;
+    padding: 0;
+  }
+  body.embed-mode .app-shell {
+    width: 100%;
+    padding: 0;
+  }
+  body.embed-mode .phone {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  body.embed-mode .status-bar {
+    display: none;
+  }
+  body.embed-mode .screen {
+    height: 100vh;
+  }
+  body.embed-mode .page {
+    inset: 55px 0 0 0;
+  }
 </style>
 </head>
 <body>
@@ -1915,6 +1938,10 @@
 </div>
 
 <script>
+const urlParams = new URLSearchParams(window.location.search);
+const isEmbedMode = urlParams.get('embed') === '1' || window.self !== window.top;
+document.body.classList.toggle('embed-mode', isEmbedMode);
+
 const books = [
   {
     title: "The Ministry for the Future",
