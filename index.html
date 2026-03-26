@@ -27,6 +27,11 @@
     padding: 24px 16px 40px;
     font-family: 'Inter', system-ui, sans-serif;
   }
+  .app-shell {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 40px;
+  }
   .phone {
     width: 375px;
     height: 812px;
@@ -1160,10 +1165,29 @@
       justify-content: center;
     }
   }
+  @media (max-width: 430px) {
+    body {
+      background: #fff;
+      padding: 0;
+    }
+    .app-shell {
+      width: 100%;
+      padding: 0;
+    }
+    .phone {
+      width: 100vw;
+      height: 100dvh;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .screen {
+      height: calc(100dvh - 44px);
+    }
+  }
 </style>
 </head>
 <body>
-<div style="display:flex;justify-content:center;padding:24px 0 40px;">
+<div class="app-shell">
 <div class="phone">
 
   <!-- STATUS BAR -->
