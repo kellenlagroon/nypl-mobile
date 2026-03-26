@@ -281,63 +281,16 @@
   }
   .account-page-scroll::-webkit-scrollbar { display: none; }
   .library-card {
-    background: #d0333a;
+    display: block;
+    width: 100%;
+    margin-bottom: 22px;
     border-radius: 14px;
     overflow: hidden;
-    margin-bottom: 22px;
-    color: white;
   }
-  .library-card-top {
-    height: 188px;
-    position: relative;
-    padding: 18px 18px 16px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-  }
-  .library-card-name {
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    position: relative;
-    z-index: 1;
-  }
-  .library-card-art {
-    position: absolute;
-    left: -10px;
-    top: -8px;
-    width: 220px;
-    height: 220px;
-    object-fit: contain;
-    opacity: 0.92;
-    pointer-events: none;
-  }
-  .library-card-bottom {
-    border-top: 1px solid rgba(84, 17, 22, 0.7);
-    padding: 14px 18px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    position: relative;
-    z-index: 1;
-    white-space: nowrap;
-  }
-  .library-card-expiry {
-    flex: 0 0 auto;
-    white-space: nowrap;
-  }
-  .library-card-number {
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0;
-    white-space: nowrap;
-    flex-shrink: 1;
-    min-width: 0;
-    text-align: right;
+  .library-card img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
   .barcode-wrap {
     display: flex;
@@ -1377,14 +1330,7 @@
     <div class="page account-page" id="accountPage">
       <div class="account-page-scroll">
         <div class="library-card">
-          <div class="library-card-top">
-            <img class="library-card-art" src="nypl.png" alt="">
-            <div class="library-card-name">DOE, JOHN</div>
-          </div>
-          <div class="library-card-bottom">
-            <div class="library-card-expiry">Expires: 07-27-28</div>
-            <div class="library-card-number">23333 09876543210</div>
-          </div>
+          <img src="library card.png" alt="NYPL library card">
         </div>
 
         <div class="barcode-wrap">
