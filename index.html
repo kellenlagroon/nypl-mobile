@@ -2309,7 +2309,7 @@ function setPage(page) {
   });
 
   if (page !== 'catalog' && isSheetOpen) closeSheet();
-  if (page === 'home') navWrapper.classList.remove('hidden');
+  navWrapper.classList.remove('hidden');
   if (resourceModal.classList.contains('visible')) closeResourceModal();
   if (renewModal.classList.contains('visible')) closeRenewOptions();
 }
@@ -2545,7 +2545,7 @@ function closeSheet() {
   document.getElementById('sheetOverlay').style.background = '';
   sheetEl.classList.remove('open');
   sheetEl.style.transform = '';
-  if (currentPage === 'catalog' || currentPage === 'events') navWrapper.classList.remove('hidden');
+  navWrapper.classList.remove('hidden');
   isSheetOpen = false;
 }
 
