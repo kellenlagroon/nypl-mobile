@@ -1258,6 +1258,26 @@
   body.embed-mode .page {
     inset: 55px 0 0 0;
   }
+  body.embed-mode.embed-framed {
+    background: #d0d0d0;
+    padding: 24px 16px 40px;
+  }
+  body.embed-mode.embed-framed .app-shell {
+    width: auto;
+    padding: 24px 0 40px;
+  }
+  body.embed-mode.embed-framed .phone {
+    width: 375px;
+    height: 812px;
+    border-radius: 44px;
+    box-shadow: 0 32px 64px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.12);
+  }
+  body.embed-mode.embed-framed .status-bar {
+    display: flex;
+  }
+  body.embed-mode.embed-framed .screen {
+    height: calc(812px - 44px);
+  }
 </style>
 </head>
 <body>
@@ -2395,7 +2415,9 @@
 <script>
 const urlParams = new URLSearchParams(window.location.search);
 const isEmbedMode = urlParams.get('embed') === '1' || window.self !== window.top;
+const isEmbedFramed = urlParams.get('frame') === '1';
 document.body.classList.toggle('embed-mode', isEmbedMode);
+document.body.classList.toggle('embed-framed', isEmbedMode && isEmbedFramed);
 
 const books = [
   {
