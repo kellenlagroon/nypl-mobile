@@ -368,21 +368,21 @@
     flex: 1;
     overflow-y: auto;
     scrollbar-width: none;
-    padding: 14px 16px 112px;
+    padding: 14px 16px 96px;
     background: var(--bg);
   }
   .scan-page-scroll::-webkit-scrollbar { display: none; }
   .scan-frame {
     background: #1d1d21;
     border-radius: 14px;
-    height: 384px;
+    height: 248px;
     position: relative;
     overflow: hidden;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
   .scan-guide {
     position: absolute;
-    inset: 26px 24px;
+    inset: 24px 24px;
     border: 4px solid #f5f5f7;
     border-top-color: #fff;
     border-bottom-color: #fff;
@@ -437,7 +437,7 @@
     font-size: 14px;
     line-height: 1.35;
     color: #5c5d68;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
   .scan-action-btn {
     width: 100%;
@@ -452,22 +452,22 @@
     margin-bottom: 16px;
   }
   .scan-tips {
-    margin-top: 40px;
+    margin-top: 24px;
     color: #565864;
   }
   .scan-tips-title {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     color: #15161a;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   .scan-tips ul {
     padding-left: 20px;
   }
   .scan-tips li {
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 1.45;
+    margin-bottom: 4px;
   }
   .catalog-view {
     display: none;
@@ -816,34 +816,57 @@
   .modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(17, 17, 17, 0.38);
+    background: rgba(17, 17, 17, 0.34);
     display: none;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
     z-index: 22;
   }
   .modal-overlay.visible {
     display: flex;
   }
   .modal-card {
-    width: 100%;
+    width: min(100%, 336px);
     background: #fff;
-    border-radius: 24px 24px 0 0;
-    padding: 16px 16px 28px;
-    box-shadow: 0 -10px 28px rgba(0,0,0,0.14);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+    border: 1px solid #ececf1;
   }
-  .modal-grabber {
-    width: 36px;
-    height: 4px;
+  .modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .modal-heading {
+    flex: 1;
+    min-width: 0;
+  }
+  .modal-close {
+    width: 28px;
+    height: 28px;
+    border: none;
     border-radius: 999px;
-    background: #1f2024;
-    margin: 0 auto 18px;
+    background: #f3f3f6;
+    color: #2f3138;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .modal-close:active {
+    background: #e8e8ee;
   }
   .modal-title {
     font-size: 18px;
     font-weight: 700;
     line-height: 1.2;
     color: #15161a;
-    margin-bottom: 10px;
+    margin-bottom: 0;
   }
   .modal-copy {
     font-size: 14px;
@@ -858,14 +881,15 @@
   }
   .modal-primary-btn {
     width: 100%;
-    min-height: 44px;
+    min-height: 36px;
     border-radius: 4px;
     border: none;
     background: var(--red);
     color: #fff;
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
+    padding: 0 12px;
     cursor: pointer;
   }
   .modal-primary-btn:active {
@@ -876,7 +900,7 @@
     font-weight: 700;
     line-height: 1.3;
     color: #15161a;
-    margin-bottom: 14px;
+    margin-bottom: 0;
   }
   .option-list {
     display: flex;
@@ -926,13 +950,25 @@
   .book-row:active { background: #f8f8f8; }
 
   .row-cover {
-    width: 72px;
-    height: 100px;
+    width: 80px;
+    height: 120px;
     border-radius: 4px;
     flex-shrink: 0;
     overflow: hidden;
     position: relative;
     background: #ddd;
+  }
+  .row-cover img,
+  .sheet-cover img,
+  .blog-book-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #fff;
+    border-radius: inherit;
+    display: block;
   }
   .row-info { flex: 1; min-width: 0; padding-top: 2px; }
   .row-title { font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 6px; }
@@ -1145,32 +1181,32 @@
   .sheet-footer.visible { display: block; }
   .request-btn-inline {
     width: 100%;
-    padding: 15px;
-    border-radius: 10px;
+    min-height: 36px;
+    padding: 0 12px;
+    border-radius: 4px;
     border: none;
     background: var(--red);
     color: white;
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    letter-spacing: 0.01em;
     transition: background 0.15s;
     margin-top: 16px;
   }
   .request-btn-inline:active { background: #9e1f24; }
   .request-btn-sticky {
     width: 100%;
-    padding: 15px;
-    border-radius: 10px;
+    min-height: 36px;
+    padding: 0 12px;
+    border-radius: 4px;
     border: none;
     background: var(--red);
     color: white;
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    letter-spacing: 0.01em;
     transition: background 0.15s;
   }
   .request-btn-sticky:active { background: #9e1f24; }
@@ -1279,7 +1315,7 @@
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="8" y="14" width="56" height="4" rx="2" fill="rgba(255,255,255,0.14)"/><rect x="8" y="22" width="44" height="2" rx="1" fill="rgba(255,255,255,0.08)"/><circle cx="36" cy="60" r="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/><path d="M28 60 L36 47 L44 60 L40 60 L40 73 L32 73 L32 60Z" fill="rgba(255,255,255,0.22)"/><rect x="8" y="84" width="38" height="2" rx="1" fill="rgba(255,255,255,0.08)"/></svg>
                 </div>
                 <div class="account-info">
-                  <div class="row-title">The Ministry for the Future</div>
+                  <div class="row-title">The Ballad of Songbirds and Snakes</div>
                   <div class="account-meta">Due: Apr 2 2026</div>
                   <div class="account-meta">Renewed 1 Time</div>
                   <div class="account-action-row">
@@ -1297,7 +1333,7 @@
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="6" y="10" width="60" height="64" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/><rect x="14" y="20" width="44" height="2.5" rx="1.25" fill="rgba(255,255,255,0.26)"/><ellipse cx="36" cy="56" rx="13" ry="13" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="1.5"/><ellipse cx="36" cy="56" rx="6" ry="6" fill="rgba(255,220,180,0.16)"/></svg>
                 </div>
                 <div class="account-info">
-                  <div class="row-title">Demon Copperhead</div>
+                  <div class="row-title">The Midnight Library</div>
                   <div class="account-meta">Due: Apr 5 2026</div>
                   <div class="account-meta">Renewed 0 Times</div>
                   <div class="account-action-row">
@@ -1315,8 +1351,62 @@
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="32" width="52" height="38" rx="2.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="51" x2="62" y2="51" stroke="rgba(255,220,150,0.15)" stroke-width="0.6"/><rect x="16" y="14" width="40" height="3.5" rx="1.75" fill="rgba(255,220,150,0.32)"/></svg>
                 </div>
                 <div class="account-info">
-                  <div class="row-title">Intermezzo</div>
+                  <div class="row-title">Project Hail Mary</div>
                   <div class="account-meta">Due: Apr 20 2026</div>
+                  <div class="account-meta">Renewed 0 Times</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 0 1 15.3-6.3L21 7"/><path d="M21 3v4h-4"/><path d="M21 13a9 9 0 0 1-15.3 6.3L3 17"/><path d="M3 21v-4h4"/></svg>
+                      <span>Renew</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(7)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#5B2A3F,#27111C)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="12" y="16" width="48" height="4" rx="2" fill="rgba(255,215,235,0.28)"/><circle cx="36" cy="58" r="16" fill="none" stroke="rgba(255,215,235,0.34)" stroke-width="1.8"/><path d="M24 70c4-10 7-22 12-34 5 12 8 24 12 34" fill="none" stroke="rgba(255,215,235,0.26)" stroke-width="2"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Cloud Cuckoo Land</div>
+                  <div class="account-meta">Due: Apr 6 2026</div>
+                  <div class="account-meta">Renewed 0 Times</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 0 1 15.3-6.3L21 7"/><path d="M21 3v4h-4"/><path d="M21 13a9 9 0 0 1-15.3 6.3L3 17"/><path d="M3 21v-4h4"/></svg>
+                      <span>Renew</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(8)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#2F2C1A,#141108)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="12" width="52" height="4" rx="2" fill="rgba(255,236,160,0.28)"/><rect x="18" y="28" width="36" height="44" rx="2.5" fill="rgba(255,236,160,0.08)" stroke="rgba(255,236,160,0.2)" stroke-width="1"/><path d="M24 64h24M24 56h24M24 48h24" stroke="rgba(255,236,160,0.22)" stroke-width="1.2"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Beautiful World, Where Are You</div>
+                  <div class="account-meta">Due: Apr 11 2026</div>
+                  <div class="account-meta">Renewed 2 Times</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 0 1 15.3-6.3L21 7"/><path d="M21 3v4h-4"/><path d="M21 13a9 9 0 0 1-15.3 6.3L3 17"/><path d="M3 21v-4h4"/></svg>
+                      <span>Renew</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(9)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#163A46,#081A20)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="36" cy="50" r="18" fill="none" stroke="rgba(191,240,255,0.32)" stroke-width="2"/><circle cx="36" cy="50" r="5" fill="rgba(191,240,255,0.18)"/><path d="M16 80c6-10 14-16 20-16s14 6 20 16" fill="none" stroke="rgba(191,240,255,0.22)" stroke-width="2"/><rect x="14" y="16" width="44" height="4" rx="2" fill="rgba(191,240,255,0.24)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Amari and the Night Brothers</div>
+                  <div class="account-meta">Due: Apr 15 2026</div>
                   <div class="account-meta">Renewed 0 Times</div>
                   <div class="account-action-row">
                     <button class="soft-btn" type="button" onclick="event.stopPropagation()">
@@ -1332,13 +1422,13 @@
 
           <div class="home-tab-panel" id="panel-holds">
             <div class="home-book-list">
-              <div class="account-book" onclick="setPage('catalog'); openSheet(2)">
+              <div class="account-book" onclick="setPage('catalog'); openSheet(5)">
                 <div class="row-cover" style="background:linear-gradient(135deg,#1A3A5C,#0D2035)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><path d="M10 84 Q36 22 62 84" fill="none" stroke="rgba(100,180,255,0.3)" stroke-width="2.2"/><circle cx="36" cy="42" r="9" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" stroke-width="1"/><rect x="12" y="12" width="48" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
                 </div>
                 <div class="account-info">
-                  <div class="row-title">Project Hail Mary: A Novel</div>
-                  <div class="account-meta">Weir, Andy</div>
+                  <div class="row-title">If It Bleeds</div>
+                  <div class="account-meta">King, Stephen</div>
                   <div class="hold-status-row ready">
                     <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="m6.5 10 2.2 2.2 4.8-5"/></svg>
                     <span>Ready for pickup</span>
@@ -1351,13 +1441,13 @@
                 <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(4)">
+              <div class="account-book" onclick="setPage('catalog'); openSheet(6)">
                 <div class="row-cover" style="background:linear-gradient(135deg,#6B5748,#3F3027)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="14" width="52" height="72" rx="2" fill="rgba(255,255,255,0.06)"/><path d="M16 78 36 24 56 78" fill="none" stroke="rgba(242,224,196,0.36)" stroke-width="2.4"/><circle cx="36" cy="38" r="8" fill="rgba(242,224,196,0.16)"/><rect x="18" y="84" width="36" height="2" rx="1" fill="rgba(255,255,255,0.18)"/></svg>
                 </div>
                 <div class="account-info">
-                  <div class="row-title">The Name of the Wind</div>
-                  <div class="account-meta">Rothfuss, Patrick, 1973-</div>
+                  <div class="row-title">Lessons in Chemistry</div>
+                  <div class="account-meta">Garmus, Bonnie</div>
                   <div class="hold-status-row queue">
                     <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 5.5v4.8l3 1.7"/></svg>
                     <span>Position: 556 of 1138</span>
@@ -1365,6 +1455,25 @@
                   <div class="hold-location-row">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666270" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
                     <span>96th Street Library</span>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(10)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#325541,#17271D)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="14" y="14" width="44" height="4" rx="2" fill="rgba(220,255,214,0.24)"/><path d="M16 82c8-8 16-12 20-12 6 0 14 4 20 12" fill="none" stroke="rgba(220,255,214,0.22)" stroke-width="2"/><rect x="20" y="34" width="32" height="28" rx="14" fill="rgba(220,255,214,0.08)" stroke="rgba(220,255,214,0.18)" stroke-width="1.2"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">The Tower of Nero</div>
+                  <div class="account-meta">Riordan, Rick</div>
+                  <div class="hold-status-row queue">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 5.5v4.8l3 1.7"/></svg>
+                    <span>Position: 14 of 37</span>
+                  </div>
+                  <div class="hold-location-row">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666270" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                    <span>Jefferson Market Library</span>
                   </div>
                 </div>
                 <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
@@ -1379,9 +1488,8 @@
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="6" y="10" width="60" height="64" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/><rect x="14" y="20" width="44" height="2.5" rx="1.25" fill="rgba(255,255,255,0.26)"/><ellipse cx="36" cy="56" rx="13" ry="13" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="1.5"/><ellipse cx="36" cy="56" rx="6" ry="6" fill="rgba(255,220,180,0.16)"/></svg>
                 </div>
                 <div class="account-info">
-                  <div class="row-title">Demon Copperhead</div>
-                  <div class="account-meta">Saved to Fiction Favorites</div>
-                  <div class="account-meta">Available now at Mulberry St</div>
+                  <div class="row-title">The Midnight Library</div>
+                  <div class="account-meta">Available now at Grand Central Library</div>
                   <div class="account-action-row">
                     <button class="soft-btn" type="button" onclick="event.stopPropagation()">
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
@@ -1397,9 +1505,161 @@
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="32" width="52" height="38" rx="2.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="51" x2="62" y2="51" stroke="rgba(255,220,150,0.15)" stroke-width="0.6"/><rect x="16" y="14" width="40" height="3.5" rx="1.75" fill="rgba(255,220,150,0.32)"/></svg>
                 </div>
                 <div class="account-info">
-                  <div class="row-title">Intermezzo</div>
-                  <div class="account-meta">Saved to New Releases</div>
-                  <div class="account-meta">Requestable from 53rd St Fiction</div>
+                  <div class="row-title">Project Hail Mary</div>
+                  <div class="account-meta">Requestable from Stavros Niarchos Foundation Library</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(0)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#2D4A3E,#1A2E26)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="8" y="14" width="56" height="4" rx="2" fill="rgba(255,255,255,0.14)"/><rect x="8" y="22" width="44" height="2" rx="1" fill="rgba(255,255,255,0.08)"/><circle cx="36" cy="60" r="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/><path d="M28 60 L36 47 L44 60 L40 60 L40 73 L32 73 L32 60Z" fill="rgba(255,255,255,0.22)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">The Ballad of Songbirds and Snakes</div>
+                  <div class="account-meta">Available now at 96th Street Library</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(2)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#1A3A5C,#0D2035)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><path d="M10 84 Q36 22 62 84" fill="none" stroke="rgba(100,180,255,0.3)" stroke-width="2.2"/><circle cx="36" cy="42" r="9" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" stroke-width="1"/><rect x="12" y="12" width="48" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Billy Summers</div>
+                  <div class="account-meta">Available now at Jefferson Market Library</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(3)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#4A2060,#260D38)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="36" cy="52" r="24" fill="none" stroke="rgba(200,160,255,0.22)" stroke-width="9"/><circle cx="36" cy="52" r="11" fill="rgba(200,160,255,0.12)" stroke="rgba(200,160,255,0.3)" stroke-width="1.2"/><rect x="10" y="14" width="52" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">It Starts with Us</div>
+                  <div class="account-meta">Requestable from Yorkville Library</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(5)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#514317,#231C08)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="16" width="52" height="4" rx="2" fill="rgba(255,245,170,0.3)"/><path d="M18 78 32 28 54 78" fill="none" stroke="rgba(255,245,170,0.28)" stroke-width="2.4"/><circle cx="41" cy="48" r="8" fill="rgba(255,245,170,0.16)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">If It Bleeds</div>
+                  <div class="account-meta">Available now at Columbus Library</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(6)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#6B5748,#3F3027)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="14" width="52" height="72" rx="2" fill="rgba(255,255,255,0.06)"/><path d="M16 78 36 24 56 78" fill="none" stroke="rgba(242,224,196,0.36)" stroke-width="2.4"/><circle cx="36" cy="38" r="8" fill="rgba(242,224,196,0.16)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Lessons in Chemistry</div>
+                  <div class="account-meta">Requestable from Mulberry Street Library</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(7)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#5B2A3F,#27111C)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="12" y="16" width="48" height="4" rx="2" fill="rgba(255,215,235,0.28)"/><circle cx="36" cy="58" r="16" fill="none" stroke="rgba(255,215,235,0.34)" stroke-width="1.8"/><path d="M24 70c4-10 7-22 12-34 5 12 8 24 12 34" fill="none" stroke="rgba(255,215,235,0.26)" stroke-width="2"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Cloud Cuckoo Land</div>
+                  <div class="account-meta">Available now at Stavros Niarchos Foundation Library</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(8)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#2F2C1A,#141108)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="12" width="52" height="4" rx="2" fill="rgba(255,236,160,0.28)"/><rect x="18" y="28" width="36" height="44" rx="2.5" fill="rgba(255,236,160,0.08)" stroke="rgba(255,236,160,0.2)" stroke-width="1"/><path d="M24 64h24M24 56h24M24 48h24" stroke="rgba(255,236,160,0.22)" stroke-width="1.2"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Beautiful World, Where Are You</div>
+                  <div class="account-meta">Available now at 58th Street Library</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(9)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#163A46,#081A20)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="36" cy="50" r="18" fill="none" stroke="rgba(191,240,255,0.32)" stroke-width="2"/><circle cx="36" cy="50" r="5" fill="rgba(191,240,255,0.18)"/><path d="M16 80c6-10 14-16 20-16s14 6 20 16" fill="none" stroke="rgba(191,240,255,0.22)" stroke-width="2"/><rect x="14" y="16" width="44" height="4" rx="2" fill="rgba(191,240,255,0.24)"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">Amari and the Night Brothers</div>
+                  <div class="account-meta">Requestable from Columbus Library</div>
+                  <div class="account-action-row">
+                    <button class="soft-btn" type="button" onclick="event.stopPropagation()">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                      <span>Request Item</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+              </div>
+
+              <div class="account-book" onclick="setPage('catalog'); openSheet(10)">
+                <div class="row-cover" style="background:linear-gradient(135deg,#325541,#17271D)">
+                  <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="14" y="14" width="44" height="4" rx="2" fill="rgba(220,255,214,0.24)"/><path d="M16 82c8-8 16-12 20-12 6 0 14 4 20 12" fill="none" stroke="rgba(220,255,214,0.22)" stroke-width="2"/><rect x="20" y="34" width="32" height="28" rx="14" fill="rgba(220,255,214,0.08)" stroke="rgba(220,255,214,0.18)" stroke-width="1.2"/></svg>
+                </div>
+                <div class="account-info">
+                  <div class="row-title">The Tower of Nero</div>
+                  <div class="account-meta">Available now at Grand Central Library</div>
                   <div class="account-action-row">
                     <button class="soft-btn" type="button" onclick="event.stopPropagation()">
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
@@ -1636,6 +1896,88 @@
           </div>
           <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
         </div>
+
+        <div class="event-card" onclick="openEventSheet(3)">
+          <div class="event-card-main">
+            <div class="event-title">Poetry Open Mic for Teens</div>
+            <div class="event-tag">Poetry &amp; Writing</div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <span>Wednesday, March 25, 2026</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span>4:00 PM</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span>Harlem Library</span>
+            </div>
+          </div>
+          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+        </div>
+
+        <div class="event-group-title">Thursday, March 26</div>
+
+        <div class="event-card" onclick="openEventSheet(4)">
+          <div class="event-card-main">
+            <div class="event-title">Career Lab: Resume Basics</div>
+            <div class="event-tag">Career Services</div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <span>Thursday, March 26, 2026</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span>1:00 PM</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span>Stavros Niarchos Foundation Library</span>
+            </div>
+          </div>
+          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+        </div>
+
+        <div class="event-card" onclick="openEventSheet(5)">
+          <div class="event-card-main">
+            <div class="event-title">Family Maker Space: Paper Cities</div>
+            <div class="event-tag">Crafts &amp; DIY</div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <span>Thursday, March 26, 2026</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span>3:30 PM</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span>96th Street Library</span>
+            </div>
+          </div>
+          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+        </div>
+
+        <div class="event-card" onclick="openEventSheet(6)">
+          <div class="event-card-main">
+            <div class="event-title">Film Screening: New York Stories</div>
+            <div class="event-tag">Films</div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <span>Thursday, March 26, 2026</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span>6:00 PM</span>
+            </div>
+            <div class="event-meta-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span>Jefferson Market Library</span>
+            </div>
+          </div>
+          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+        </div>
       </div>
     </div>
 
@@ -1777,6 +2119,20 @@
               <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg>
             </div>
           </div>
+
+          <div class="blog-card" onclick="openBlogArticle(2)">
+            <div class="blog-card-main">
+              <div class="blog-card-hero">
+                <img src="bloghero3.webp" alt="">
+              </div>
+              <div class="blog-card-title">Newly Published Reads for Trans Day of Visibility</div>
+              <div class="blog-card-author">By: NYPL Staff</div>
+              <div class="blog-card-copy">A current reading list spotlighting newly published books by trans and nonbinary writers across fiction, memoir, poetry, and criticism.</div>
+            </div>
+            <div class="blog-card-chevron">
+              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1795,9 +2151,9 @@
               <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="8" y="14" width="56" height="4" rx="2" fill="rgba(255,255,255,0.14)"/><rect x="8" y="22" width="44" height="2" rx="1" fill="rgba(255,255,255,0.08)"/><circle cx="36" cy="60" r="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/><path d="M28 60 L36 47 L44 60 L40 60 L40 73 L32 73 L32 60Z" fill="rgba(255,255,255,0.22)"/><rect x="8" y="84" width="38" height="2" rx="1" fill="rgba(255,255,255,0.08)"/></svg>
             </div>
             <div class="row-info">
-              <div class="row-title">The Ministry for the Future</div>
+              <div class="row-title">The Ballad of Songbirds and Snakes</div>
               <div class="row-type">Book</div>
-              <div class="row-author">Robinson, Kim Stanley</div>
+              <div class="row-author">Collins, Suzanne</div>
               <div class="row-year">2020</div>
             </div>
             <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
@@ -1808,9 +2164,9 @@
               <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="6" y="10" width="60" height="64" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/><rect x="14" y="20" width="44" height="2.5" rx="1.25" fill="rgba(255,255,255,0.26)"/><ellipse cx="36" cy="56" rx="13" ry="13" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="1.5"/><ellipse cx="36" cy="56" rx="6" ry="6" fill="rgba(255,220,180,0.16)"/></svg>
             </div>
             <div class="row-info">
-              <div class="row-title">Demon Copperhead</div>
+              <div class="row-title">The Midnight Library</div>
               <div class="row-type">Book</div>
-              <div class="row-author">Kingsolver, Barbara</div>
+              <div class="row-author">Haig, Matt</div>
               <div class="row-year">2022</div>
             </div>
             <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
@@ -1821,9 +2177,9 @@
               <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><path d="M10 84 Q36 22 62 84" fill="none" stroke="rgba(100,180,255,0.3)" stroke-width="2.2"/><circle cx="36" cy="42" r="9" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" stroke-width="1"/><rect x="12" y="12" width="48" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
             </div>
             <div class="row-info">
-              <div class="row-title">Tomorrow, and Tomorrow, and Tomorrow</div>
+              <div class="row-title">Billy Summers</div>
               <div class="row-type">Book</div>
-              <div class="row-author">Zevin, Gabrielle</div>
+              <div class="row-author">King, Stephen</div>
               <div class="row-year">2022</div>
             </div>
             <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
@@ -1834,10 +2190,10 @@
               <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="36" cy="52" r="24" fill="none" stroke="rgba(200,160,255,0.22)" stroke-width="9"/><circle cx="36" cy="52" r="11" fill="rgba(200,160,255,0.12)" stroke="rgba(200,160,255,0.3)" stroke-width="1.2"/><rect x="10" y="14" width="52" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
             </div>
             <div class="row-info">
-              <div class="row-title">The Covenant of Water</div>
+              <div class="row-title">It Starts with Us</div>
               <div class="row-type">Book</div>
-              <div class="row-author">Verghese, Abraham</div>
-              <div class="row-year">2023</div>
+              <div class="row-author">Hoover, Colleen</div>
+              <div class="row-year">2022</div>
             </div>
             <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
           </div>
@@ -1847,10 +2203,10 @@
               <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="32" width="52" height="38" rx="2.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="51" x2="62" y2="51" stroke="rgba(255,220,150,0.15)" stroke-width="0.6"/><rect x="16" y="14" width="40" height="3.5" rx="1.75" fill="rgba(255,220,150,0.32)"/></svg>
             </div>
             <div class="row-info">
-              <div class="row-title">Intermezzo</div>
+              <div class="row-title">Project Hail Mary</div>
               <div class="row-type">Book</div>
-              <div class="row-author">Rooney, Sally</div>
-              <div class="row-year">2024</div>
+              <div class="row-author">Weir, Andy</div>
+              <div class="row-year">2021</div>
             </div>
             <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
           </div>
@@ -1988,8 +2344,14 @@
 
     <div class="modal-overlay" id="resourceModal" onclick="closeResourceModal()">
       <div class="modal-card" onclick="event.stopPropagation()">
-        <div class="modal-grabber"></div>
-        <div class="modal-title">Leaving App</div>
+        <div class="modal-header">
+          <div class="modal-heading">
+            <div class="modal-title">Leaving App</div>
+          </div>
+          <button class="modal-close" type="button" aria-label="Close" onclick="closeResourceModal()">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 2l8 8"/><path d="M10 2 2 10"/></svg>
+          </button>
+        </div>
         <div class="modal-copy" id="resourceModalCopy"></div>
         <div class="modal-actions">
           <button class="sheet-subtle-btn" type="button" onclick="closeResourceModal()">Stay Here</button>
@@ -2000,8 +2362,15 @@
 
     <div class="modal-overlay" id="renewModal" onclick="closeRenewOptions()">
       <div class="modal-card" onclick="event.stopPropagation()">
-        <div class="modal-grabber"></div>
-        <div class="option-sheet-title">Renew Items</div>
+        <div class="modal-header">
+          <div class="modal-heading">
+            <div class="option-sheet-title">Renew Items</div>
+          </div>
+          <button class="modal-close" type="button" aria-label="Close" onclick="closeRenewOptions()">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 2l8 8"/><path d="M10 2 2 10"/></svg>
+          </button>
+        </div>
+        <div class="modal-copy">Choose which items to renew in this demo.</div>
         <div class="option-list">
           <button class="option-btn active" type="button" data-renew-option="all" onclick="selectRenewOption('all')">
             <span>Overdue and due soon</span>
@@ -2030,101 +2399,226 @@ document.body.classList.toggle('embed-mode', isEmbedMode);
 
 const books = [
   {
-    title: "The Ministry for the Future",
-    author: "Robinson, Kim Stanley",
+    title: "The Ballad of Songbirds and Snakes",
+    author: "Collins, Suzanne",
     year: "2020",
     type: "Book",
-    publisher: "Orbit Books, 2020",
-    format: "Hardcover, 563 pages",
-    summary: "A near-future novel following the Ministry for the Future, a UN body tasked with advocating for future generations after a catastrophic heatwave in India kills millions. Blending policy, economics, and human drama, it confronts how civilization might avert collapse.",
-    subjects: "Climate change; Environmental policy; Near-future fiction; International organizations; Ecological disaster",
-    genre: "Science Fiction; Climate Fiction; Political Fiction",
-    isbn: "978-0-316-30013-1",
+    publisher: "Scholastic Press, 2020",
+    format: "34 editions in Open Library",
+    summary: "An Open Library fiction title set in Panem before the original Hunger Games trilogy, blending dystopian spectacle, survival, and political ambition.",
+    subjects: "Panem; Hunger Games; Dystopian fiction; Survival; Young adult fiction",
+    genre: "Fiction; Science Fiction; Dystopian Fiction",
+    isbn: "9781338635171",
+    coverId: 14421833,
     coverBg: "linear-gradient(135deg,#2D4A3E,#1A2E26)",
     coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="8" y="16" width="64" height="5" rx="2.5" fill="rgba(255,255,255,0.13)"/><circle cx="40" cy="68" r="24" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/><path d="M30 68 L40 52 L50 68 L45 68 L45 84 L35 84 L35 68Z" fill="rgba(255,255,255,0.22)"/></svg>`,
     branches: [
-      { branch: "Central Library", call: "FIC ROB", avail: "Available" },
-      { branch: "53rd St Fiction", call: "FIC ROB", avail: "DUE 04-02-26" },
-      { branch: "Yorkville Branch", call: "FIC ROB", avail: "DUE 04-10-26" },
-      { branch: "Hudson Park", call: "FIC ROB", avail: "Available" },
+      { branch: "Stavros Niarchos Foundation Library", call: "FIC ROB", avail: "Available" },
+      { branch: "Grand Central Library", call: "FIC ROB", avail: "DUE 04-02-26" },
+      { branch: "Yorkville Library", call: "FIC ROB", avail: "DUE 04-10-26" },
+      { branch: "Columbus Library", call: "FIC ROB", avail: "Available" },
     ]
   },
   {
-    title: "Demon Copperhead",
-    author: "Kingsolver, Barbara",
+    title: "The Midnight Library",
+    author: "Haig, Matt",
     year: "2022",
     type: "Book",
-    publisher: "Harper Collins, 2022",
-    format: "Hardcover, 560 pages",
-    summary: "A reimagining of David Copperfield set in Appalachian Virginia during the opioid crisis. Winner of the Pulitzer Prize, it follows a boy born into poverty with piercing compassion and moral urgency.",
-    subjects: "Opioid epidemic; Appalachia; Poverty; Coming-of-age; Foster care; Social inequality",
-    genre: "Literary Fiction; Historical Fiction; Social Fiction",
-    isbn: "978-0-06-325610-4",
+    publisher: "Viking, 2020",
+    format: "25 editions in Open Library",
+    summary: "An Open Library bestseller about regret, alternate lives, and second chances, centered around a mysterious library between life and death.",
+    subjects: "Future life; Regret; Choice; Libraries; Literary fiction",
+    genre: "Fiction; Fantasy; Science Fiction",
+    isbn: "9780525559474",
+    coverId: 10313767,
     coverBg: "linear-gradient(135deg,#6B3A2A,#3D1F14)",
     coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="14" y="20" width="52" height="3" rx="1.5" fill="rgba(255,255,255,0.26)"/><ellipse cx="40" cy="70" rx="16" ry="16" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="2"/><ellipse cx="40" cy="70" rx="7" ry="7" fill="rgba(255,220,180,0.16)"/></svg>`,
     branches: [
-      { branch: "53rd St Fiction", call: "FIC KIN", avail: "DUE 03-28-26" },
-      { branch: "53rd St Fiction", call: "FIC KIN", avail: "DUE 04-05-26" },
-      { branch: "Mulberry St", call: "FIC KIN", avail: "Available" },
-      { branch: "Stapleton Branch", call: "FIC KIN", avail: "Available" },
+      { branch: "Stavros Niarchos Foundation Library", call: "FIC KIN", avail: "DUE 03-28-26" },
+      { branch: "Grand Central Library", call: "FIC KIN", avail: "DUE 04-05-26" },
+      { branch: "Mulberry Street Library", call: "FIC KIN", avail: "Available" },
+      { branch: "96th Street Library", call: "FIC KIN", avail: "Available" },
     ]
   },
   {
-    title: "Tomorrow, and Tomorrow, and Tomorrow",
-    author: "Zevin, Gabrielle",
-    year: "2022",
+    title: "Billy Summers",
+    author: "King, Stephen",
+    year: "2021",
     type: "Book",
-    publisher: "Knopf, 2022",
-    format: "Hardcover, 401 pages",
-    summary: "A sweeping novel about friendship, creativity, and ambition spanning three decades in the lives of two video game designers. A love story and meditation on art, collaboration, and what it means to devote your life to play.",
-    subjects: "Video game design; Friendship; Creativity; Identity; Technology; Artistic collaboration",
-    genre: "Literary Fiction; Contemporary Fiction",
-    isbn: "978-0-593-32186-4",
+    publisher: "Scribner, 2021",
+    format: "25 editions in Open Library",
+    summary: "An Open Library suspense title following a hitman planning one final job, mixing crime, grief, and moral reckoning.",
+    subjects: "Thrillers; Suspense fiction; American literature; New York Times bestseller",
+    genre: "Fiction; Thriller; Suspense",
+    isbn: "9781982173616",
+    coverId: 14654070,
     coverBg: "linear-gradient(135deg,#1A3A5C,#0D2035)",
     coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><path d="M12 96 Q40 24 68 96" fill="none" stroke="rgba(100,180,255,0.3)" stroke-width="2.5"/><circle cx="40" cy="52" r="10" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" stroke-width="1.2"/><rect x="12" y="16" width="56" height="4" rx="2" fill="rgba(255,255,255,0.2)"/></svg>`,
     branches: [
-      { branch: "Central Library", call: "FIC ZEV", avail: "Available" },
-      { branch: "Epiphany Branch", call: "FIC ZEV", avail: "DUE 03-30-26" },
-      { branch: "St. George Library", call: "FIC ZEV", avail: "Available" },
+      { branch: "Columbus Library", call: "FIC ZEV", avail: "Available" },
+      { branch: "Tompkins Square Library", call: "FIC ZEV", avail: "DUE 03-30-26" },
+      { branch: "Grand Central Library", call: "FIC ZEV", avail: "Available" },
     ]
   },
   {
-    title: "The Covenant of Water",
-    author: "Verghese, Abraham",
-    year: "2023",
+    title: "It Starts with Us",
+    author: "Hoover, Colleen",
+    year: "2022",
     type: "Book",
-    publisher: "Grove Atlantic, 2023",
-    format: "Hardcover, 736 pages",
-    summary: "An epic multigenerational saga set in South India from 1900 to 1977, following a family haunted by a mysterious condition. Rich with medicine, faith, and the texture of South Indian life - a deeply humane masterwork.",
-    subjects: "India; Family sagas; Medicine; Faith; Generational trauma; South Asian history",
-    genre: "Literary Fiction; Family Saga; Historical Fiction",
-    isbn: "978-0-8021-6025-9",
+    publisher: "Atria Books, 2022",
+    format: "25 editions in Open Library",
+    summary: "An Open Library contemporary romance built around friendship, healing, and a second chance relationship after a difficult first chapter.",
+    subjects: "Contemporary romance; Friendship; Family; Forgiveness; Healing",
+    genre: "Fiction; Romance; Contemporary",
+    isbn: "9781668001226",
+    coverId: 12749873,
     coverBg: "linear-gradient(135deg,#4A2060,#260D38)",
     coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="40" cy="64" r="28" fill="none" stroke="rgba(200,160,255,0.2)" stroke-width="10"/><circle cx="40" cy="64" r="13" fill="rgba(200,160,255,0.1)" stroke="rgba(200,160,255,0.3)" stroke-width="1.5"/><rect x="10" y="18" width="60" height="4" rx="2" fill="rgba(255,255,255,0.2)"/></svg>`,
     branches: [
-      { branch: "Central Library", call: "FIC VER", avail: "Available" },
-      { branch: "New Dorp Branch", call: "FIC VER", avail: "DUE 04-15-26" },
-      { branch: "Port Richmond", call: "FIC VER", avail: "Available" },
-      { branch: "Tottenville Branch", call: "FIC VER", avail: "DUE 04-01-26" },
+      { branch: "96th Street Library", call: "FIC VER", avail: "Available" },
+      { branch: "Jefferson Market Library", call: "FIC VER", avail: "DUE 04-15-26" },
+      { branch: "Bloomingdale Library", call: "FIC VER", avail: "Available" },
+      { branch: "Yorkville Library", call: "FIC VER", avail: "DUE 04-01-26" },
     ]
   },
   {
-    title: "Intermezzo",
-    author: "Rooney, Sally",
-    year: "2024",
+    title: "Project Hail Mary",
+    author: "Weir, Andy",
+    year: "2021",
     type: "Book",
-    publisher: "Farrar, Straus and Giroux, 2024",
-    format: "Hardcover, 448 pages",
-    summary: "Rooney's fourth novel follows two brothers - a lawyer and a chess prodigy - grieving their father while navigating complex relationships. More expansive and tender than her earlier work, examining grief, love, and the impossibility of truly knowing another person.",
-    subjects: "Brothers; Grief; Relationships; Chess; Contemporary Ireland; Love",
-    genre: "Literary Fiction; Contemporary Fiction; Romance",
-    isbn: "978-0-374-61097-6",
+    publisher: "Ballantine Books, 2021",
+    format: "23 editions in Open Library",
+    summary: "An Open Library hard science fiction novel about memory loss, survival, and a desperate mission to save life on Earth.",
+    subjects: "Astronauts; Space flight; Survival; Memory disorders; End of the world",
+    genre: "Fiction; Science Fiction; Adventure",
+    isbn: "9780593135204",
+    coverId: 11200092,
     coverBg: "linear-gradient(135deg,#3D3020,#1E160A)",
     coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="36" width="60" height="44" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="58" x2="70" y2="58" stroke="rgba(255,220,150,0.14)" stroke-width="0.6"/><rect x="18" y="16" width="44" height="4" rx="2" fill="rgba(255,220,150,0.32)"/></svg>`,
     branches: [
-      { branch: "53rd St Fiction", call: "FIC ROO", avail: "DUE 03-27-26" },
-      { branch: "53rd St Fiction", call: "FIC ROO", avail: "DUE 04-08-26" },
-      { branch: "Huguenot Park", call: "FIC ROO", avail: "DUE 04-20-26" },
+      { branch: "Stavros Niarchos Foundation Library", call: "FIC ROO", avail: "DUE 03-27-26" },
+      { branch: "Grand Central Library", call: "FIC ROO", avail: "DUE 04-08-26" },
+      { branch: "Mulberry Street Library", call: "FIC ROO", avail: "DUE 04-20-26" },
+    ]
+  },
+  {
+    title: "If It Bleeds",
+    author: "King, Stephen",
+    year: "2020",
+    type: "Book",
+    publisher: "Scribner, 2020",
+    format: "22 editions in Open Library",
+    summary: "An Open Library short fiction collection mixing horror, mystery, suspense, and supernatural unease across four stories.",
+    subjects: "Horror stories; Mystery; Suspense; Friendship; Short stories",
+    genre: "Fiction; Horror; Thriller",
+    isbn: "9781982137977",
+    coverId: 14654512,
+    coverBg: "linear-gradient(135deg,#514317,#231C08)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="16" width="60" height="4" rx="2" fill="rgba(255,245,170,0.3)"/><path d="M18 84 34 28 60 84" fill="none" stroke="rgba(255,245,170,0.28)" stroke-width="2.6"/><circle cx="45" cy="48" r="9" fill="rgba(255,245,170,0.16)"/></svg>`,
+    branches: [
+      { branch: "58th Street Library", call: "SCI WEI", avail: "Ready for pickup" },
+      { branch: "Stavros Niarchos Foundation Library", call: "SCI WEI", avail: "Available" },
+      { branch: "Columbus Library", call: "SCI WEI", avail: "DUE 04-03-26" },
+    ]
+  },
+  {
+    title: "Lessons in Chemistry",
+    author: "Garmus, Bonnie",
+    year: "2022",
+    type: "Book",
+    publisher: "Doubleday, 2022",
+    format: "21 editions in Open Library",
+    summary: "An Open Library bestseller about a chemist, a cooking show, and the constraints placed on women in the 1960s.",
+    subjects: "Women scientists; Single mothers; Television cooking shows; Sex roles; Nineteen sixties",
+    genre: "Fiction; Historical Fiction; Literary Fiction",
+    isbn: "9780385547376",
+    coverId: 12725772,
+    coverBg: "linear-gradient(135deg,#6B5748,#3F3027)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="14" width="60" height="82" rx="2" fill="rgba(255,255,255,0.05)"/><path d="M18 86 40 26 62 86" fill="none" stroke="rgba(242,224,196,0.36)" stroke-width="2.5"/><circle cx="40" cy="42" r="8" fill="rgba(242,224,196,0.16)"/></svg>`,
+    branches: [
+      { branch: "Yorkville Library", call: "FAN ROT", avail: "Position 556 of 1138" },
+      { branch: "Grand Central Library", call: "FAN ROT", avail: "DUE 04-12-26" },
+      { branch: "Bloomingdale Library", call: "FAN ROT", avail: "DUE 04-19-26" },
+    ]
+  },
+  {
+    title: "Cloud Cuckoo Land",
+    author: "Doerr, Anthony",
+    year: "2021",
+    type: "Book",
+    publisher: "Scribner, 2021",
+    format: "20 editions in Open Library",
+    summary: "An Open Library multi-timeline novel moving between past and future, linked by libraries, stories, and survival across centuries.",
+    subjects: "Libraries; Space; The future; Historical fiction; Multiple timelines",
+    genre: "Fiction; Historical Fiction; Science Fiction",
+    isbn: "9781982168438",
+    coverId: 13253465,
+    coverBg: "linear-gradient(135deg,#5B2A3F,#27111C)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="12" y="16" width="56" height="4" rx="2" fill="rgba(255,215,235,0.28)"/><circle cx="40" cy="62" r="18" fill="none" stroke="rgba(255,215,235,0.34)" stroke-width="2"/><path d="M26 76c4-11 8-24 14-37 5 13 9 26 14 37" fill="none" stroke="rgba(255,215,235,0.26)" stroke-width="2"/></svg>`,
+    branches: [
+      { branch: "Jefferson Market Library", call: "FIC AKB", avail: "Available" },
+      { branch: "Mulberry Street Library", call: "FIC AKB", avail: "DUE 04-06-26" },
+      { branch: "Grand Central Library", call: "FIC AKB", avail: "Available" },
+    ]
+  },
+  {
+    title: "Beautiful World, Where Are You",
+    author: "Rooney, Sally",
+    year: "2021",
+    type: "Book",
+    publisher: "Farrar, Straus and Giroux, 2021",
+    format: "20 editions in Open Library",
+    summary: "An Open Library contemporary novel about friendship, love, art, and adulthood, set between Dublin and other private interior worlds.",
+    subjects: "Friendship; Interpersonal relations; Fiction, women; Coming of age; Dublin",
+    genre: "Fiction; Literary Fiction; Contemporary",
+    isbn: "9780374602611",
+    coverId: 10550746,
+    coverBg: "linear-gradient(135deg,#2F2C1A,#141108)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="12" width="60" height="4" rx="2" fill="rgba(255,236,160,0.28)"/><rect x="20" y="28" width="40" height="50" rx="2.5" fill="rgba(255,236,160,0.08)" stroke="rgba(255,236,160,0.2)" stroke-width="1"/><path d="M26 64h28M26 56h28M26 48h28" stroke="rgba(255,236,160,0.22)" stroke-width="1.2"/></svg>`,
+    branches: [
+      { branch: "Bloomingdale Library", call: "FIC EVE", avail: "Available" },
+      { branch: "Harlem Library", call: "FIC EVE", avail: "DUE 04-11-26" },
+      { branch: "96th Street Library", call: "FIC EVE", avail: "Available" },
+    ]
+  },
+  {
+    title: "Amari and the Night Brothers",
+    author: "Alston, B. B.",
+    year: "2021",
+    type: "Book",
+    publisher: "Balzer + Bray, 2021",
+    format: "20 editions in Open Library",
+    summary: "An Open Library middle grade fantasy about magic, missing persons, and a secret supernatural world hidden alongside everyday life.",
+    subjects: "Magic; Missing persons; Brothers and sisters; Fantasy fiction; African Americans",
+    genre: "Fiction; Fantasy; Juvenile Fiction",
+    isbn: "9780062975164",
+    coverId: 12714908,
+    coverBg: "linear-gradient(135deg,#163A46,#081A20)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="40" cy="54" r="20" fill="none" stroke="rgba(191,240,255,0.32)" stroke-width="2"/><circle cx="40" cy="54" r="5" fill="rgba(191,240,255,0.18)"/><path d="M18 84c7-10 15-16 22-16s15 6 22 16" fill="none" stroke="rgba(191,240,255,0.22)" stroke-width="2"/><rect x="14" y="16" width="50" height="4" rx="2" fill="rgba(191,240,255,0.24)"/></svg>`,
+    branches: [
+      { branch: "Tompkins Square Library", call: "FIC HAR", avail: "DUE 04-15-26" },
+      { branch: "Grand Central Library", call: "FIC HAR", avail: "Available" },
+      { branch: "58th Street Library", call: "FIC HAR", avail: "Available" },
+    ]
+  },
+  {
+    title: "The Tower of Nero",
+    author: "Riordan, Rick",
+    year: "2020",
+    type: "Book",
+    publisher: "Disney-Hyperion, 2020",
+    format: "19 editions in Open Library",
+    summary: "An Open Library fantasy adventure that brings a myth-filled series arc to its conclusion with quests, prophecies, and fast-paced action.",
+    subjects: "Fantasy fiction; Adventure; Children's fiction; Mythology",
+    genre: "Fiction; Fantasy; Adventure",
+    isbn: "9781484746455",
+    coverId: 9945247,
+    coverBg: "linear-gradient(135deg,#325541,#17271D)",
+    coverSvg: `<svg viewBox="0 0 80 110" style="position:absolute;inset:0;width:100%;height:100%"><rect x="14" y="14" width="50" height="4" rx="2" fill="rgba(220,255,214,0.24)"/><path d="M18 88c8-8 16-13 22-13s14 5 22 13" fill="none" stroke="rgba(220,255,214,0.22)" stroke-width="2"/><rect x="22" y="36" width="36" height="30" rx="15" fill="rgba(220,255,214,0.08)" stroke="rgba(220,255,214,0.18)" stroke-width="1.2"/></svg>`,
+    branches: [
+      { branch: "Chatham Square Library", call: "FIC MCB", avail: "Position 14 of 37" },
+      { branch: "Jefferson Market Library", call: "FIC MCB", avail: "DUE 04-18-26" },
+      { branch: "Mulberry Street Library", call: "FIC MCB", avail: "Available" },
     ]
   }
 ];
@@ -2168,6 +2662,58 @@ const events = [
     registration: "Free with advance registration",
     presenter: "Public Programs",
     heroColor: "linear-gradient(135deg,#D8D6E8,#A39CC7)"
+  },
+  {
+    title: "Poetry Open Mic for Teens",
+    category: "Poetry & Writing",
+    date: "Wednesday, March 25, 2026",
+    time: "4:00 PM",
+    location: "Harlem Library",
+    audience: "Teens",
+    description: "Bring a poem of your own or read a favorite piece by another writer. This teen-led open mic makes room for first drafts, practiced performances, and supportive listening in a low-pressure setting.",
+    accessibility: "Accessible entrance and seating",
+    registration: "No registration required",
+    presenter: "Teen librarians, Harlem Library",
+    heroColor: "linear-gradient(135deg,#E7D7E6,#C69DBE)"
+  },
+  {
+    title: "Career Lab: Resume Basics",
+    category: "Career Services",
+    date: "Thursday, March 26, 2026",
+    time: "1:00 PM",
+    location: "Stavros Niarchos Foundation Library",
+    audience: "Adults",
+    description: "A practical workshop focused on resume structure, bullet-writing, and tailoring experience for different job applications. Participants will leave with a stronger draft and a checklist for future revisions.",
+    accessibility: "Computer assistance available",
+    registration: "Register online",
+    presenter: "Business Center staff",
+    heroColor: "linear-gradient(135deg,#D6E7E2,#9DC4B9)"
+  },
+  {
+    title: "Family Maker Space: Paper Cities",
+    category: "Crafts & DIY",
+    date: "Thursday, March 26, 2026",
+    time: "3:30 PM",
+    location: "96th Street Library",
+    audience: "Children ages 6+ with caregivers",
+    description: "Families will design buildings, streetscapes, and tiny landmarks using paper, cardboard, and simple collage materials. The session is hands-on and open-ended, with staff support throughout.",
+    accessibility: "Accessible program room",
+    registration: "Registration required",
+    presenter: "Children's staff, 96th Street Library",
+    heroColor: "linear-gradient(135deg,#F2E3C9,#D9B67A)"
+  },
+  {
+    title: "Film Screening: New York Stories",
+    category: "Films",
+    date: "Thursday, March 26, 2026",
+    time: "6:00 PM",
+    location: "Jefferson Market Library",
+    audience: "Adults",
+    description: "A neighborhood film night featuring a New York-set classic followed by a short moderated discussion. A good fit for patrons who like low-key cultural programming with a social element.",
+    accessibility: "Captions provided",
+    registration: "First come, first served",
+    presenter: "Adult programming staff",
+    heroColor: "linear-gradient(135deg,#D8D9E8,#A9ABC7)"
   }
 ];
 
@@ -2196,7 +2742,7 @@ const blogPosts = [
     books: [
       { title: "Red at the Bone", author: "Jacqueline Woodson", summary: "A concise multigenerational novel about family, desire, class, and inherited possibility, written with unusual emotional precision." },
       { title: "Death of the Author", author: "Nnedi Okorafor", summary: "A genre-bending work that plays with authorship, creation, and audience while staying accessible to readers who like big ideas with momentum." },
-      { title: "A More Perfect Party", author: "Juanita Tolliver", summary: "A contemporary political book that broadens the reading list with strategy, coalition thinking, and public voice." },
+      { title: "Just Us", author: "Claudia Rankine", summary: "A searching, hybrid work of criticism and conversation that fits the list through its attention to language, culture, public life, and literary form." },
       { title: "Beloved", author: "Toni Morrison", summary: "A landmark novel of memory and haunting that remains central to any conversation about literary influence and American storytelling." },
       { title: "Citizen", author: "Claudia Rankine", summary: "A formally inventive book that blends poetry, criticism, and lived experience to examine race and daily life." },
       { title: "The Argonauts", author: "Maggie Nelson", summary: "A hybrid work of memoir and theory that feels especially suited to readers interested in language, family, and identity." },
@@ -2204,6 +2750,23 @@ const blogPosts = [
       { title: "The Collected Schizophrenias", author: "Esmé Weijun Wang", summary: "An essay collection that expands the list beyond fiction with sharp, elegant thinking about illness, stigma, and care." },
       { title: "The Year of Magical Thinking", author: "Joan Didion", summary: "A spare and influential memoir of grief that continues to shape how readers talk about personal narrative." },
       { title: "Sula", author: "Toni Morrison", summary: "A compact but powerful novel about friendship, community, and rupture that works well as an anchor title in a recommendation list." }
+    ]
+  },
+  {
+    title: "Newly Published Reads for Trans Day of Visibility",
+    author: "By: NYPL Staff",
+    intro: "This NYPL staff list brings together newly published books by trans and nonbinary writers for Trans Day of Visibility. The selection moves across fiction, memoir, poetry, and criticism, with an emphasis on books that feel current, conversation-starting, and easy to carry into display or reader-advisory contexts.",
+    books: [
+      { title: "Nevada", author: "Imogen Binnie", summary: "A cult contemporary novel newly recirculating with fresh attention, still central to conversations about trans voice, drift, desire, and self-recognition." },
+      { title: "Fairest", author: "Meredith Talusan", summary: "A memoir about beauty, migration, gender, and self-making that gives the list a strong nonfiction anchor with a real sense of voice." },
+      { title: "Bellies", author: "Nicola Dinan", summary: "A recent relationship novel that lets love, gender transition, and adulthood unfold with warmth, humor, and emotional complication." },
+      { title: "Pageboy", author: "Elliot Page", summary: "A memoir of performance, privacy, and public becoming that makes the list legible to readers looking for current nonfiction." },
+      { title: "Amateur", author: "Thomas Page McBee", summary: "A sharp nonfiction work about masculinity, embodiment, and competition that broadens the list beyond strictly personal narrative." },
+      { title: "A Dream of a Woman", author: "Casey Plett", summary: "Stories about trans women moving through ordinary and difficult life transitions, written with care for daily texture and social reality." },
+      { title: "Love Lives Here", author: "Amanda Jette Knox", summary: "A family memoir that offers a more accessible, outward-facing entry point for readers interested in support, identity, and home life." },
+      { title: "Detransition, Baby", author: "Torrey Peters", summary: "A breakout novel of parenthood, desire, and messy adulthood that remains one of the clearest recommendation-list anchors for contemporary trans fiction." },
+      { title: "The Black Trans Prayer Book", author: "J Mase III and Lady Dane Figueroa Edidi", summary: "A collective work that brings in spirituality, ritual, and community voice, widening the texture of the list." },
+      { title: "Something That May Shock and Discredit You", author: "Daniel M. Lavery", summary: "A witty essay collection that gives the list tonal variety while still feeling thoughtful, current, and highly browsable." }
     ]
   }
 ];
@@ -2332,7 +2895,7 @@ function openBlogArticle(idx) {
   blogArticleIntro.textContent = post.intro;
   blogBookList.innerHTML = post.books.map(book => `
     <div class="blog-book-item">
-      <div class="blog-book-thumb">${createBlogBookCover(book.title)}</div>
+      <div class="blog-book-thumb">${createBlogBookCover(book)}</div>
       <div class="blog-book-item-main">
         <div class="blog-book-item-title">${book.title}</div>
         <div class="blog-book-item-author">${book.author}</div>
@@ -2344,7 +2907,61 @@ function openBlogArticle(idx) {
   blogArticlePage.querySelector('.blog-article-scroll').scrollTop = 0;
 }
 
-function createBlogBookCover(title) {
+const blogBookCovers = {
+  "A'Lelia Bundles: Joy Goddess": { isbn: "9781501154133" },
+  "Anna": { coverId: 12771417 },
+  "Shirley Chisholm: Unbought and Unbossed": { coverId: 9303894 },
+  "The Last Mrs. Astor": { coverId: 2412856 },
+  "Just Kids": { coverId: 6671097 },
+  "The Woman Behind the New Deal": { coverId: 7092572 },
+  "Fire Shut Up in My Bones": { coverId: 8467990 },
+  "Zora and Langston": { coverId: 8808989 },
+  "The Chiffon Trenches": { coverId: 10132524 },
+  "The Dead Are Arising": { coverId: 11152664 },
+  "Red at the Bone": { coverId: 12293444 },
+  "Death of the Author": { coverId: 15122767 },
+  "Just Us": { coverId: 10166425 },
+  "Beloved": { coverId: 8261367 },
+  "Citizen": { coverId: 7306622 },
+  "The Argonauts": { coverId: 8898517 },
+  "Salvage the Bones": { coverId: 6906262 },
+  "The Collected Schizophrenias": { coverId: 8737097 },
+  "The Year of Magical Thinking": { coverId: 13693 },
+  "Sula": { coverId: 8384008 },
+  "The Colossus of New York": { coverId: 6799271 },
+  "Open City": { coverId: 6680908 },
+  "Another Brooklyn": { coverId: 8289155 },
+  "Low Life": { coverId: 420383 },
+  "Fortune Smiles": { coverId: 7387219 },
+  "Brown Girl, Brownstones": { coverId: 6793822 },
+  "Here Is New York": { coverId: 10522526 },
+  "The Address Book": { coverId: 9412773 },
+  "Lush Life": { coverId: 2411414 },
+  "Nevada": { coverId: 7268488 },
+  "Fairest": { coverId: 10088904 },
+  "Bellies": { coverId: 14390224 },
+  "Pageboy": { coverId: 13315042 },
+  "Amateur": { coverId: 15118424 },
+  "A Dream of a Woman": { isbn: "9781551528564" },
+  "Love Lives Here": { coverId: 10278681 },
+  "Detransition, Baby": { coverId: 10201288 },
+  "The Black Trans Prayer Book": { coverId: 11421648 },
+  "Something That May Shock and Discredit You": { coverId: 14405705 }
+};
+
+function createBlogBookCover(book) {
+  const meta = blogBookCovers[book.title] || {};
+  const coverUrl = meta.coverId
+    ? `https://covers.openlibrary.org/b/id/${meta.coverId}-M.jpg?default=false`
+    : (meta.isbn ? getOpenLibraryCoverUrl(meta.isbn, 'M') : '');
+  if (coverUrl) {
+    const safeTitle = (book.title || 'Book').replace(/"/g, '&quot;');
+    return `<img src="${coverUrl}" alt="Cover of ${safeTitle}" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML='${createBlogBookFallback(book.title).replace(/'/g, '&apos;').replace(/\n/g, '')}'">`;
+  }
+  return createBlogBookFallback(book.title);
+}
+
+function createBlogBookFallback(title) {
   const palettes = [
     ['#264653', '#1D3557', '#E9C46A'],
     ['#6D597A', '#355070', '#F4A261'],
@@ -2373,6 +2990,36 @@ function createBlogBookCover(title) {
       <rect x="10" y="72" width="20" height="2" rx="1" fill="rgba(255,255,255,0.18)"/>
     </svg>
   `;
+}
+
+function cleanIsbn(isbn) {
+  return (isbn || '').replace(/[^0-9X]/gi, '');
+}
+
+function getOpenLibraryCoverUrl(isbn, size = 'M') {
+  const clean = cleanIsbn(isbn);
+  return clean ? `https://covers.openlibrary.org/b/isbn/${clean}-${size}.jpg?default=false` : '';
+}
+
+function createBookCoverMarkup(book, size = 'M') {
+  const coverUrl = book.coverId
+    ? `https://covers.openlibrary.org/b/id/${book.coverId}-${size}.jpg?default=false`
+    : getOpenLibraryCoverUrl(book.isbn, size);
+  if (!coverUrl) return '';
+  const safeTitle = (book.title || 'Book').replace(/"/g, '&quot;');
+  return `<img src="${coverUrl}" alt="Cover of ${safeTitle}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`;
+}
+
+function hydrateVisibleBookCovers() {
+  document.querySelectorAll('[onclick*="openSheet("]').forEach(item => {
+    const match = item.getAttribute('onclick').match(/openSheet\((\d+)\)/);
+    if (!match) return;
+    const book = books[Number(match[1])];
+    const coverEl = item.querySelector('.row-cover');
+    if (!book || !coverEl) return;
+    coverEl.style.background = book.coverBg;
+    coverEl.innerHTML = createBookCoverMarkup(book, 'M');
+  });
 }
 
 function openResourceModal(resourceName) {
@@ -2459,7 +3106,7 @@ function openSheet(idx) {
   tableHead3.textContent = 'Available';
   sheetTableCard.style.display = 'block';
   document.getElementById('sheetCover').style.background = b.coverBg;
-  document.getElementById('sheetCover').innerHTML = b.coverSvg;
+  document.getElementById('sheetCover').innerHTML = createBookCoverMarkup(b, 'L');
 
   const tbody = document.getElementById('branchTableBody');
   tbody.innerHTML = b.branches.map(br => {
@@ -2621,6 +3268,7 @@ function onDragEnd() {
 grabberArea.addEventListener('click', () => {
   if (isSheetOpen && !isDragging) closeSheet();
 });
+hydrateVisibleBookCovers();
 grabberArea.addEventListener('mousedown', e => { e.preventDefault(); onDragStart(e.clientY); });
 document.addEventListener('mousemove', e => { if (isDragging) onDragMove(e.clientY); });
 document.addEventListener('mouseup', () => { if (isDragging) onDragEnd(); });
