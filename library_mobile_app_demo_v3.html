@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -978,7 +978,7 @@
   .row-chevron {
     display: flex;
     align-items: center;
-    padding-top: 32px;
+    align-self: center;
     color: var(--red);
     flex-shrink: 0;
   }
@@ -1301,7 +1301,7 @@
       <button class="lion-logo" type="button" aria-label="Open account" onclick="setPage('account')">
         <img class="header-icon-img" src="Account%20Icon.png" alt="">
       </button>
-      <div class="search-pill" role="button" tabindex="0" aria-label="Search catalog" onclick="openCatalogSearch()">
+      <div class="search-pill" role="button" tabindex="0" aria-label="Search catalog" onclick="openCatalogSearch()" onkeydown="handleSearchPillKeydown(event)">
         <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#888" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l3.5 3.5"/></svg>
         <span>Search Catalog</span>
       </div>
@@ -1330,7 +1330,7 @@
               <div class="renew-option-note" id="renewOptionNote" aria-hidden="true"></div>
             </div>
             <div class="home-book-list">
-              <div class="account-book" onclick="setPage('catalog'); openSheet(0)">
+              <div class="account-book" onclick="openSheet(0, 'checkout')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#2D4A3E,#1A2E26)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="8" y="14" width="56" height="4" rx="2" fill="rgba(255,255,255,0.14)"/><rect x="8" y="22" width="44" height="2" rx="1" fill="rgba(255,255,255,0.08)"/><circle cx="36" cy="60" r="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/><path d="M28 60 L36 47 L44 60 L40 60 L40 73 L32 73 L32 60Z" fill="rgba(255,255,255,0.22)"/><rect x="8" y="84" width="38" height="2" rx="1" fill="rgba(255,255,255,0.08)"/></svg>
                 </div>
@@ -1345,10 +1345,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(1)">
+              <div class="account-book" onclick="openSheet(1, 'checkout')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#6B3A2A,#3D1F14)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="6" y="10" width="60" height="64" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/><rect x="14" y="20" width="44" height="2.5" rx="1.25" fill="rgba(255,255,255,0.26)"/><ellipse cx="36" cy="56" rx="13" ry="13" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="1.5"/><ellipse cx="36" cy="56" rx="6" ry="6" fill="rgba(255,220,180,0.16)"/></svg>
                 </div>
@@ -1363,10 +1363,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(4)">
+              <div class="account-book" onclick="openSheet(4, 'checkout')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#3D3020,#1E160A)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="32" width="52" height="38" rx="2.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="51" x2="62" y2="51" stroke="rgba(255,220,150,0.15)" stroke-width="0.6"/><rect x="16" y="14" width="40" height="3.5" rx="1.75" fill="rgba(255,220,150,0.32)"/></svg>
                 </div>
@@ -1381,10 +1381,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(7)">
+              <div class="account-book" onclick="openSheet(7, 'checkout')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#5B2A3F,#27111C)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="12" y="16" width="48" height="4" rx="2" fill="rgba(255,215,235,0.28)"/><circle cx="36" cy="58" r="16" fill="none" stroke="rgba(255,215,235,0.34)" stroke-width="1.8"/><path d="M24 70c4-10 7-22 12-34 5 12 8 24 12 34" fill="none" stroke="rgba(255,215,235,0.26)" stroke-width="2"/></svg>
                 </div>
@@ -1399,10 +1399,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(8)">
+              <div class="account-book" onclick="openSheet(8, 'checkout')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#2F2C1A,#141108)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="12" width="52" height="4" rx="2" fill="rgba(255,236,160,0.28)"/><rect x="18" y="28" width="36" height="44" rx="2.5" fill="rgba(255,236,160,0.08)" stroke="rgba(255,236,160,0.2)" stroke-width="1"/><path d="M24 64h24M24 56h24M24 48h24" stroke="rgba(255,236,160,0.22)" stroke-width="1.2"/></svg>
                 </div>
@@ -1417,10 +1417,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(9)">
+              <div class="account-book" onclick="openSheet(9, 'checkout')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#163A46,#081A20)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="36" cy="50" r="18" fill="none" stroke="rgba(191,240,255,0.32)" stroke-width="2"/><circle cx="36" cy="50" r="5" fill="rgba(191,240,255,0.18)"/><path d="M16 80c6-10 14-16 20-16s14 6 20 16" fill="none" stroke="rgba(191,240,255,0.22)" stroke-width="2"/><rect x="14" y="16" width="44" height="4" rx="2" fill="rgba(191,240,255,0.24)"/></svg>
                 </div>
@@ -1435,14 +1435,14 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
             </div>
           </div>
 
           <div class="home-tab-panel" id="panel-holds">
             <div class="home-book-list">
-              <div class="account-book" onclick="setPage('catalog'); openSheet(5)">
+              <div class="account-book" onclick="openSheet(5, 'hold')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#1A3A5C,#0D2035)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><path d="M10 84 Q36 22 62 84" fill="none" stroke="rgba(100,180,255,0.3)" stroke-width="2.2"/><circle cx="36" cy="42" r="9" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" stroke-width="1"/><rect x="12" y="12" width="48" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
                 </div>
@@ -1458,10 +1458,10 @@
                     <span>96th Street Library</span>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(6)">
+              <div class="account-book" onclick="openSheet(6, 'hold')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#6B5748,#3F3027)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="14" width="52" height="72" rx="2" fill="rgba(255,255,255,0.06)"/><path d="M16 78 36 24 56 78" fill="none" stroke="rgba(242,224,196,0.36)" stroke-width="2.4"/><circle cx="36" cy="38" r="8" fill="rgba(242,224,196,0.16)"/><rect x="18" y="84" width="36" height="2" rx="1" fill="rgba(255,255,255,0.18)"/></svg>
                 </div>
@@ -1477,10 +1477,10 @@
                     <span>96th Street Library</span>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(10)">
+              <div class="account-book" onclick="openSheet(10, 'hold')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#325541,#17271D)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="14" y="14" width="44" height="4" rx="2" fill="rgba(220,255,214,0.24)"/><path d="M16 82c8-8 16-12 20-12 6 0 14 4 20 12" fill="none" stroke="rgba(220,255,214,0.22)" stroke-width="2"/><rect x="20" y="34" width="32" height="28" rx="14" fill="rgba(220,255,214,0.08)" stroke="rgba(220,255,214,0.18)" stroke-width="1.2"/></svg>
                 </div>
@@ -1496,14 +1496,14 @@
                     <span>Jefferson Market Library</span>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
             </div>
           </div>
 
           <div class="home-tab-panel" id="panel-saved">
             <div class="home-book-list">
-              <div class="account-book" onclick="setPage('catalog'); openSheet(1)">
+              <div class="account-book" onclick="openSheet(1, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#6B3A2A,#3D1F14)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="6" y="10" width="60" height="64" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/><rect x="14" y="20" width="44" height="2.5" rx="1.25" fill="rgba(255,255,255,0.26)"/><ellipse cx="36" cy="56" rx="13" ry="13" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="1.5"/><ellipse cx="36" cy="56" rx="6" ry="6" fill="rgba(255,220,180,0.16)"/></svg>
                 </div>
@@ -1517,10 +1517,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(4)">
+              <div class="account-book" onclick="openSheet(4, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#3D3020,#1E160A)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="32" width="52" height="38" rx="2.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="51" x2="62" y2="51" stroke="rgba(255,220,150,0.15)" stroke-width="0.6"/><rect x="16" y="14" width="40" height="3.5" rx="1.75" fill="rgba(255,220,150,0.32)"/></svg>
                 </div>
@@ -1534,10 +1534,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(0)">
+              <div class="account-book" onclick="openSheet(0, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#2D4A3E,#1A2E26)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="8" y="14" width="56" height="4" rx="2" fill="rgba(255,255,255,0.14)"/><rect x="8" y="22" width="44" height="2" rx="1" fill="rgba(255,255,255,0.08)"/><circle cx="36" cy="60" r="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/><path d="M28 60 L36 47 L44 60 L40 60 L40 73 L32 73 L32 60Z" fill="rgba(255,255,255,0.22)"/></svg>
                 </div>
@@ -1551,10 +1551,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(2)">
+              <div class="account-book" onclick="openSheet(2, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#1A3A5C,#0D2035)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><path d="M10 84 Q36 22 62 84" fill="none" stroke="rgba(100,180,255,0.3)" stroke-width="2.2"/><circle cx="36" cy="42" r="9" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" stroke-width="1"/><rect x="12" y="12" width="48" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
                 </div>
@@ -1568,10 +1568,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(3)">
+              <div class="account-book" onclick="openSheet(3, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#4A2060,#260D38)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="36" cy="52" r="24" fill="none" stroke="rgba(200,160,255,0.22)" stroke-width="9"/><circle cx="36" cy="52" r="11" fill="rgba(200,160,255,0.12)" stroke="rgba(200,160,255,0.3)" stroke-width="1.2"/><rect x="10" y="14" width="52" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
                 </div>
@@ -1585,10 +1585,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(5)">
+              <div class="account-book" onclick="openSheet(5, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#514317,#231C08)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="16" width="52" height="4" rx="2" fill="rgba(255,245,170,0.3)"/><path d="M18 78 32 28 54 78" fill="none" stroke="rgba(255,245,170,0.28)" stroke-width="2.4"/><circle cx="41" cy="48" r="8" fill="rgba(255,245,170,0.16)"/></svg>
                 </div>
@@ -1602,10 +1602,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(6)">
+              <div class="account-book" onclick="openSheet(6, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#6B5748,#3F3027)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="14" width="52" height="72" rx="2" fill="rgba(255,255,255,0.06)"/><path d="M16 78 36 24 56 78" fill="none" stroke="rgba(242,224,196,0.36)" stroke-width="2.4"/><circle cx="36" cy="38" r="8" fill="rgba(242,224,196,0.16)"/></svg>
                 </div>
@@ -1619,10 +1619,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(7)">
+              <div class="account-book" onclick="openSheet(7, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#5B2A3F,#27111C)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="12" y="16" width="48" height="4" rx="2" fill="rgba(255,215,235,0.28)"/><circle cx="36" cy="58" r="16" fill="none" stroke="rgba(255,215,235,0.34)" stroke-width="1.8"/><path d="M24 70c4-10 7-22 12-34 5 12 8 24 12 34" fill="none" stroke="rgba(255,215,235,0.26)" stroke-width="2"/></svg>
                 </div>
@@ -1636,10 +1636,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(8)">
+              <div class="account-book" onclick="openSheet(8, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#2F2C1A,#141108)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="12" width="52" height="4" rx="2" fill="rgba(255,236,160,0.28)"/><rect x="18" y="28" width="36" height="44" rx="2.5" fill="rgba(255,236,160,0.08)" stroke="rgba(255,236,160,0.2)" stroke-width="1"/><path d="M24 64h24M24 56h24M24 48h24" stroke="rgba(255,236,160,0.22)" stroke-width="1.2"/></svg>
                 </div>
@@ -1653,10 +1653,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(9)">
+              <div class="account-book" onclick="openSheet(9, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#163A46,#081A20)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="36" cy="50" r="18" fill="none" stroke="rgba(191,240,255,0.32)" stroke-width="2"/><circle cx="36" cy="50" r="5" fill="rgba(191,240,255,0.18)"/><path d="M16 80c6-10 14-16 20-16s14 6 20 16" fill="none" stroke="rgba(191,240,255,0.22)" stroke-width="2"/><rect x="14" y="16" width="44" height="4" rx="2" fill="rgba(191,240,255,0.24)"/></svg>
                 </div>
@@ -1670,10 +1670,10 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
-              <div class="account-book" onclick="setPage('catalog'); openSheet(10)">
+              <div class="account-book" onclick="openSheet(10, 'saved')">
                 <div class="row-cover" style="background:linear-gradient(135deg,#325541,#17271D)">
                   <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="14" y="14" width="44" height="4" rx="2" fill="rgba(220,255,214,0.24)"/><path d="M16 82c8-8 16-12 20-12 6 0 14 4 20 12" fill="none" stroke="rgba(220,255,214,0.22)" stroke-width="2"/><rect x="20" y="34" width="32" height="28" rx="14" fill="rgba(220,255,214,0.08)" stroke="rgba(220,255,214,0.18)" stroke-width="1.2"/></svg>
                 </div>
@@ -1687,7 +1687,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
             </div>
           </div>
@@ -2166,7 +2166,7 @@
         </div>
 
         <div class="book-list" id="bookList">
-          <div class="book-row" onclick="openSheet(0)">
+          <div class="book-row" onclick="openSheet(0, 'catalog')">
             <div class="row-cover" style="background:linear-gradient(135deg,#2D4A3E,#1A2E26)">
               <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="8" y="14" width="56" height="4" rx="2" fill="rgba(255,255,255,0.14)"/><rect x="8" y="22" width="44" height="2" rx="1" fill="rgba(255,255,255,0.08)"/><circle cx="36" cy="60" r="20" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/><path d="M28 60 L36 47 L44 60 L40 60 L40 73 L32 73 L32 60Z" fill="rgba(255,255,255,0.22)"/><rect x="8" y="84" width="38" height="2" rx="1" fill="rgba(255,255,255,0.08)"/></svg>
             </div>
@@ -2176,10 +2176,10 @@
               <div class="row-author">Collins, Suzanne</div>
               <div class="row-year">2020</div>
             </div>
-            <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
           </div>
 
-          <div class="book-row" onclick="openSheet(1)">
+          <div class="book-row" onclick="openSheet(1, 'catalog')">
             <div class="row-cover" style="background:linear-gradient(135deg,#6B3A2A,#3D1F14)">
               <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="6" y="10" width="60" height="64" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.6"/><rect x="14" y="20" width="44" height="2.5" rx="1.25" fill="rgba(255,255,255,0.26)"/><ellipse cx="36" cy="56" rx="13" ry="13" fill="none" stroke="rgba(255,220,180,0.38)" stroke-width="1.5"/><ellipse cx="36" cy="56" rx="6" ry="6" fill="rgba(255,220,180,0.16)"/></svg>
             </div>
@@ -2189,10 +2189,10 @@
               <div class="row-author">Haig, Matt</div>
               <div class="row-year">2022</div>
             </div>
-            <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
           </div>
 
-          <div class="book-row" onclick="openSheet(2)">
+          <div class="book-row" onclick="openSheet(2, 'catalog')">
             <div class="row-cover" style="background:linear-gradient(135deg,#1A3A5C,#0D2035)">
               <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><path d="M10 84 Q36 22 62 84" fill="none" stroke="rgba(100,180,255,0.3)" stroke-width="2.2"/><circle cx="36" cy="42" r="9" fill="rgba(100,180,255,0.15)" stroke="rgba(100,180,255,0.3)" stroke-width="1"/><rect x="12" y="12" width="48" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
             </div>
@@ -2202,10 +2202,10 @@
               <div class="row-author">King, Stephen</div>
               <div class="row-year">2022</div>
             </div>
-            <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
           </div>
 
-          <div class="book-row" onclick="openSheet(3)">
+          <div class="book-row" onclick="openSheet(3, 'catalog')">
             <div class="row-cover" style="background:linear-gradient(135deg,#4A2060,#260D38)">
               <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><circle cx="36" cy="52" r="24" fill="none" stroke="rgba(200,160,255,0.22)" stroke-width="9"/><circle cx="36" cy="52" r="11" fill="rgba(200,160,255,0.12)" stroke="rgba(200,160,255,0.3)" stroke-width="1.2"/><rect x="10" y="14" width="52" height="3.5" rx="1.75" fill="rgba(255,255,255,0.2)"/></svg>
             </div>
@@ -2215,10 +2215,10 @@
               <div class="row-author">Hoover, Colleen</div>
               <div class="row-year">2022</div>
             </div>
-            <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
           </div>
 
-          <div class="book-row" onclick="openSheet(4)">
+          <div class="book-row" onclick="openSheet(4, 'catalog')">
             <div class="row-cover" style="background:linear-gradient(135deg,#3D3020,#1E160A)">
               <svg viewBox="0 0 72 100" style="position:absolute;inset:0;width:100%;height:100%"><rect x="10" y="32" width="52" height="38" rx="2.5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,220,150,0.22)" stroke-width="0.6"/><line x1="10" y1="51" x2="62" y2="51" stroke="rgba(255,220,150,0.15)" stroke-width="0.6"/><rect x="16" y="14" width="40" height="3.5" rx="1.75" fill="rgba(255,220,150,0.32)"/></svg>
             </div>
@@ -2228,7 +2228,7 @@
               <div class="row-author">Weir, Andy</div>
               <div class="row-year">2021</div>
             </div>
-            <div class="row-chevron"><svg width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="#C0272D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l7 6.5L1 14"/></svg></div>
+            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
           </div>
           <div style="height:90px;"></div>
         </div>
@@ -2338,7 +2338,7 @@
 
         <!-- inline request button (hidden when sticky footer shown) -->
         <div style="padding: 0 12px;" id="inlineBtnWrap">
-          <button class="request-btn-inline" onclick="requestItem(event)">Request Item</button>
+          <button class="request-btn-inline" id="inlineRequestBtn" onclick="requestItem(event)">Request Item</button>
         </div>
         <div style="padding: 0 12px; display:none;" id="inlineEventActions">
           <div class="sheet-actions-inline">
@@ -2352,7 +2352,7 @@
 
       <!-- sticky footer request button -->
       <div class="sheet-footer" id="stickyFooter">
-          <button class="request-btn-sticky" onclick="requestItem(event)">Request Item</button>
+          <button class="request-btn-sticky" id="stickyRequestBtn" onclick="requestItem(event)">Request Item</button>
       </div>
       <div class="sheet-footer" id="stickyEventFooter">
         <div class="sheet-actions-sticky">
@@ -2745,7 +2745,7 @@ const blogPosts = [
     author: "By: Carrie McBride, Communications",
     intro: "This NYPL blog list highlights ten books about women whose work changed New York City across politics, arts, labor, journalism, and public life. The selection mixes biography, memoir, and historical writing so the list feels broad enough for discovery while still centered on civic impact.",
     books: [
-      { title: "A'Lelia Bundles: Joy Goddess", author: "A'Lelia Bundles", summary: "A portrait of a glamorous Harlem Renaissance figure whose life opens a wider conversation about Black social life, entrepreneurship, and cultural leadership in New York." },
+      { title: "Brown Girl, Brownstones", author: "Paule Marshall", summary: "A foundational Brooklyn novel that adds literary texture to the list while still speaking to the lives, ambitions, and neighborhoods that helped define New York." },
       { title: "Anna", author: "Amy Odell", summary: "A fast-moving biography of Anna Wintour that traces how editorial power, fashion, and media shaped taste and influence across the city." },
       { title: "Shirley Chisholm: Unbought and Unbossed", author: "Shirley Chisholm", summary: "Chisholm's own account of political breakthrough, public service, and the persistence required to reshape systems that were not built to include her." },
       { title: "The Last Mrs. Astor", author: "Frances Kiernan", summary: "A social history of New York philanthropy and status told through one of the city's most visible hostesses and cultural gatekeepers." },
@@ -2769,7 +2769,7 @@ const blogPosts = [
       { title: "Citizen", author: "Claudia Rankine", summary: "A formally inventive book that blends poetry, criticism, and lived experience to examine race and daily life." },
       { title: "The Argonauts", author: "Maggie Nelson", summary: "A hybrid work of memoir and theory that feels especially suited to readers interested in language, family, and identity." },
       { title: "Salvage the Bones", author: "Jesmyn Ward", summary: "A novel of family and survival whose lyric intensity gives the list range and emotional force." },
-      { title: "The Collected Schizophrenias", author: "Esmé Weijun Wang", summary: "An essay collection that expands the list beyond fiction with sharp, elegant thinking about illness, stigma, and care." },
+      { title: "The Collected Schizophrenias", author: "EsmÃ© Weijun Wang", summary: "An essay collection that expands the list beyond fiction with sharp, elegant thinking about illness, stigma, and care." },
       { title: "The Year of Magical Thinking", author: "Joan Didion", summary: "A spare and influential memoir of grief that continues to shape how readers talk about personal narrative." },
       { title: "Sula", author: "Toni Morrison", summary: "A compact but powerful novel about friendship, community, and rupture that works well as an anchor title in a recommendation list." }
     ]
@@ -2784,7 +2784,7 @@ const blogPosts = [
       { title: "Bellies", author: "Nicola Dinan", summary: "A recent relationship novel that lets love, gender transition, and adulthood unfold with warmth, humor, and emotional complication." },
       { title: "Pageboy", author: "Elliot Page", summary: "A memoir of performance, privacy, and public becoming that makes the list legible to readers looking for current nonfiction." },
       { title: "Amateur", author: "Thomas Page McBee", summary: "A sharp nonfiction work about masculinity, embodiment, and competition that broadens the list beyond strictly personal narrative." },
-      { title: "A Dream of a Woman", author: "Casey Plett", summary: "Stories about trans women moving through ordinary and difficult life transitions, written with care for daily texture and social reality." },
+      { title: "Little Fish", author: "Casey Plett", summary: "A sharp, intimate novel about trans life, family history, and prairie loneliness that gives the list another contemporary fiction anchor with a strong voice." },
       { title: "Love Lives Here", author: "Amanda Jette Knox", summary: "A family memoir that offers a more accessible, outward-facing entry point for readers interested in support, identity, and home life." },
       { title: "Detransition, Baby", author: "Torrey Peters", summary: "A breakout novel of parenthood, desire, and messy adulthood that remains one of the clearest recommendation-list anchors for contemporary trans fiction." },
       { title: "The Black Trans Prayer Book", author: "J Mase III and Lady Dane Figueroa Edidi", summary: "A collective work that brings in spirituality, ritual, and community voice, widening the texture of the list." },
@@ -2801,6 +2801,8 @@ const stickyFooter = document.getElementById('stickyFooter');
 const stickyEventFooter = document.getElementById('stickyEventFooter');
 const inlineBtnWrap = document.getElementById('inlineBtnWrap');
 const inlineEventActions = document.getElementById('inlineEventActions');
+const inlineRequestBtn = document.getElementById('inlineRequestBtn');
+const stickyRequestBtn = document.getElementById('stickyRequestBtn');
 const eventTopActions = document.getElementById('eventTopActions');
 const grabberArea = document.getElementById('grabberArea');
 const bookList = document.getElementById('bookList');
@@ -2846,6 +2848,14 @@ let lastListScrollY = 0;
 let currentPage = 'home';
 let sheetMode = 'book';
 let renewOption = 'all';
+let currentBookContext = 'catalog';
+
+const bookSheetActions = {
+  catalog: { label: 'Request Item', success: 'Request sent!' },
+  saved: { label: 'Request Item', success: 'Request sent!' },
+  checkout: { label: 'Renew', success: 'Renewed!' },
+  hold: { label: 'Manage Hold', success: 'Hold details updated!' }
+};
 function showCatalogDefault() {
   catalogDefaultView.classList.add('active');
   catalogSearchView.classList.remove('active');
@@ -2887,10 +2897,17 @@ function setPage(page) {
     item.classList.toggle('active', isActive);
   });
 
-  if (page !== 'catalog' && isSheetOpen) closeSheet();
+  if (isSheetOpen) closeSheet();
   navWrapper.classList.remove('hidden');
   if (resourceModal.classList.contains('visible')) closeResourceModal();
   if (renewModal.classList.contains('visible')) closeRenewOptions();
+}
+
+function handleSearchPillKeydown(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    openCatalogSearch();
+  }
 }
 
 navItems.forEach(item => {
@@ -2930,103 +2947,72 @@ function openBlogArticle(idx) {
 }
 
 const blogBookCovers = {
-  "A'Lelia Bundles: Joy Goddess": { isbn: "9781501154133" },
-  "Anna": { coverId: 12771417 },
-  "Shirley Chisholm: Unbought and Unbossed": { coverId: 9303894 },
-  "The Last Mrs. Astor": { coverId: 2412856 },
-  "Just Kids": { coverId: 6671097 },
-  "The Woman Behind the New Deal": { coverId: 7092572 },
-  "Fire Shut Up in My Bones": { coverId: 8467990 },
-  "Zora and Langston": { coverId: 8808989 },
-  "The Chiffon Trenches": { coverId: 10132524 },
-  "The Dead Are Arising": { coverId: 11152664 },
-  "Red at the Bone": { coverId: 12293444 },
-  "Death of the Author": { coverId: 15122767 },
-  "Just Us": { coverId: 10166425 },
-  "Beloved": { coverId: 8261367 },
-  "Citizen": { coverId: 7306622 },
-  "The Argonauts": { coverId: 8898517 },
-  "Salvage the Bones": { coverId: 6906262 },
-  "The Collected Schizophrenias": { coverId: 8737097 },
-  "The Year of Magical Thinking": { coverId: 13693 },
-  "Sula": { coverId: 8384008 },
-  "The Colossus of New York": { coverId: 6799271 },
-  "Open City": { coverId: 6680908 },
-  "Another Brooklyn": { coverId: 8289155 },
-  "Low Life": { coverId: 420383 },
-  "Fortune Smiles": { coverId: 7387219 },
-  "Brown Girl, Brownstones": { coverId: 6793822 },
-  "Here Is New York": { coverId: 10522526 },
-  "The Address Book": { coverId: 9412773 },
-  "Lush Life": { coverId: 2411414 },
-  "Nevada": { coverId: 7268488 },
-  "Fairest": { coverId: 10088904 },
-  "Bellies": { coverId: 14390224 },
-  "Pageboy": { coverId: 13315042 },
-  "Amateur": { coverId: 15118424 },
-  "A Dream of a Woman": { isbn: "9781551528564" },
-  "Love Lives Here": { coverId: 10278681 },
-  "Detransition, Baby": { coverId: 10201288 },
-  "The Black Trans Prayer Book": { coverId: 11421648 },
-  "Something That May Shock and Discredit You": { coverId: 14405705 }
+  "Anna": { file: "assets/covers/anna.jpg" },
+  "Shirley Chisholm: Unbought and Unbossed": { file: "assets/covers/shirley-chisholm-unbought-and-unbossed.jpg" },
+  "The Last Mrs. Astor": { file: "assets/covers/last-mrs-astor.jpg" },
+  "Just Kids": { file: "assets/covers/just-kids.jpg" },
+  "The Woman Behind the New Deal": { file: "assets/covers/woman-behind-the-new-deal.jpg" },
+  "Fire Shut Up in My Bones": { file: "assets/covers/fire-shut-up-in-my-bones.jpg" },
+  "Zora and Langston": { file: "assets/covers/zora-and-langston.jpg" },
+  "The Chiffon Trenches": { file: "assets/covers/chiffon-trenches.jpg" },
+  "The Dead Are Arising": { file: "assets/covers/dead-are-arising.jpg" },
+  "Red at the Bone": { file: "assets/covers/red-at-the-bone.jpg" },
+  "Death of the Author": { file: "assets/covers/death-of-the-author.jpg" },
+  "Just Us": { file: "assets/covers/just-us.jpg" },
+  "Beloved": { file: "assets/covers/beloved.jpg" },
+  "Citizen": { file: "assets/covers/citizen.jpg" },
+  "The Argonauts": { file: "assets/covers/argonauts.jpg" },
+  "Salvage the Bones": { file: "assets/covers/salvage-the-bones.jpg" },
+  "The Collected Schizophrenias": { file: "assets/covers/collected-schizophrenias.jpg" },
+  "The Year of Magical Thinking": { file: "assets/covers/year-of-magical-thinking.jpg" },
+  "Sula": { file: "assets/covers/sula.jpg" },
+  "The Colossus of New York": { file: "assets/covers/colossus-of-new-york.jpg" },
+  "Open City": { file: "assets/covers/open-city.jpg" },
+  "Another Brooklyn": { file: "assets/covers/another-brooklyn.jpg" },
+  "Low Life": { file: "assets/covers/low-life.jpg" },
+  "Fortune Smiles": { file: "assets/covers/fortune-smiles.jpg" },
+  "Brown Girl, Brownstones": { file: "assets/covers/brown-girl-brownstones.jpg" },
+  "Here Is New York": { file: "assets/covers/here-is-new-york.jpg" },
+  "The Address Book": { file: "assets/covers/address-book.jpg" },
+  "Lush Life": { file: "assets/covers/lush-life.jpg" },
+  "Nevada": { file: "assets/covers/nevada.jpg" },
+  "Fairest": { file: "assets/covers/fairest.jpg" },
+  "Bellies": { file: "assets/covers/bellies.jpg" },
+  "Pageboy": { file: "assets/covers/pageboy.jpg" },
+  "Amateur": { file: "assets/covers/amateur.jpg" },
+  "Little Fish": { file: "assets/covers/little-fish.jpg" },
+  "Love Lives Here": { file: "assets/covers/love-lives-here.jpg" },
+  "Detransition, Baby": { file: "assets/covers/detranstion-baby.jpg" },
+  "The Black Trans Prayer Book": { file: "assets/covers/black-trans-prayer-book.jpg" },
+  "Something That May Shock and Discredit You": { file: "assets/covers/something-that-may-shock-and-discredit-you.jpg" }
+};
+
+const localBookCovers = {
+  "The Ballad of Songbirds and Snakes": "assets/covers/ballad-of-songbirds-and-snakes.jpg",
+  "The Midnight Library": "assets/covers/midnight-library.jpg",
+  "Billy Summers": "assets/covers/billy-summers.jpg",
+  "It Starts with Us": "assets/covers/it-starts-with-us.jpg",
+  "Project Hail Mary": "assets/covers/project-hail-mary.jpg",
+  "If It Bleeds": "assets/covers/if-it-bleeds.jpg",
+  "Lessons in Chemistry": "assets/covers/lessons-in-chemistry.jpg",
+  "Cloud Cuckoo Land": "assets/covers/cloud-cuckoo-land.jpg",
+  "Beautiful World, Where Are You": "assets/covers/beautiful-world-where-are-you.jpg",
+  "Amari and the Night Brothers": "assets/covers/amari-and-the-night-brothers.jpg",
+  "The Tower of Nero": "assets/covers/tower-of-nero.jpg"
 };
 
 function createBlogBookCover(book) {
   const meta = blogBookCovers[book.title] || {};
-  const coverUrl = meta.coverId
-    ? `https://covers.openlibrary.org/b/id/${meta.coverId}-M.jpg?default=false`
-    : (meta.isbn ? getOpenLibraryCoverUrl(meta.isbn, 'M') : '');
+  const coverUrl = meta.file || '';
   if (coverUrl) {
     const safeTitle = (book.title || 'Book').replace(/"/g, '&quot;');
-    return `<img src="${coverUrl}" alt="Cover of ${safeTitle}" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML='${createBlogBookFallback(book.title).replace(/'/g, '&apos;').replace(/\n/g, '')}'">`;
+    return `<img src="${coverUrl}" alt="Cover of ${safeTitle}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.blog-book-thumb').innerHTML=''">`;
   }
-  return createBlogBookFallback(book.title);
-}
-
-function createBlogBookFallback(title) {
-  const palettes = [
-    ['#264653', '#1D3557', '#E9C46A'],
-    ['#6D597A', '#355070', '#F4A261'],
-    ['#8D2E37', '#3D405B', '#F2CC8F'],
-    ['#1F3C88', '#4D8076', '#F5E6A5'],
-    ['#5A3E36', '#7A6C5D', '#E7CBA9'],
-    ['#3A5A40', '#588157', '#DAD7CD']
-  ];
-  let hash = 0;
-  for (let i = 0; i < title.length; i++) hash = (hash * 31 + title.charCodeAt(i)) >>> 0;
-  const [bg1, bg2, accent] = palettes[hash % palettes.length];
-  const initials = title.split(' ').filter(Boolean).slice(0, 2).map(part => part[0]).join('').toUpperCase();
-  return `
-    <svg viewBox="0 0 56 84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="g${hash}" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="${bg1}"/>
-          <stop offset="100%" stop-color="${bg2}"/>
-        </linearGradient>
-      </defs>
-      <rect width="56" height="84" rx="6" fill="url(#g${hash})"/>
-      <rect x="8" y="10" width="40" height="3" rx="1.5" fill="rgba(255,255,255,0.24)"/>
-      <rect x="8" y="17" width="24" height="2" rx="1" fill="rgba(255,255,255,0.18)"/>
-      <circle cx="28" cy="49" r="16" fill="rgba(255,255,255,0.08)" stroke="${accent}" stroke-opacity="0.5" stroke-width="1.2"/>
-      <text x="28" y="54" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="white">${initials}</text>
-      <rect x="10" y="72" width="20" height="2" rx="1" fill="rgba(255,255,255,0.18)"/>
-    </svg>
-  `;
-}
-
-function cleanIsbn(isbn) {
-  return (isbn || '').replace(/[^0-9X]/gi, '');
-}
-
-function getOpenLibraryCoverUrl(isbn, size = 'M') {
-  const clean = cleanIsbn(isbn);
-  return clean ? `https://covers.openlibrary.org/b/isbn/${clean}-${size}.jpg?default=false` : '';
+  return '';
 }
 
 function createBookCoverMarkup(book, size = 'M') {
-  const coverUrl = book.coverId
-    ? `https://covers.openlibrary.org/b/id/${book.coverId}-${size}.jpg?default=false`
-    : getOpenLibraryCoverUrl(book.isbn, size);
+  const coverUrl = localBookCovers[book.title] || '';
   if (!coverUrl) return '';
   const safeTitle = (book.title || 'Book').replace(/"/g, '&quot;');
   return `<img src="${coverUrl}" alt="Cover of ${safeTitle}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`;
@@ -3034,7 +3020,7 @@ function createBookCoverMarkup(book, size = 'M') {
 
 function hydrateVisibleBookCovers() {
   document.querySelectorAll('[onclick*="openSheet("]').forEach(item => {
-    const match = item.getAttribute('onclick').match(/openSheet\((\d+)\)/);
+    const match = item.getAttribute('onclick').match(/openSheet\((\d+)/);
     if (!match) return;
     const book = books[Number(match[1])];
     const coverEl = item.querySelector('.row-cover');
@@ -3099,10 +3085,18 @@ bookList.addEventListener('scroll', () => {
   lastListScrollY = y;
 });
 
-function openSheet(idx) {
+function updateBookSheetAction(context = 'catalog') {
+  const action = bookSheetActions[context] || bookSheetActions.catalog;
+  inlineRequestBtn.textContent = action.label;
+  stickyRequestBtn.textContent = action.label;
+}
+
+function openSheet(idx, context = 'catalog') {
   const b = books[idx];
-  showCatalogSearchResults();
+  currentBookContext = context;
+  if (context === 'catalog') showCatalogSearchResults();
   setSheetMode('book');
+  updateBookSheetAction(context);
 
   document.getElementById('stickyTitle').textContent = b.title;
   document.getElementById('stickyAuthor').textContent = b.author;
@@ -3243,17 +3237,20 @@ sheetScroll.addEventListener('scroll', () => {
 
 function requestItem(e) {
   const btn = e.currentTarget;
-  const orig = btn.textContent;
-  btn.textContent = 'Request sent!';
+  const action = bookSheetActions[currentBookContext] || bookSheetActions.catalog;
+  const orig = action.label;
+  inlineRequestBtn.textContent = action.success;
+  stickyRequestBtn.textContent = action.success;
   btn.style.background = '#2a7a3b';
   setTimeout(() => {
-    btn.textContent = orig;
+    inlineRequestBtn.textContent = orig;
+    stickyRequestBtn.textContent = orig;
     btn.style.background = '';
     closeSheet();
   }, 1600);
 }
 
-// Drag-to-dismiss
+// Mouse-only drag-to-dismiss for desktop preview
 let dragStartY = 0, dragCurrentY = 0, isDragging = false;
 let dragVelocity = 0, lastDragY = 0, lastDragTime = 0;
 
@@ -3261,27 +3258,34 @@ function onDragStart(clientY) {
   if (!isSheetOpen) return;
   isDragging = true;
   dragStartY = dragCurrentY = lastDragY = clientY;
-  lastDragTime = Date.now(); dragVelocity = 0;
+  lastDragTime = Date.now();
+  dragVelocity = 0;
   sheetEl.classList.add('dragging');
 }
+
 function onDragMove(clientY) {
   if (!isDragging) return;
-  const now = Date.now(), dt = now - lastDragTime;
+  const now = Date.now();
+  const dt = now - lastDragTime;
   if (dt > 0) dragVelocity = (clientY - lastDragY) / dt;
-  lastDragY = clientY; lastDragTime = now; dragCurrentY = clientY;
+  lastDragY = clientY;
+  lastDragTime = now;
+  dragCurrentY = clientY;
   const dy = Math.max(0, clientY - dragStartY);
-  const r = dy > 80 ? 80 + (dy - 80) * 0.4 : dy;
-  sheetEl.style.transform = `translateY(${r}px)`;
-  const prog = Math.min(r / 200, 1);
-  document.getElementById('sheetOverlay').style.background = `rgba(0,0,0,${0.35*(1-prog)})`;
+  const eased = dy > 80 ? 80 + (dy - 80) * 0.4 : dy;
+  sheetEl.style.transform = `translateY(${eased}px)`;
+  const progress = Math.min(eased / 200, 1);
+  document.getElementById('sheetOverlay').style.background = `rgba(0,0,0,${0.35 * (1 - progress)})`;
 }
+
 function onDragEnd() {
   if (!isDragging) return;
   isDragging = false;
   sheetEl.classList.remove('dragging');
   const dy = dragCurrentY - dragStartY;
-  if (dy > 100 || dragVelocity > 0.5) { closeSheet(); }
-  else {
+  if (dy > 100 || dragVelocity > 0.5) {
+    closeSheet();
+  } else {
     sheetEl.style.transform = 'translateY(0)';
     document.getElementById('sheetOverlay').style.background = 'rgba(0,0,0,0.35)';
   }
@@ -3291,9 +3295,18 @@ grabberArea.addEventListener('click', () => {
   if (isSheetOpen && !isDragging) closeSheet();
 });
 hydrateVisibleBookCovers();
-grabberArea.addEventListener('mousedown', e => { e.preventDefault(); onDragStart(e.clientY); });
-document.addEventListener('mousemove', e => { if (isDragging) onDragMove(e.clientY); });
-document.addEventListener('mouseup', () => { if (isDragging) onDragEnd(); });
+grabberArea.addEventListener('mousedown', e => {
+  e.preventDefault();
+  onDragStart(e.clientY);
+});
+document.addEventListener('mousemove', e => {
+  if (isDragging) onDragMove(e.clientY);
+});
+document.addEventListener('mouseup', () => {
+  if (isDragging) onDragEnd();
+});
 </script>
 </body>
 </html>
+
+
