@@ -821,7 +821,7 @@
     align-items: center;
     justify-content: center;
     padding: 18px;
-    z-index: 22;
+    z-index: 40;
   }
   .modal-overlay.visible {
     display: flex;
@@ -2408,6 +2408,24 @@
       </div>
     </div>
 
+    <div class="modal-overlay" id="holdCancelModal" onclick="closeHoldCancelModal()">
+      <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <div class="modal-heading">
+            <div class="modal-title">Cancel Hold</div>
+          </div>
+          <button class="modal-close" type="button" aria-label="Close" onclick="closeHoldCancelModal()">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 2l8 8"/><path d="M10 2 2 10"/></svg>
+          </button>
+        </div>
+        <div class="modal-copy">Are you sure you want to cancel this hold in the demo?</div>
+        <div class="modal-actions">
+          <button class="sheet-subtle-btn" type="button" onclick="closeHoldCancelModal()">Keep Hold</button>
+          <button class="modal-primary-btn" type="button" onclick="confirmHoldCancel()">Cancel Hold</button>
+        </div>
+      </div>
+    </div>
+
   </div><!-- end screen -->
 </div><!-- end phone -->
 </div>
@@ -2823,6 +2841,7 @@ const blogBookList = document.getElementById('blogBookList');
 const resourceModal = document.getElementById('resourceModal');
 const resourceModalCopy = document.getElementById('resourceModalCopy');
 const renewModal = document.getElementById('renewModal');
+const holdCancelModal = document.getElementById('holdCancelModal');
 const renewOptionNote = document.getElementById('renewOptionNote');
 const navItems = document.querySelectorAll('.nav-item[data-page]');
 const homeTabs = document.querySelectorAll('.home-tab');
@@ -2854,7 +2873,7 @@ const bookSheetActions = {
   catalog: { label: 'Request Item', success: 'Request sent!' },
   saved: { label: 'Request Item', success: 'Request sent!' },
   checkout: { label: 'Renew', success: 'Renewed!' },
-  hold: { label: 'Manage Hold', success: 'Hold details updated!' }
+  hold: { label: 'Cancel Hold', success: 'Hold canceled' }
 };
 function showCatalogDefault() {
   catalogDefaultView.classList.add('active');
@@ -2901,6 +2920,7 @@ function setPage(page) {
   navWrapper.classList.remove('hidden');
   if (resourceModal.classList.contains('visible')) closeResourceModal();
   if (renewModal.classList.contains('visible')) closeRenewOptions();
+  if (holdCancelModal.classList.contains('visible')) closeHoldCancelModal();
 }
 
 function handleSearchPillKeydown(event) {
@@ -3049,6 +3069,24 @@ function openRenewOptions() {
 
 function closeRenewOptions() {
   renewModal.classList.remove('visible');
+}
+
+function openHoldCancelModal() {
+  holdCancelModal.classList.add('visible');
+}
+
+function closeHoldCancelModal() {
+  holdCancelModal.classList.remove('visible');
+}
+
+function confirmHoldCancel() {
+  closeHoldCancelModal();
+  inlineRequestBtn.textContent = bookSheetActions.hold.success;
+  stickyRequestBtn.textContent = bookSheetActions.hold.success;
+  setTimeout(() => {
+    updateBookSheetAction(currentBookContext);
+    closeSheet();
+  }, 1200);
 }
 
 function selectRenewOption(option) {
@@ -3236,8 +3274,12 @@ sheetScroll.addEventListener('scroll', () => {
 });
 
 function requestItem(e) {
-  const btn = e.currentTarget;
   const action = bookSheetActions[currentBookContext] || bookSheetActions.catalog;
+  if (currentBookContext === 'hold') {
+    openHoldCancelModal();
+    return;
+  }
+  const btn = e.currentTarget;
   const orig = action.label;
   inlineRequestBtn.textContent = action.success;
   stickyRequestBtn.textContent = action.success;
