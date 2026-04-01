@@ -17,9 +17,47 @@
     --bg-gray: #f2f2f2;
     --border: #e0e0e0;
     --nav-bg: #ffffff;
+    --shell-bg: #d0d0d0;
+    --surface-muted: #f3f1f1;
+    --surface-soft: #f5f5f8;
+    --surface-soft-2: #e4e5eb;
+    --surface-press: #efeff3;
+    --control-bg: #ffffff;
+    --soft-btn-bg: #f2efef;
+    --soft-btn-active: #e7e3e3;
+    --menu-border: #dfe2e8;
+    --menu-divider: #e6e8ee;
+    --overlay: rgba(0,0,0,0.35);
+    --modal-overlay: rgba(17,17,17,0.34);
+    --grabber-bg: #cccccc;
+    --grabber-hover: #aaaaaa;
+  }
+  body.dark-mode {
+    --red-light: #3f2023;
+    --text: #f3f5f8;
+    --text-mid: #bcc1c9;
+    --text-light: #8d949f;
+    --bg: #101317;
+    --bg-gray: #181d23;
+    --border: #2a313a;
+    --nav-bg: #141920;
+    --shell-bg: #090b0e;
+    --surface-muted: #1b2027;
+    --surface-soft: #171c22;
+    --surface-soft-2: #252c35;
+    --surface-press: #20262e;
+    --control-bg: #12171d;
+    --soft-btn-bg: #262d36;
+    --soft-btn-active: #303946;
+    --menu-border: #2a313a;
+    --menu-divider: #232931;
+    --overlay: rgba(0,0,0,0.56);
+    --modal-overlay: rgba(0,0,0,0.62);
+    --grabber-bg: #5f6874;
+    --grabber-hover: #818b99;
   }
   body {
-    background: #d0d0d0;
+    background: var(--shell-bg);
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -42,6 +80,9 @@
     position: relative;
     box-shadow: 0 32px 64px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.12);
     overscroll-behavior-y: contain;
+  }
+  body.dark-mode .phone {
+    box-shadow: 0 32px 64px rgba(0,0,0,0.48), 0 0 0 1px rgba(255,255,255,0.05);
   }
 
   /* STATUS BAR */
@@ -160,7 +201,7 @@
   .home-tabs {
     display: flex;
     gap: 8px;
-    background: #f3f1f1;
+    background: var(--surface-muted);
     border-radius: 999px;
     padding: 8px;
     width: fit-content;
@@ -201,7 +242,7 @@
   .home-heading-title {
     font-size: 16px;
     font-weight: 700;
-    color: #2b2b31;
+    color: var(--text);
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -228,7 +269,7 @@
   }
   .account-meta {
     font-size: 14px;
-    color: #666270;
+    color: var(--text-mid);
     margin-bottom: 6px;
   }
   .account-action-row {
@@ -240,8 +281,8 @@
   .soft-btn {
     border: none;
     border-radius: 4px;
-    background: #f2efef;
-    color: #2a2d34;
+    background: var(--soft-btn-bg);
+    color: var(--text);
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 600;
@@ -251,7 +292,7 @@
     gap: 8px;
     cursor: pointer;
   }
-  .soft-btn:active { background: #e7e3e3; }
+  .soft-btn:active { background: var(--soft-btn-active); }
   .home-page .soft-btn {
     max-height: 24px;
     padding: 4px 8px;
@@ -285,7 +326,7 @@
     color: #ea5b0c;
   }
   .hold-location-row {
-    color: #666270;
+    color: var(--text-mid);
   }
   .account-page-scroll {
     flex: 1;
@@ -322,7 +363,7 @@
     height: 36px;
     border-radius: 4px;
     border: 2px solid #d0333a;
-    background: #fff;
+    background: var(--control-bg);
     color: #d0333a;
     font-family: 'Inter', sans-serif;
     font-size: 18px;
@@ -330,10 +371,10 @@
     margin-bottom: 16px;
   }
   .account-menu {
-    border: 1px solid #dfe2e8;
+    border: 1px solid var(--menu-border);
     border-radius: 24px;
     overflow: hidden;
-    background: #fff;
+    background: var(--control-bg);
   }
   .account-menu + .account-menu {
     margin-top: 16px;
@@ -345,7 +386,7 @@
     gap: 12px;
     min-height: 48px;
     padding: 0 18px;
-    border-bottom: 1px solid #e6e8ee;
+    border-bottom: 1px solid var(--menu-divider);
   }
   .account-menu-row:last-child { border-bottom: none; }
   .account-menu-main {
@@ -357,12 +398,47 @@
   .account-menu-label {
     font-size: 16px;
     font-weight: 500;
-    color: #2f3138;
+    color: var(--text);
     line-height: 1.2;
   }
-  .account-menu-chevron {
-    color: #9b9ea8;
+  .account-menu-main svg {
+    color: var(--text);
     flex-shrink: 0;
+  }
+  .account-menu-chevron {
+    color: var(--text-light);
+    flex-shrink: 0;
+  }
+  .account-menu-row.theme-row {
+    cursor: default;
+  }
+  .theme-toggle {
+    width: 46px;
+    height: 28px;
+    border: none;
+    border-radius: 999px;
+    background: #d4d9e2;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.18s ease;
+  }
+  .theme-toggle.active {
+    background: var(--red);
+  }
+  .theme-toggle-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: transform 0.18s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  }
+  .theme-toggle.active .theme-toggle-knob {
+    transform: translateX(18px);
   }
   .scan-page-scroll {
     flex: 1;
@@ -436,7 +512,7 @@
   .scan-copy {
     font-size: 14px;
     line-height: 1.35;
-    color: #5c5d68;
+    color: var(--text-mid);
     margin-bottom: 14px;
   }
   .scan-action-btn {
@@ -444,8 +520,8 @@
     height: 36px;
     border-radius: 4px;
     border: 1px solid #d8dbe3;
-    background: #fff;
-    color: #2f3138;
+    background: var(--control-bg);
+    color: var(--text);
     font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-weight: 500;
@@ -453,12 +529,12 @@
   }
   .scan-tips {
     margin-top: 24px;
-    color: #565864;
+    color: var(--text-mid);
   }
   .scan-tips-title {
     font-size: 14px;
     font-weight: 700;
-    color: #15161a;
+    color: var(--text);
     margin-bottom: 8px;
   }
   .scan-tips ul {
@@ -484,9 +560,9 @@
   }
   .blog-list::-webkit-scrollbar { display: none; }
   .blog-card {
-    border: 1px solid #dfe2e8;
+    border: 1px solid var(--menu-border);
     border-radius: 16px;
-    background: #fff;
+    background: var(--control-bg);
     padding: 12px;
     margin-bottom: 18px;
     display: flex;
@@ -496,8 +572,8 @@
     transition: background 0.12s ease, border-color 0.12s ease;
   }
   .blog-card:active {
-    background: #fafafb;
-    border-color: #d5d8df;
+    background: var(--bg-gray);
+    border-color: var(--border);
   }
   .blog-card-main {
     flex: 1;
@@ -519,19 +595,19 @@
   .blog-card-title {
     font-size: 18px;
     font-weight: 700;
-    color: #15161a;
+    color: var(--text);
     line-height: 1.25;
     margin-bottom: 10px;
   }
   .blog-card-author {
     font-size: 14px;
-    color: #5b5d67;
+    color: var(--text-mid);
     margin-bottom: 10px;
   }
   .blog-card-copy {
     font-size: 14px;
     line-height: 1.45;
-    color: #5b5d67;
+    color: var(--text-mid);
   }
   .blog-card-chevron {
     display: flex;
@@ -551,7 +627,7 @@
   .back-link {
     border: none;
     background: none;
-    color: #2f3138;
+    color: var(--text);
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 600;
@@ -565,19 +641,19 @@
     font-size: 24px;
     line-height: 1.2;
     font-weight: 700;
-    color: #15161a;
+    color: var(--text);
     margin-bottom: 10px;
   }
   .blog-article-author {
     font-size: 14px;
     line-height: 1.35;
-    color: #5b5d67;
+    color: var(--text-mid);
     margin-bottom: 16px;
   }
   .blog-article-copy {
     font-size: 14px;
     line-height: 1.6;
-    color: #444750;
+    color: var(--text-mid);
     margin-bottom: 24px;
   }
   .blog-book-list {
@@ -590,7 +666,7 @@
     align-items: flex-start;
     gap: 14px;
     padding-bottom: 18px;
-    border-bottom: 1px solid #ebecef;
+    border-bottom: 1px solid var(--menu-divider);
   }
   .blog-book-item:last-child {
     border-bottom: none;
@@ -613,19 +689,19 @@
     font-size: 16px;
     font-weight: 700;
     line-height: 1.3;
-    color: #15161a;
+    color: var(--text);
     margin-bottom: 4px;
   }
   .blog-book-item-author {
     font-size: 14px;
     line-height: 1.35;
-    color: #5b5d67;
+    color: var(--text-mid);
     margin-bottom: 8px;
   }
   .blog-book-item-copy {
     font-size: 14px;
     line-height: 1.55;
-    color: #5b5d67;
+    color: var(--text-mid);
   }
   .events-page-scroll {
     flex: 1;
@@ -641,9 +717,9 @@
     margin: 18px 0 14px;
   }
   .event-card {
-    border: 1px solid #dfe2e8;
+    border: 1px solid var(--menu-border);
     border-radius: 16px;
-    background: #fff;
+    background: var(--control-bg);
     padding: 16px 14px;
     margin-bottom: 18px;
     display: flex;
@@ -653,8 +729,8 @@
     transition: background 0.12s ease, border-color 0.12s ease;
   }
   .event-card:active {
-    background: #fafafb;
-    border-color: #d5d8df;
+    background: var(--bg-gray);
+    border-color: var(--border);
   }
   .event-card-main {
     flex: 1;
@@ -663,7 +739,7 @@
   .event-title {
     font-size: 16px;
     font-weight: 700;
-    color: #15161a;
+    color: var(--text);
     line-height: 1.3;
     margin-bottom: 10px;
   }
@@ -677,14 +753,18 @@
     font-size: 14px;
     color: #8f2a2f;
     margin-bottom: 14px;
-    background: #f9ecec;
+    background: var(--red-light);
+  }
+  body.dark-mode .event-tag {
+    color: #ff7b86;
+    background: #3a1d22;
   }
   .event-meta-row {
     display: flex;
     align-items: center;
     gap: 10px;
     font-size: 14px;
-    color: #5b5d67;
+    color: var(--text-mid);
     margin-bottom: 8px;
   }
   .event-meta-row:last-child { margin-bottom: 0; }
@@ -765,18 +845,19 @@
     gap: 16px;
     padding: 18px 16px;
     border-radius: 16px;
-    background: #f5f5f8;
+    background: var(--surface-soft);
     margin-bottom: 16px;
   }
   .resource-thumb {
     width: 48px;
     height: 48px;
     border-radius: 8px;
-    background: #e4e5eb;
+    background: var(--surface-soft-2);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    color: var(--text);
   }
   .resource-info {
     flex: 1;
@@ -786,13 +867,13 @@
     font-size: 16px;
     font-weight: 700;
     line-height: 1.25;
-    color: #15161a;
+    color: var(--text);
     margin-bottom: 6px;
   }
   .resource-copy {
     font-size: 14px;
     line-height: 1.35;
-    color: #5b5d67;
+    color: var(--text-mid);
   }
   .resource-link {
     color: var(--red);
@@ -803,7 +884,7 @@
     transition: background 0.12s ease;
   }
   .resource-card:active {
-    background: #efeff3;
+    background: var(--surface-press);
   }
   .filter-btn,
   .back-link {
@@ -816,7 +897,7 @@
   .modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(17, 17, 17, 0.34);
+    background: var(--modal-overlay);
     display: none;
     align-items: center;
     justify-content: center;
@@ -828,11 +909,11 @@
   }
   .modal-card {
     width: min(100%, 336px);
-    background: #fff;
+    background: var(--control-bg);
     border-radius: 18px;
     padding: 16px;
     box-shadow: 0 18px 40px rgba(0,0,0,0.18);
-    border: 1px solid #ececf1;
+    border: 1px solid var(--border);
   }
   .modal-header {
     display: flex;
@@ -850,8 +931,8 @@
     height: 28px;
     border: none;
     border-radius: 999px;
-    background: #f3f3f6;
-    color: #2f3138;
+    background: var(--surface-muted);
+    color: var(--text);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -859,19 +940,19 @@
     flex-shrink: 0;
   }
   .modal-close:active {
-    background: #e8e8ee;
+    background: var(--surface-press);
   }
   .modal-title {
     font-size: 18px;
     font-weight: 700;
     line-height: 1.2;
-    color: #15161a;
+    color: var(--text);
     margin-bottom: 0;
   }
   .modal-copy {
     font-size: 14px;
     line-height: 1.55;
-    color: #5b5d67;
+    color: var(--text-mid);
     margin-bottom: 18px;
   }
   .modal-actions {
@@ -899,7 +980,7 @@
     font-size: 18px;
     font-weight: 700;
     line-height: 1.3;
-    color: #15161a;
+    color: var(--text);
     margin-bottom: 0;
   }
   .option-list {
@@ -911,9 +992,9 @@
     width: 100%;
     min-height: 44px;
     border-radius: 4px;
-    border: 1px solid #d8dbe3;
-    background: #fff;
-    color: #2f3138;
+    border: 1px solid var(--border);
+    background: var(--control-bg);
+    color: var(--text);
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 600;
@@ -925,7 +1006,7 @@
   }
   .option-btn.active {
     border-color: #d0333a;
-    background: #fcf1f2;
+    background: var(--red-light);
     color: #b1262c;
   }
   /* BOOK LIST */
@@ -947,7 +1028,7 @@
     -webkit-tap-highlight-color: transparent;
     transition: background 0.12s;
   }
-  .book-row:active { background: #f8f8f8; }
+  .book-row:active { background: var(--bg-gray); }
 
   .row-cover {
     width: 80px;
@@ -956,7 +1037,7 @@
     flex-shrink: 0;
     overflow: hidden;
     position: relative;
-    background: #ddd;
+    background: var(--surface-soft-2);
   }
   .row-cover img,
   .sheet-cover img,
@@ -966,7 +1047,7 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background: #fff;
+    background: var(--control-bg);
     border-radius: inherit;
     display: block;
   }
@@ -990,7 +1071,7 @@
     left: 0;
     right: 0;
     padding: 0 12px 20px;
-    background: linear-gradient(to bottom, transparent, white 35%);
+    background: linear-gradient(to bottom, transparent, var(--bg) 35%);
     transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
     z-index: 10;
   }
@@ -1003,7 +1084,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
   }
   .nav-item {
     display: flex;
@@ -1029,7 +1110,7 @@
     pointer-events: none;
     transition: background 0.3s ease;
   }
-  .sheet-overlay.visible { background: rgba(0,0,0,0.35); pointer-events: all; }
+  .sheet-overlay.visible { background: var(--overlay); pointer-events: all; }
 
   /* SHEET */
   .sheet {
@@ -1065,11 +1146,11 @@
   .grabber {
     width: 40px;
     height: 4px;
-    background: #ccc;
+    background: var(--grabber-bg);
     border-radius: 100px;
     transition: background 0.15s;
   }
-  .grabber-area:hover .grabber { background: #aaa; }
+  .grabber-area:hover .grabber { background: var(--grabber-hover); }
 
   /* sticky header (shown on scroll) */
   .sheet-sticky-header {
@@ -1078,6 +1159,7 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--border);
+    background: var(--bg);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s;
@@ -1117,7 +1199,7 @@
     flex-shrink: 0;
     overflow: hidden;
     position: relative;
-    background: #ddd;
+    background: var(--surface-soft-2);
   }
   .sheet-meta { flex: 1; }
   .sheet-title { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
@@ -1212,7 +1294,7 @@
   .request-btn-sticky:active { background: #9e1f24; }
   @media (max-width: 430px) {
     body {
-      background: #fff;
+      background: var(--bg);
       padding: 0;
     }
     .app-shell {
@@ -1236,7 +1318,7 @@
     }
   }
   body.embed-mode {
-    background: #fff;
+    background: var(--bg);
     padding: 0;
   }
   body.embed-mode .app-shell {
@@ -1259,7 +1341,7 @@
     inset: 55px 0 0 0;
   }
   body.embed-mode.embed-framed {
-    background: #d0d0d0;
+    background: var(--shell-bg);
     padding: 24px 16px 40px;
   }
   body.embed-mode.embed-framed .app-shell {
@@ -1287,11 +1369,11 @@
   <!-- STATUS BAR -->
   <div class="status-bar">
     <span>9:30</span>
-    <div style="width:12px;height:12px;background:#111;border-radius:50%;position:absolute;left:50%;transform:translateX(-50%);top:14px;"></div>
+    <div style="width:12px;height:12px;background:currentColor;border-radius:50%;position:absolute;left:50%;transform:translateX(-50%);top:14px;"></div>
     <div class="status-icons">
-      <svg width="15" height="12" viewBox="0 0 15 12" fill="#111"><path d="M7.5 1C10.2 1 12.6 2.3 14.1 4.3L12.8 5.5C11.6 3.9 9.7 2.8 7.5 2.8C5.3 2.8 3.4 3.9 2.2 5.5L0.9 4.3C2.4 2.3 4.8 1 7.5 1Z" opacity="0.35"/><path d="M7.5 4C9.4 4 11.1 4.9 12.2 6.3L10.9 7.5C10.1 6.5 8.9 5.8 7.5 5.8C6.1 5.8 4.9 6.5 4.1 7.5L2.8 6.3C3.9 4.9 5.6 4 7.5 4Z" opacity="0.65"/><circle cx="7.5" cy="10" r="1.5"/></svg>
-      <svg width="13" height="12" viewBox="0 0 13 12" fill="#111"><rect x="0" y="4" width="3" height="8" rx="0.5"/><rect x="4" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="8" y="0" width="3" height="12" rx="0.5"/><rect x="11.5" y="0" width="1.5" height="12" rx="0.5" opacity="0.3"/></svg>
-      <svg width="22" height="12" viewBox="0 0 22 12" fill="none"><rect x="0.5" y="0.5" width="18" height="11" rx="2.5" stroke="#111" stroke-width="1"/><rect x="2" y="2" width="12" height="8" rx="1.5" fill="#111"/><path d="M20 4v4c1.1-.5 1.1-3.5 0-4z" fill="#111"/></svg>
+      <svg width="15" height="12" viewBox="0 0 15 12" fill="currentColor"><path d="M7.5 1C10.2 1 12.6 2.3 14.1 4.3L12.8 5.5C11.6 3.9 9.7 2.8 7.5 2.8C5.3 2.8 3.4 3.9 2.2 5.5L0.9 4.3C2.4 2.3 4.8 1 7.5 1Z" opacity="0.35"/><path d="M7.5 4C9.4 4 11.1 4.9 12.2 6.3L10.9 7.5C10.1 6.5 8.9 5.8 7.5 5.8C6.1 5.8 4.9 6.5 4.1 7.5L2.8 6.3C3.9 4.9 5.6 4 7.5 4Z" opacity="0.65"/><circle cx="7.5" cy="10" r="1.5"/></svg>
+      <svg width="13" height="12" viewBox="0 0 13 12" fill="currentColor"><rect x="0" y="4" width="3" height="8" rx="0.5"/><rect x="4" y="2.5" width="3" height="9.5" rx="0.5"/><rect x="8" y="0" width="3" height="12" rx="0.5"/><rect x="11.5" y="0" width="1.5" height="12" rx="0.5" opacity="0.3"/></svg>
+      <svg width="22" height="12" viewBox="0 0 22 12" fill="none"><rect x="0.5" y="0.5" width="18" height="11" rx="2.5" stroke="currentColor" stroke-width="1"/><rect x="2" y="2" width="12" height="8" rx="1.5" fill="currentColor"/><path d="M20 4v4c1.1-.5 1.1-3.5 0-4z" fill="currentColor"/></svg>
     </div>
   </div>
 
@@ -1745,68 +1827,77 @@
         <div class="account-menu">
           <div class="account-menu-row">
             <div class="account-menu-main">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>
               <div class="account-menu-label">Your Account</div>
             </div>
             <div class="account-menu-chevron">
-              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
             </div>
           </div>
           <div class="account-menu-row">
             <div class="account-menu-main">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 7 3 7 3 9H3c0-2 3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 7 3 7 3 9H3c0-2 3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
               <div class="account-menu-label">Notifications</div>
             </div>
             <div class="account-menu-chevron">
-              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
             </div>
           </div>
           <div class="account-menu-row">
             <div class="account-menu-main">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
               <div class="account-menu-label">Home: 96th Street Library</div>
             </div>
             <div class="account-menu-chevron">
-              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
             </div>
           </div>
           <div class="account-menu-row">
             <div class="account-menu-main">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14"/><path d="M7 5 4 8l3 3"/><path d="M12 19h7"/><path d="M15 12l4 7"/><path d="M15 19l4-7"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg>
               <div class="account-menu-label">Language: English</div>
             </div>
             <div class="account-menu-chevron">
-              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
             </div>
+          </div>
+          <div class="account-menu-row theme-row">
+            <div class="account-menu-main">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z"/></svg>
+              <div class="account-menu-label">Dark Mode</div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="toggleDarkMode()">
+              <span class="theme-toggle-knob"></span>
+            </button>
           </div>
         </div>
 
         <div class="account-menu">
           <div class="account-menu-row">
             <div class="account-menu-main">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h3"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h3"/></svg>
               <div class="account-menu-label">Payment & Fees</div>
             </div>
             <div class="account-menu-chevron">
-              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
             </div>
           </div>
           <div class="account-menu-row">
             <div class="account-menu-main">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
               <div class="account-menu-label">Help & Support</div>
             </div>
             <div class="account-menu-chevron">
-              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="#9B9EA8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
+              <svg width="11" height="18" viewBox="0 0 14 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3l9 9-9 9"/></svg>
             </div>
           </div>
           <div class="account-menu-row">
             <div class="account-menu-main">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33343A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>
               <div class="account-menu-label">Get a Library Card</div>
             </div>
             <div class="account-menu-chevron">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9B9EA8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
             </div>
           </div>
         </div>
@@ -2024,7 +2115,7 @@
 
         <div class="resource-card" onclick="openResourceModal('E-Reading with NYPL')">
           <div class="resource-thumb">
-            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
           </div>
           <div class="resource-info">
             <div class="resource-title">E-Reading with NYPL</div>
@@ -2037,7 +2128,7 @@
 
         <div class="resource-card" onclick="openResourceModal('Mango')">
           <div class="resource-thumb">
-            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
           </div>
           <div class="resource-info">
             <div class="resource-title">Mango</div>
@@ -2050,7 +2141,7 @@
 
         <div class="resource-card" onclick="openResourceModal('Transparent Language Online')">
           <div class="resource-thumb">
-            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
           </div>
           <div class="resource-info">
             <div class="resource-title">Transparent Language Online</div>
@@ -2063,7 +2154,7 @@
 
         <div class="resource-card" onclick="openResourceModal('Mometrix eLibrary')">
           <div class="resource-thumb">
-            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
           </div>
           <div class="resource-info">
             <div class="resource-title">Mometrix eLibrary</div>
@@ -2076,7 +2167,7 @@
 
         <div class="resource-card" onclick="openResourceModal('Press Reader')">
           <div class="resource-thumb">
-            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
           </div>
           <div class="resource-info">
             <div class="resource-title">Press Reader</div>
@@ -2089,7 +2180,7 @@
 
         <div class="resource-card" onclick="openResourceModal('Flipster')">
           <div class="resource-thumb">
-            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5.5-5.5L6 20"/></svg>
           </div>
           <div class="resource-info">
             <div class="resource-title">Flipster</div>
@@ -2843,6 +2934,7 @@ const resourceModalCopy = document.getElementById('resourceModalCopy');
 const renewModal = document.getElementById('renewModal');
 const holdCancelModal = document.getElementById('holdCancelModal');
 const renewOptionNote = document.getElementById('renewOptionNote');
+const themeToggle = document.getElementById('themeToggle');
 const navItems = document.querySelectorAll('.nav-item[data-page]');
 const homeTabs = document.querySelectorAll('.home-tab');
 const homePanels = document.querySelectorAll('.home-tab-panel');
@@ -2869,12 +2961,45 @@ let sheetMode = 'book';
 let renewOption = 'all';
 let currentBookContext = 'catalog';
 
+function applyTheme(theme) {
+  const isDark = theme === 'dark';
+  document.body.classList.toggle('dark-mode', isDark);
+  if (themeToggle) {
+    themeToggle.classList.toggle('active', isDark);
+    themeToggle.setAttribute('aria-checked', String(isDark));
+  }
+}
+
+function getStoredTheme() {
+  try {
+    return localStorage.getItem('nyplDemoTheme') || 'light';
+  } catch (error) {
+    return 'light';
+  }
+}
+
+function setStoredTheme(theme) {
+  try {
+    localStorage.setItem('nyplDemoTheme', theme);
+  } catch (error) {
+    // Ignore storage failures in demo mode.
+  }
+}
+
+function toggleDarkMode() {
+  const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+  applyTheme(nextTheme);
+  setStoredTheme(nextTheme);
+}
+
 const bookSheetActions = {
   catalog: { label: 'Request Item', success: 'Request sent!' },
   saved: { label: 'Request Item', success: 'Request sent!' },
   checkout: { label: 'Renew', success: 'Renewed!' },
   hold: { label: 'Cancel Hold', success: 'Hold canceled' }
 };
+applyTheme(getStoredTheme());
+
 function showCatalogDefault() {
   catalogDefaultView.classList.add('active');
   catalogSearchView.classList.remove('active');
