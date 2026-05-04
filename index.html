@@ -17,7 +17,7 @@
     --bg-gray: #f2f2f2;
     --border: #e0e0e0;
     --nav-bg: #ffffff;
-    --shell-bg: #d0d0d0;
+    --shell-bg: #EEE9DD;
     --surface-muted: #f3f1f1;
     --surface-soft: #f5f5f8;
     --surface-soft-2: #e4e5eb;
@@ -31,6 +31,17 @@
     --modal-overlay: rgba(17,17,17,0.34);
     --grabber-bg: #cccccc;
     --grabber-hover: #aaaaaa;
+    --text-on-accent: #ffffff;
+    --text-on-surface: #2f3138;
+    --accent-strong: #d0333a;
+    --accent-pressed: #9e1f24;
+    --status-success: #2a7a3b;
+    --status-success-bright: #169c47;
+    --status-warning: #ea5b0c;
+    --status-accent-soft-text: #8f2a2f;
+    --status-accent-soft-bg: var(--red-light);
+    --border-subtle: #d8dbe3;
+    --surface-subtle: #f4f5f7;
   }
   body.dark-mode {
     --red-light: #3f2023;
@@ -55,6 +66,17 @@
     --modal-overlay: rgba(0,0,0,0.62);
     --grabber-bg: #5f6874;
     --grabber-hover: #818b99;
+    --text-on-accent: #ffffff;
+    --text-on-surface: #f3f5f8;
+    --accent-strong: #d0333a;
+    --accent-pressed: #9e1f24;
+    --status-success: #56a86a;
+    --status-success-bright: #58c577;
+    --status-warning: #ff9a57;
+    --status-accent-soft-text: #ff7b86;
+    --status-accent-soft-bg: #3a1d22;
+    --border-subtle: #38414d;
+    --surface-subtle: #20262e;
   }
   body {
     background: var(--shell-bg);
@@ -320,10 +342,10 @@
     font-weight: 500;
   }
   .hold-status-row.ready {
-    color: #169c47;
+    color: var(--status-success-bright);
   }
   .hold-status-row.queue {
-    color: #ea5b0c;
+    color: var(--status-warning);
   }
   .hold-location-row {
     color: var(--text-mid);
@@ -362,9 +384,9 @@
     width: 100%;
     height: 36px;
     border-radius: 4px;
-    border: 2px solid #d0333a;
+    border: 2px solid var(--accent-strong);
     background: var(--control-bg);
-    color: #d0333a;
+    color: var(--accent-strong);
     font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-weight: 500;
@@ -469,7 +491,7 @@
     position: absolute;
     width: 38px;
     height: 38px;
-    border-color: #d0333a;
+    border-color: var(--accent-strong);
     border-style: solid;
     pointer-events: none;
   }
@@ -488,7 +510,7 @@
     position: absolute;
     width: 38px;
     height: 38px;
-    border-color: #d0333a;
+    border-color: var(--accent-strong);
     border-style: solid;
     pointer-events: none;
   }
@@ -519,7 +541,7 @@
     width: 100%;
     height: 36px;
     border-radius: 4px;
-    border: 1px solid #d8dbe3;
+    border: 1px solid var(--border-subtle);
     background: var(--control-bg);
     color: var(--text);
     font-family: 'Inter', sans-serif;
@@ -713,7 +735,7 @@
   .event-group-title {
     font-size: 18px;
     font-weight: 700;
-    color: #d0333a;
+    color: var(--accent-strong);
     margin: 18px 0 14px;
   }
   .event-card {
@@ -751,13 +773,13 @@
     border: none;
     border-radius: 6px;
     font-size: 14px;
-    color: #8f2a2f;
+    color: var(--status-accent-soft-text);
     margin-bottom: 14px;
-    background: var(--red-light);
+    background: var(--status-accent-soft-bg);
   }
   body.dark-mode .event-tag {
-    color: #ff7b86;
-    background: #3a1d22;
+    color: var(--status-accent-soft-text);
+    background: var(--status-accent-soft-bg);
   }
   .event-meta-row {
     display: flex;
@@ -790,16 +812,16 @@
     width: 100%;
     min-height: 44px;
     border-radius: 4px;
-    border: 1px solid #d8dbe3;
-    background: #fff;
-    color: #2f3138;
+    border: 1px solid var(--border-subtle);
+    background: var(--control-bg);
+    color: var(--text-on-surface);
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
   }
   .sheet-subtle-btn:active {
-    background: #f4f5f7;
+    background: var(--surface-subtle);
   }
   .sheet.event-mode .sheet-cover {
     display: none;
@@ -966,7 +988,7 @@
     border-radius: 4px;
     border: none;
     background: var(--red);
-    color: #fff;
+    color: var(--text-on-accent);
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 600;
@@ -974,7 +996,7 @@
     cursor: pointer;
   }
   .modal-primary-btn:active {
-    background: #9e1f24;
+    background: var(--accent-pressed);
   }
   .option-sheet-title {
     font-size: 18px;
@@ -1005,9 +1027,9 @@
     cursor: pointer;
   }
   .option-btn.active {
-    border-color: #d0333a;
+    border-color: var(--accent-strong);
     background: var(--red-light);
-    color: #b1262c;
+    color: var(--red);
   }
   /* BOOK LIST */
   .book-list {
@@ -1248,7 +1270,7 @@
   }
   .branch-table tr:last-child td { border-bottom: none; }
   .avail-due { color: var(--red); font-weight: 600; font-size: 12px; }
-  .avail-ok { color: #2a7a3b; font-weight: 600; font-size: 12px; }
+  .avail-ok { color: var(--status-success); font-weight: 600; font-size: 12px; }
 
   .sheet-bottom-pad { height: 16px; }
 
@@ -1268,7 +1290,7 @@
     border-radius: 4px;
     border: none;
     background: var(--red);
-    color: white;
+    color: var(--text-on-accent);
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 600;
@@ -1276,7 +1298,7 @@
     transition: background 0.15s;
     margin-top: 16px;
   }
-  .request-btn-inline:active { background: #9e1f24; }
+  .request-btn-inline:active { background: var(--accent-pressed); }
   .request-btn-sticky {
     width: 100%;
     min-height: 36px;
@@ -1284,14 +1306,14 @@
     border-radius: 4px;
     border: none;
     background: var(--red);
-    color: white;
+    color: var(--text-on-accent);
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.15s;
   }
-  .request-btn-sticky:active { background: #9e1f24; }
+  .request-btn-sticky:active { background: var(--accent-pressed); }
   @media (max-width: 430px) {
     body {
       background: var(--bg);
@@ -2096,7 +2118,7 @@
       <div class="blog-article-scroll">
         <div class="page-label-row" style="padding: 6px 0 16px;">
           <button class="back-link" type="button" onclick="openCatalogDefaultPage()">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#2f3138" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2.5 5 7l4.5 4.5"/><path d="M5.5 7h5"/></svg>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2.5 5 7l4.5 4.5"/><path d="M5.5 7h5"/></svg>
             <span>Back</span>
           </button>
         </div>
@@ -3408,7 +3430,7 @@ function requestItem(e) {
   const orig = action.label;
   inlineRequestBtn.textContent = action.success;
   stickyRequestBtn.textContent = action.success;
-  btn.style.background = '#2a7a3b';
+  btn.style.background = getComputedStyle(document.body).getPropertyValue('--status-success').trim();
   setTimeout(() => {
     inlineRequestBtn.textContent = orig;
     stickyRequestBtn.textContent = orig;
