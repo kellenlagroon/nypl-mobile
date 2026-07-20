@@ -226,18 +226,36 @@
   .home-scroll::-webkit-scrollbar { display: none; }
   .home-shell {
     padding-top: 4px;
+    overflow: hidden;
   }
   .home-tabs {
+    --home-tab-left: 8px;
+    --home-tab-width: 0px;
     display: flex;
     gap: 8px;
-    background: var(--surface-muted);
+    position: relative;
+    background: transparent;
+    border: 1px solid var(--border);
     border-radius: 999px;
     padding: 8px;
     width: fit-content;
     max-width: 100%;
     margin: 0 auto 22px;
   }
+  .home-tabs::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: var(--home-tab-left);
+    width: var(--home-tab-width);
+    border-radius: 999px;
+    background: var(--red);
+    transition: left 0.28s cubic-bezier(0.2, 0.75, 0.25, 1), width 0.28s cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
   .home-tab {
+    position: relative;
+    z-index: 1;
     border: none;
     background: transparent;
     color: var(--red);
@@ -249,11 +267,25 @@
     transition: background 0.18s ease, color 0.18s ease;
   }
   .home-tab.active {
-    background: var(--red);
+    background: transparent;
     color: #fff;
   }
   .home-tab-panel { display: none; }
   .home-tab-panel.active { display: block; }
+  .home-tab-panel.slide-forward { animation: home-panel-enter-forward 0.28s cubic-bezier(0.2, 0.75, 0.25, 1); }
+  .home-tab-panel.slide-back { animation: home-panel-enter-back 0.28s cubic-bezier(0.2, 0.75, 0.25, 1); }
+  @keyframes home-panel-enter-forward {
+    from { opacity: 0; transform: translateX(28px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes home-panel-enter-back {
+    from { opacity: 0; transform: translateX(-28px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .home-tab-panel.slide-forward,
+    .home-tab-panel.slide-back { animation: none; }
+  }
   .home-heading {
     text-align: center;
     margin-bottom: 20px;
@@ -1106,6 +1138,11 @@
   }
   .nav-wrapper.hidden { transform: translateY(90px); }
   .nav-bar {
+    --nav-indicator-left: 0px;
+    --nav-indicator-top: 0px;
+    --nav-indicator-width: 0px;
+    --nav-indicator-height: 0px;
+    position: relative;
     background: var(--nav-bg);
     border: 1px solid var(--border);
     border-radius: 100px;
@@ -1115,7 +1152,20 @@
     align-items: center;
     box-shadow: 0 2px 12px rgba(0,0,0,0.12);
   }
+  .nav-bar::before {
+    content: '';
+    position: absolute;
+    left: var(--nav-indicator-left);
+    top: var(--nav-indicator-top);
+    width: var(--nav-indicator-width);
+    height: var(--nav-indicator-height);
+    border-radius: 999px;
+    background: rgba(192, 39, 45, 0.11);
+    transition: left 0.28s cubic-bezier(0.2, 0.75, 0.25, 1), width 0.28s cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
   .nav-item {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex: 1 1 0;
     flex-direction: column;
@@ -1129,7 +1179,7 @@
     color: var(--text-light);
   }
   .nav-label { font-size: 12px; font-weight: 500; color: var(--text-light); line-height: 16px; white-space: nowrap; }
-  .nav-item.active { color: var(--red); background: rgba(192, 39, 45, 0.11); }
+  .nav-item.active { color: var(--red); background: transparent; }
   .nav-item.active .nav-label { color: var(--red); font-weight: 600; }
   .nav-item.active svg { stroke: var(--red); }
   .nav-item.active svg.fill-icon { fill: var(--red); stroke: none; }
@@ -3066,6 +3116,23 @@ function setSheetMode(mode) {
   stickyEventFooter.classList.toggle('visible', false);
 }
 
+function positionIndicator(container, activeElement, name) {
+  if (!container || !activeElement) return;
+  const containerRect = container.getBoundingClientRect();
+  const activeRect = activeElement.getBoundingClientRect();
+  container.style.setProperty(`--${name}-left`, `${activeRect.left - containerRect.left}px`);
+  container.style.setProperty(`--${name}-width`, `${activeRect.width}px`);
+  if (name === 'nav-indicator') {
+    container.style.setProperty(`--${name}-top`, `${activeRect.top - containerRect.top}px`);
+    container.style.setProperty(`--${name}-height`, `${activeRect.height}px`);
+  }
+}
+
+function syncTabIndicators() {
+  positionIndicator(document.querySelector('.home-tabs'), document.querySelector('.home-tab.active'), 'home-tab');
+  positionIndicator(document.querySelector('.nav-bar'), document.querySelector('.nav-item.active'), 'nav-indicator');
+}
+
 function setPage(page) {
   currentPage = page;
   homePage.classList.toggle('active', page === 'home');
@@ -3081,6 +3148,7 @@ function setPage(page) {
     const isActive = item.dataset.page === page || (page === 'blogArticle' && item.dataset.page === 'catalog');
     item.classList.toggle('active', isActive);
   });
+  requestAnimationFrame(syncTabIndicators);
 
   if (isSheetOpen) closeSheet();
   navWrapper.classList.remove('hidden');
@@ -3270,16 +3338,26 @@ function selectRenewOption(option) {
 homeTabs.forEach(tab => {
   tab.addEventListener('click', () => {
     const selected = tab.dataset.homeTab;
+    const previousIndex = Array.from(homeTabs).findIndex(btn => btn.classList.contains('active'));
+    const nextIndex = Array.from(homeTabs).indexOf(tab);
+    const directionClass = nextIndex >= previousIndex ? 'slide-forward' : 'slide-back';
     homeTabs.forEach(btn => {
       const isActive = btn === tab;
       btn.classList.toggle('active', isActive);
       btn.setAttribute('aria-selected', String(isActive));
     });
     homePanels.forEach(panel => {
-      panel.classList.toggle('active', panel.id === `panel-${selected}`);
+      const isActive = panel.id === `panel-${selected}`;
+      panel.classList.toggle('active', isActive);
+      panel.classList.toggle('slide-forward', isActive && directionClass === 'slide-forward');
+      panel.classList.toggle('slide-back', isActive && directionClass === 'slide-back');
     });
+    requestAnimationFrame(syncTabIndicators);
   });
 });
+
+window.addEventListener('resize', syncTabIndicators);
+requestAnimationFrame(syncTabIndicators);
 
 bookList.addEventListener('scroll', () => {
   if (isSheetOpen || currentPage !== 'catalog') return;
