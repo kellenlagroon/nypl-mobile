@@ -291,22 +291,33 @@
     margin-bottom: 20px;
   }
   .home-heading-btn {
-    border: none;
-    background: none;
+    min-height: 36px;
+    padding: 0 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    background: var(--control-bg);
     width: auto;
     margin: 0 auto;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    color: var(--text-on-surface);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
   }
+  .home-heading-btn:active {
+    background: var(--surface-subtle);
+  }
   .home-heading-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text);
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+  }
+  .home-heading-title svg {
+    color: currentColor;
+    flex: 0 0 auto;
   }
   .renew-option-note {
     display: none;
@@ -1492,8 +1503,8 @@
             <div class="home-heading">
               <button class="home-heading-btn" type="button" onclick="openRenewOptions()">
                 <div class="home-heading-title">
-                  <span>Renew Items</span>
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#2b2b31" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l5 5 5-5"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 5v4h4M4 13a8.1 8.1 0 0 0 15.5 2M20 19v-4h-4"/></svg>
+                  <span>Renew multiple</span>
                 </div>
               </button>
               <div class="renew-option-note" id="renewOptionNote" aria-hidden="true"></div>
@@ -2038,19 +2049,19 @@
             <div class="event-title">Toddler Story Time (Registration Required)</div>
             <div class="event-tag">Story Times/Read Alouds</div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2v4M6 2v4M3 10h18M4 4h16a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
               <span>Tuesday, March 24, 2026</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
               <span>10:00 AM</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.686-6-11a6 6 0 0 1 12 0c0 5.314-6 11-6 11Z"/><circle cx="12" cy="10" r="2"/></svg>
               <span>58th Street Library</span>
             </div>
           </div>
-          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+          <div class="event-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
 
         <div class="event-card" onclick="openEventSheet(1)">
@@ -2058,19 +2069,19 @@
             <div class="event-title">Kids Story Time (Registration Required)</div>
             <div class="event-tag">Story Times/Read Alouds</div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2v4M6 2v4M3 10h18M4 4h16a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
               <span>Tuesday, March 24, 2026</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
               <span>10:00 AM</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.686-6-11a6 6 0 0 1 12 0c0 5.314-6 11-6 11Z"/><circle cx="12" cy="10" r="2"/></svg>
               <span>58th Street Library</span>
             </div>
           </div>
-          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+          <div class="event-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
 
         <div class="event-group-title">Wednesday, March 25</div>
@@ -2080,19 +2091,19 @@
             <div class="event-title">Author Talk: Writing the City</div>
             <div class="event-tag">Author Talks</div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2v4M6 2v4M3 10h18M4 4h16a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
               <span>Wednesday, March 25, 2026</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
               <span>6:30 PM</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.686-6-11a6 6 0 0 1 12 0c0 5.314-6 11-6 11Z"/><circle cx="12" cy="10" r="2"/></svg>
               <span>Stephen A. Schwarzman Building</span>
             </div>
           </div>
-          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+          <div class="event-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
 
         <div class="event-card" onclick="openEventSheet(3)">
@@ -2100,19 +2111,19 @@
             <div class="event-title">Poetry Open Mic for Teens</div>
             <div class="event-tag">Poetry &amp; Writing</div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2v4M6 2v4M3 10h18M4 4h16a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
               <span>Wednesday, March 25, 2026</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
               <span>4:00 PM</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.686-6-11a6 6 0 0 1 12 0c0 5.314-6 11-6 11Z"/><circle cx="12" cy="10" r="2"/></svg>
               <span>Harlem Library</span>
             </div>
           </div>
-          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+          <div class="event-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
 
         <div class="event-group-title">Thursday, March 26</div>
@@ -2122,19 +2133,19 @@
             <div class="event-title">Career Lab: Resume Basics</div>
             <div class="event-tag">Career Services</div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2v4M6 2v4M3 10h18M4 4h16a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
               <span>Thursday, March 26, 2026</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
               <span>1:00 PM</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.686-6-11a6 6 0 0 1 12 0c0 5.314-6 11-6 11Z"/><circle cx="12" cy="10" r="2"/></svg>
               <span>Stavros Niarchos Foundation Library</span>
             </div>
           </div>
-          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+          <div class="event-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
 
         <div class="event-card" onclick="openEventSheet(5)">
@@ -2142,19 +2153,19 @@
             <div class="event-title">Family Maker Space: Paper Cities</div>
             <div class="event-tag">Crafts &amp; DIY</div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2v4M6 2v4M3 10h18M4 4h16a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
               <span>Thursday, March 26, 2026</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
               <span>3:30 PM</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.686-6-11a6 6 0 0 1 12 0c0 5.314-6 11-6 11Z"/><circle cx="12" cy="10" r="2"/></svg>
               <span>96th Street Library</span>
             </div>
           </div>
-          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+          <div class="event-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
 
         <div class="event-card" onclick="openEventSheet(6)">
@@ -2162,19 +2173,19 @@
             <div class="event-title">Film Screening: New York Stories</div>
             <div class="event-tag">Films</div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2v4M6 2v4M3 10h18M4 4h16a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
               <span>Thursday, March 26, 2026</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>
               <span>6:00 PM</span>
             </div>
             <div class="event-meta-row">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5d67" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.686-6-11a6 6 0 0 1 12 0c0 5.314-6 11-6 11Z"/><circle cx="12" cy="10" r="2"/></svg>
               <span>Jefferson Market Library</span>
             </div>
           </div>
-          <div class="event-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+          <div class="event-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
       </div>
     </div>
