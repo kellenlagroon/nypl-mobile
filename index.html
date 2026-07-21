@@ -8,7 +8,9 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --red: #C0272D;
+    /* Semantic color, shape, and persistent-navigation tokens. */
+    --color-accent: #C0272D;
+    --red: var(--color-accent);
     --red-light: #f5e6e6;
     --text: #111111;
     --text-mid: #555555;
@@ -42,6 +44,18 @@
     --status-accent-soft-bg: var(--red-light);
     --border-subtle: #d8dbe3;
     --surface-subtle: #f4f5f7;
+    --icon-muted: #666270;
+    --icon-disabled: #54555f;
+    --surface-inverse: #1d1d21;
+    --nav-indicator: rgba(192, 39, 45, 0.11);
+    --control-track: #d4d9e2;
+    --scan-guide: #f5f5f7;
+    --page-bottom-pad: 96px;
+    --page-bottom-pad-comfortable: 112px;
+    --radius-control: 4px;
+    --radius-card: 16px;
+    --radius-sheet: 20px;
+    --radius-pill: 999px;
   }
   body.dark-mode {
     --red-light: #3f2023;
@@ -77,6 +91,12 @@
     --status-accent-soft-bg: #3a1d22;
     --border-subtle: #38414d;
     --surface-subtle: #20262e;
+    --icon-muted: #bcc1c9;
+    --icon-disabled: #8d949f;
+    --surface-inverse: #1d1d21;
+    --nav-indicator: rgba(192, 39, 45, 0.22);
+    --control-track: #38414d;
+    --scan-guide: #f5f5f7;
   }
   body {
     background: var(--shell-bg);
@@ -168,7 +188,7 @@
     height: 36px;
     background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 100px;
+    border-radius: var(--radius-pill);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -220,7 +240,7 @@
     flex: 1;
     overflow-y: auto;
     scrollbar-width: none;
-    padding: 10px 16px 112px;
+    padding: 10px 16px var(--page-bottom-pad-comfortable);
     background: var(--bg);
   }
   .home-scroll::-webkit-scrollbar { display: none; }
@@ -236,11 +256,11 @@
     position: relative;
     background: transparent;
     border: 1px solid var(--border);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 8px;
     width: fit-content;
     max-width: 100%;
-    margin: 0 auto 22px;
+    margin: 0 auto 14px;
   }
   .home-tabs::before {
     content: '';
@@ -249,7 +269,7 @@
     bottom: 8px;
     left: var(--home-tab-left);
     width: var(--home-tab-width);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--red);
     transition: left 0.28s cubic-bezier(0.2, 0.75, 0.25, 1), width 0.28s cubic-bezier(0.2, 0.75, 0.25, 1);
   }
@@ -262,13 +282,13 @@
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     padding: 13px 16px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     cursor: pointer;
     transition: background 0.18s ease, color 0.18s ease;
   }
   .home-tab.active {
     background: transparent;
-    color: #fff;
+    color: var(--text-on-accent);
   }
   .home-tab-panel { display: none; }
   .home-tab-panel.active { display: block; }
@@ -288,13 +308,13 @@
   }
   .home-heading {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
   .home-heading-btn {
     min-height: 36px;
     padding: 0 12px;
     border: 1px solid var(--border-subtle);
-    border-radius: 4px;
+    border-radius: var(--radius-control);
     background: var(--control-bg);
     width: auto;
     margin: 0 auto;
@@ -306,6 +326,12 @@
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+    position: relative;
+  }
+  .home-heading-btn::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
   }
   .home-heading-btn:active {
     background: var(--surface-subtle);
@@ -352,7 +378,7 @@
   }
   .soft-btn {
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-control);
     background: var(--soft-btn-bg);
     color: var(--text);
     font-family: 'Inter', sans-serif;
@@ -400,11 +426,15 @@
   .hold-location-row {
     color: var(--text-mid);
   }
+  .hold-location-row svg {
+    color: var(--icon-muted);
+    flex-shrink: 0;
+  }
   .account-page-scroll {
     flex: 1;
     overflow-y: auto;
     scrollbar-width: none;
-    padding: 14px 16px 112px;
+    padding: 14px 16px var(--page-bottom-pad-comfortable);
     background: var(--bg);
   }
   .account-page-scroll::-webkit-scrollbar { display: none; }
@@ -433,7 +463,7 @@
   .account-add-btn {
     width: 100%;
     height: 36px;
-    border-radius: 4px;
+    border-radius: var(--radius-control);
     border: 2px solid var(--accent-strong);
     background: var(--control-bg);
     color: var(--accent-strong);
@@ -488,8 +518,8 @@
     width: 46px;
     height: 28px;
     border: none;
-    border-radius: 999px;
-    background: #d4d9e2;
+    border-radius: var(--radius-pill);
+    background: var(--control-track);
     position: relative;
     cursor: pointer;
     flex-shrink: 0;
@@ -516,12 +546,12 @@
     flex: 1;
     overflow-y: auto;
     scrollbar-width: none;
-    padding: 14px 16px 96px;
+    padding: 14px 16px var(--page-bottom-pad);
     background: var(--bg);
   }
   .scan-page-scroll::-webkit-scrollbar { display: none; }
   .scan-frame {
-    background: #1d1d21;
+    background: var(--surface-inverse);
     border-radius: 14px;
     height: 248px;
     position: relative;
@@ -531,9 +561,9 @@
   .scan-guide {
     position: absolute;
     inset: 24px 24px;
-    border: 4px solid #f5f5f7;
-    border-top-color: #fff;
-    border-bottom-color: #fff;
+    border: 4px solid var(--scan-guide);
+    border-top-color: var(--text-on-accent);
+    border-bottom-color: var(--text-on-accent);
   }
   .scan-guide::before,
   .scan-guide::after {
@@ -580,27 +610,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--icon-disabled);
   }
   .scan-copy {
     font-size: 14px;
     line-height: 1.35;
     color: var(--text-mid);
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .scan-action-btn {
     width: 100%;
-    height: 36px;
-    border-radius: 4px;
+    min-height: 44px;
+    display: block;
+    border-radius: var(--radius-control);
     border: 1px solid var(--border-subtle);
     background: var(--control-bg);
     color: var(--text);
     font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-weight: 500;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
   .scan-tips {
-    margin-top: 24px;
+    margin-top: 16px;
     color: var(--text-mid);
   }
   .scan-tips-title {
@@ -628,12 +660,12 @@
     flex: 1;
     overflow-y: auto;
     scrollbar-width: none;
-    padding: 2px 16px 96px;
+    padding: 2px 16px var(--page-bottom-pad);
   }
   .blog-list::-webkit-scrollbar { display: none; }
   .blog-card {
     border: 1px solid var(--menu-border);
-    border-radius: 16px;
+    border-radius: var(--radius-card);
     background: var(--control-bg);
     padding: 12px;
     margin-bottom: 18px;
@@ -693,7 +725,7 @@
     flex: 1;
     overflow-y: auto;
     scrollbar-width: none;
-    padding: 8px 16px 112px;
+    padding: 8px 16px var(--page-bottom-pad-comfortable);
   }
   .blog-article-scroll::-webkit-scrollbar { display: none; }
   .back-link {
@@ -779,7 +811,7 @@
     flex: 1;
     overflow-y: auto;
     scrollbar-width: none;
-    padding: 2px 16px 96px;
+    padding: 2px 16px var(--page-bottom-pad);
   }
   .events-page-scroll::-webkit-scrollbar { display: none; }
   .event-group-title {
@@ -790,7 +822,7 @@
   }
   .event-card {
     border: 1px solid var(--menu-border);
-    border-radius: 16px;
+    border-radius: var(--radius-card);
     background: var(--control-bg);
     padding: 16px 14px;
     margin-bottom: 18px;
@@ -861,7 +893,7 @@
   .sheet-subtle-btn {
     width: 100%;
     min-height: 44px;
-    border-radius: 4px;
+    border-radius: var(--radius-control);
     border: 1px solid var(--border-subtle);
     background: var(--control-bg);
     color: var(--text-on-surface);
@@ -908,7 +940,7 @@
     flex: 1;
     overflow-y: auto;
     scrollbar-width: none;
-    padding: 2px 16px 96px;
+    padding: 2px 16px var(--page-bottom-pad);
   }
   .eresources-page-scroll::-webkit-scrollbar { display: none; }
   .resource-card {
@@ -916,9 +948,11 @@
     align-items: center;
     gap: 16px;
     padding: 18px 16px;
-    border-radius: 16px;
+    border-radius: var(--radius-card);
     background: var(--surface-soft);
     margin-bottom: 16px;
+    cursor: pointer;
+    transition: background 0.12s ease;
   }
   .resource-thumb {
     width: 48px;
@@ -950,10 +984,6 @@
   .resource-link {
     color: var(--red);
     flex-shrink: 0;
-  }
-  .resource-card {
-    cursor: pointer;
-    transition: background 0.12s ease;
   }
   .resource-card:active {
     background: var(--surface-press);
@@ -1002,7 +1032,7 @@
     width: 28px;
     height: 28px;
     border: none;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--surface-muted);
     color: var(--text);
     display: flex;
@@ -1035,7 +1065,7 @@
   .modal-primary-btn {
     width: 100%;
     min-height: 36px;
-    border-radius: 4px;
+    border-radius: var(--radius-control);
     border: none;
     background: var(--red);
     color: var(--text-on-accent);
@@ -1063,7 +1093,7 @@
   .option-btn {
     width: 100%;
     min-height: 44px;
-    border-radius: 4px;
+    border-radius: var(--radius-control);
     border: 1px solid var(--border);
     background: var(--control-bg);
     color: var(--text);
@@ -1105,7 +1135,7 @@
   .row-cover {
     width: 80px;
     height: 120px;
-    border-radius: 4px;
+    border-radius: var(--radius-control);
     flex-shrink: 0;
     overflow: hidden;
     position: relative;
@@ -1156,7 +1186,7 @@
     position: relative;
     background: var(--nav-bg);
     border: 1px solid var(--border);
-    border-radius: 100px;
+    border-radius: var(--radius-pill);
     padding: 7px 8px;
     display: flex;
     justify-content: space-around;
@@ -1170,8 +1200,8 @@
     top: var(--nav-indicator-top);
     width: var(--nav-indicator-width);
     height: var(--nav-indicator-height);
-    border-radius: 999px;
-    background: rgba(192, 39, 45, 0.11);
+    border-radius: var(--radius-pill);
+    background: var(--nav-indicator);
     transition: left 0.28s cubic-bezier(0.2, 0.75, 0.25, 1), width 0.28s cubic-bezier(0.2, 0.75, 0.25, 1);
   }
   .nav-item {
@@ -1185,7 +1215,7 @@
     max-width: 94px;
     min-width: 0;
     padding: 4px 6px;
-    border-radius: 100px;
+    border-radius: var(--radius-pill);
     cursor: pointer;
     color: var(--text-light);
   }
@@ -1195,7 +1225,7 @@
   .nav-item.active svg { stroke: var(--red); }
   .nav-item.active svg.fill-icon { fill: var(--red); stroke: none; }
   .nav-icon-solid { display: none; }
-  .nav-icon-cutout { stroke: #fff !important; }
+  .nav-icon-cutout { stroke: var(--text-on-accent) !important; }
   .nav-item.active .nav-icon-outline { display: none; }
   .nav-item.active .nav-icon-solid { display: block; }
 
@@ -1217,7 +1247,7 @@
     left: 0;
     right: 0;
     background: var(--bg);
-    border-radius: 20px 20px 0 0;
+    border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
     transform: translateY(100%);
     transition: transform 0.42s cubic-bezier(0.32,0.72,0,1);
     z-index: 30;
@@ -1245,7 +1275,7 @@
     width: 40px;
     height: 4px;
     background: var(--grabber-bg);
-    border-radius: 100px;
+    border-radius: var(--radius-pill);
     transition: background 0.15s;
   }
   .grabber-area:hover .grabber { background: var(--grabber-hover); }
@@ -1293,7 +1323,7 @@
   .sheet-cover {
     width: 80px;
     height: 110px;
-    border-radius: 4px;
+    border-radius: var(--radius-control);
     flex-shrink: 0;
     overflow: hidden;
     position: relative;
@@ -1363,7 +1393,7 @@
     width: 100%;
     min-height: 36px;
     padding: 0 12px;
-    border-radius: 4px;
+    border-radius: var(--radius-control);
     border: none;
     background: var(--red);
     color: var(--text-on-accent);
@@ -1379,7 +1409,7 @@
     width: 100%;
     min-height: 36px;
     padding: 0 12px;
-    border-radius: 4px;
+    border-radius: var(--radius-control);
     border: none;
     background: var(--red);
     color: var(--text-on-accent);
@@ -1525,7 +1555,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(1, 'checkout')">
@@ -1543,7 +1573,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(4, 'checkout')">
@@ -1561,7 +1591,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(7, 'checkout')">
@@ -1579,7 +1609,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(8, 'checkout')">
@@ -1597,7 +1627,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(9, 'checkout')">
@@ -1615,7 +1645,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
             </div>
           </div>
@@ -1634,11 +1664,11 @@
                     <span>Ready for pickup</span>
                   </div>
                   <div class="hold-location-row">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666270" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
                     <span>96th Street Library</span>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(6, 'hold')">
@@ -1653,11 +1683,11 @@
                     <span>Position: 556 of 1138</span>
                   </div>
                   <div class="hold-location-row">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666270" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
                     <span>96th Street Library</span>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(10, 'hold')">
@@ -1672,11 +1702,11 @@
                     <span>Position: 14 of 37</span>
                   </div>
                   <div class="hold-location-row">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666270" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
                     <span>Jefferson Market Library</span>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
             </div>
           </div>
@@ -1697,7 +1727,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(4, 'saved')">
@@ -1714,7 +1744,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(0, 'saved')">
@@ -1731,7 +1761,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(2, 'saved')">
@@ -1748,7 +1778,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(3, 'saved')">
@@ -1765,7 +1795,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(5, 'saved')">
@@ -1782,7 +1812,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(6, 'saved')">
@@ -1799,7 +1829,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(7, 'saved')">
@@ -1816,7 +1846,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(8, 'saved')">
@@ -1833,7 +1863,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(9, 'saved')">
@@ -1850,7 +1880,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
 
               <div class="account-book" onclick="openSheet(10, 'saved')">
@@ -1867,7 +1897,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+                <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
               </div>
             </div>
           </div>
@@ -2009,7 +2039,7 @@
           <div class="scan-guide-top-right"></div>
           <div class="scan-guide-bottom-left"></div>
           <div class="scan-camera-icon">
-            <svg width="92" height="92" viewBox="0 0 24 24" fill="none" stroke="#54555f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="92" height="92" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 7h3l2-2h6l2 2h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/>
               <circle cx="12" cy="13" r="3.5"/>
             </svg>
@@ -2220,7 +2250,7 @@
             <div class="resource-copy">E-books and E-Audiobooks</div>
           </div>
           <div class="resource-link">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
           </div>
         </div>
 
@@ -2233,7 +2263,7 @@
             <div class="resource-copy">Language learning resource</div>
           </div>
           <div class="resource-link">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
           </div>
         </div>
 
@@ -2246,7 +2276,7 @@
             <div class="resource-copy">Language learning software</div>
           </div>
           <div class="resource-link">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
           </div>
         </div>
 
@@ -2259,7 +2289,7 @@
             <div class="resource-copy">Test preparation tools</div>
           </div>
           <div class="resource-link">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
           </div>
         </div>
 
@@ -2272,7 +2302,7 @@
             <div class="resource-copy">World newspapers and magazines</div>
           </div>
           <div class="resource-link">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
           </div>
         </div>
 
@@ -2285,7 +2315,7 @@
             <div class="resource-copy">Best selling magazines</div>
           </div>
           <div class="resource-link">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C0272D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><path d="M10 14 19 5"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></svg>
           </div>
         </div>
       </div>
@@ -2311,7 +2341,7 @@
               <div class="blog-card-copy">These women solved problems, pushed culture, changed perceptions, and showed us the city through new eyes.</div>
             </div>
             <div class="blog-card-chevron">
-              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg>
+              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg>
             </div>
           </div>
 
@@ -2325,7 +2355,7 @@
               <div class="blog-card-copy">Writers were honored for authorship, criticism, and cultural leadership in this NYPL reading list spotlight.</div>
             </div>
             <div class="blog-card-chevron">
-              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg>
+              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg>
             </div>
           </div>
 
@@ -2339,7 +2369,7 @@
               <div class="blog-card-copy">A current reading list spotlighting newly published books by trans and nonbinary writers across fiction, memoir, poetry, and criticism.</div>
             </div>
             <div class="blog-card-chevron">
-              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg>
+              <svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg>
             </div>
           </div>
         </div>
@@ -2365,7 +2395,7 @@
               <div class="row-author">Collins, Suzanne</div>
               <div class="row-year">2020</div>
             </div>
-            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
           </div>
 
           <div class="book-row" onclick="openSheet(1, 'catalog')">
@@ -2378,7 +2408,7 @@
               <div class="row-author">Haig, Matt</div>
               <div class="row-year">2022</div>
             </div>
-            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
           </div>
 
           <div class="book-row" onclick="openSheet(2, 'catalog')">
@@ -2391,7 +2421,7 @@
               <div class="row-author">King, Stephen</div>
               <div class="row-year">2022</div>
             </div>
-            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
           </div>
 
           <div class="book-row" onclick="openSheet(3, 'catalog')">
@@ -2404,7 +2434,7 @@
               <div class="row-author">Hoover, Colleen</div>
               <div class="row-year">2022</div>
             </div>
-            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
           </div>
 
           <div class="book-row" onclick="openSheet(4, 'catalog')">
@@ -2417,7 +2447,7 @@
               <div class="row-author">Weir, Andy</div>
               <div class="row-year">2021</div>
             </div>
-            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C0272D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
+            <div class="row-chevron"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l8 8-8 8"/></svg></div>
           </div>
           <div style="height:90px;"></div>
         </div>
@@ -2429,7 +2459,7 @@
       <div class="nav-bar">
         <div class="nav-item active" data-page="home">
           <svg class="nav-icon-outline" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21H7C4.79086 21 3 19.2091 3 17V10.7076C3 9.30887 3.73061 8.01175 4.92679 7.28679L9.92679 4.25649C11.2011 3.48421 12.7989 3.48421 14.0732 4.25649L19.0732 7.28679C20.2694 8.01175 21 9.30887 21 10.7076V17C21 19.2091 19.2091 21 17 21Z"/><path d="M9 17H15"/></svg>
-          <svg class="nav-icon-solid" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="currentColor" d="M17 21H7C4.79086 21 3 19.2091 3 17V10.7076C3 9.30887 3.73061 8.01175 4.92679 7.28679L9.92679 4.25649C11.2011 3.48421 12.7989 3.48421 14.0732 4.25649L19.0732 7.28679C20.2694 8.01175 21 9.30887 21 10.7076V17C21 19.2091 19.2091 21 17 21Z"/><path class="nav-icon-cutout" d="M9 17H15" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg class="nav-icon-solid" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="currentColor" d="M17 21H7C4.79086 21 3 19.2091 3 17V10.7076C3 9.30887 3.73061 8.01175 4.92679 7.28679L9.92679 4.25649C11.2011 3.48421 12.7989 3.48421 14.0732 4.25649L19.0732 7.28679C20.2694 8.01175 21 9.30887 21 10.7076V17C21 19.2091 19.2091 21 17 21Z"/><path class="nav-icon-cutout" d="M9 17H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           <span class="nav-label">Home</span>
         </div>
         <div class="nav-item" data-page="catalog">
